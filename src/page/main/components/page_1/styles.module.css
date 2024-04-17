@@ -34,7 +34,8 @@
 .right {
     width: 100%;
     height: auto;
-    background: #00bcd4 url('https://ru.popunder.net/assets/index/images/rabbit.svg') no-repeat 75%;
+    /*background: #00bcd4 url('https://ru.popunder.net/assets/index/images/rabbit.svg') no-repeat 75%;*/
+    background: #00bcd4 url('/public/icon/iocn.svg') no-repeat 75%;
     background-size: contain;
 }
 
