@@ -127,4 +127,13 @@
     .navigate_bottom {
         margin-top: 14px;
     }
+
+
+}
+
+@media screen and (max-width: 768px) {
+    .main {
+        min-height: fit-content;
+        height: fit-content;
+    }
 }
