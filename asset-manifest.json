@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/popunder/static/css/main.25d9dcff.css",
+    "main.css": "/popunder/static/css/main.942a5fae.css",
     "main.js": "/popunder/static/js/main.2998b56a.js",
+    "static/media/iocn.svg": "/popunder/static/media/iocn.a876cacc451686e5aba5.svg",
     "index.html": "/popunder/index.html",
-    "main.25d9dcff.css.map": "/popunder/static/css/main.25d9dcff.css.map",
+    "main.942a5fae.css.map": "/popunder/static/css/main.942a5fae.css.map",
     "main.2998b56a.js.map": "/popunder/static/js/main.2998b56a.js.map"
   },
   "entrypoints": [
-    "static/css/main.25d9dcff.css",
+    "static/css/main.942a5fae.css",
     "static/js/main.2998b56a.js"
   ]
 }
