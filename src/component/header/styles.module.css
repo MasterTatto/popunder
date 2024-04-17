@@ -1,0 +1,168 @@
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    height: 64px;
+    /*border-bottom: 1px solid #cecece;*/
+    display: flex;
+    background-color: #00bcd4;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.navigate {
+    height: 100%;
+    /*border: 1px solid blue;*/
+    display: flex;
+    gap: 20px;
+}
+
+.navigate_link, .navigate_auth {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+.line {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    border-radius: 20px;
+    width: 0px;
+    background-color: #e91e63;
+    transition: 0.3s ease;
+}
+
+.line1 {
+    transform: translateX(0%);
+}
+
+.line2 {
+    transform: translateX(20%);
+}
+
+.line3 {
+    transform: translateX(40%);
+}
+
+.line4 {
+    transform: translateX(60%);
+}
+
+.line5 {
+    transform: translateX(80%);
+}
+
+.navigate_link a, .navigate_auth a {
+    cursor: pointer;
+    padding: 0 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    transition: .3s all;
+}
+
+.navigate_link a:hover, .navigate_auth a:hover {
+    color: #fad3df;
+}
+
+.lang {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ru, .en {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e91e63;
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    line-height: 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.ru {
+    position: relative;
+    z-index: 2;
+}
+
+.en {
+    position: absolute;
+    top: 0px;
+    background-color: #212121;
+    z-index: 1;
+    opacity: 1;
+    transition: .4s all;
+
+}
+
+.en_active {
+    opacity: 1;
+    animation: fadeInOut .4s;
+    overflow: hidden;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: .25;
+    }
+    50% {
+        opacity: .5;
+    }
+    75% {
+        opacity: .75;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.active {
+    color: #fff !important;
+}
+
+.active:hover {
+    color: #fff !important;
+}
+
+.mobile_navigate {
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+    .navigate {
+        display: none;
+    }
+
+    .mobile_navigate {
+        display: flex;
+    }
+}

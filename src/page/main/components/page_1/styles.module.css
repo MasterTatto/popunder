@@ -1,0 +1,129 @@
+.main {
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #00bcd4;
+    padding-top: 64px;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    height: 100%;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    height: 100%;
+}
+
+.left, .right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left {
+    flex-direction: column;
+    gap: 40px;
+}
+
+.right {
+    width: 100%;
+    height: auto;
+    background: #00bcd4 url('https://ru.popunder.net/assets/index/images/rabbit.svg') no-repeat 75%;
+    background-size: contain;
+}
+
+.left_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.left_box_title {
+    max-width: 470px;
+    font-size: 1.8em;
+    line-height: 1.9rem;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    color: #00498f;
+    font-weight: 400;
+}
+
+.left_box_items {
+    margin: 17px 0;
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.left_box_item {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    color: #00498f;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.8;
+    font-family: 'Poppins', sans-serif;
+}
+
+.navigate_bottom {
+    height: fit-content;
+    width: 100%;
+    /*border: 1px solid red;*/
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
+.navigate_bottom_item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 0;
+    border: 2px solid #fff;
+    border-radius: 30px;
+    padding: 1.15em 3em;
+    word-spacing: 3px;
+    font-size: 0.85em;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+@media screen and (max-width: 1024px) {
+    .content {
+        display: flex;
+        flex-direction: column;
+        column-gap: 24px;
+        height: 100%;
+    }
+
+    .left {
+        justify-content: flex-start;
+        height: fit-content;
+    }
+
+    .right {
+        width: auto;
+        height: 100%;
+        background: #00bcd4 url('https://ru.popunder.net/assets/index/images/rabbit.svg') no-repeat 50%;
+        background-size: contain;
+    }
+
+    .navigate_bottom {
+        margin-top: 14px;
+    }
+}
