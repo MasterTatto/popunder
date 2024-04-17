@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/popunder/static/css/main.25d9dcff.css",
+    "main.js": "/popunder/static/js/main.2998b56a.js",
+    "index.html": "/popunder/index.html",
+    "main.25d9dcff.css.map": "/popunder/static/css/main.25d9dcff.css.map",
+    "main.2998b56a.js.map": "/popunder/static/js/main.2998b56a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.25d9dcff.css",
+    "static/js/main.2998b56a.js"
+  ]
+}
