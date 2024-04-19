@@ -1,17 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './styles.module.css'
 import Container from "../../../../component/container";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {useTranslation} from "react-i18next";
+import {scrollToTop} from "../../../../utils/scrollToTop";
 
 const linksBottom = [
-    {title: 'ТАРГЕТИНГИ'},
-    {title: 'РЕКЛАМНЫЕ ФОРМАТЫ'},
-    {title: 'ПОПОЛНЕНИЕ И ВЫВОД СРЕДСТВ'},
-    {title: 'CКИДКИ И БОНУСЫ'},
-    {title: 'RTB И API'},
-    {title: 'НОВОСТИ'},
-    {title: 'ПАРТНЁРЫ СЕТИ'},
+
+    {
+        title: 'CКИДКИ И БОНУСЫ', onClick: () => {
+            const rtb = document.getElementById('discount')
+            scrollToTop(rtb.offsetTop || 0)
+        }
+    },
+    {
+        title: 'RTB И API', onClick: () => {
+            const rtb = document.getElementById('rtb')
+            scrollToTop(rtb.offsetTop || 0)
+        }
+    },
+    {
+        title: 'НОВОСТИ', onClick: () => {
+            const rtb = document.getElementById('news')
+            scrollToTop(rtb.offsetTop || 0)
+        }
+    },
 ]
 
 const Page1 = () => {
@@ -69,7 +82,8 @@ const Page1 = () => {
                 </div>
             </Container>
             <div className={s.navigate_bottom}>
-                {linksBottom?.map((el) => <div className={s.navigate_bottom_item} key={el.title}>{t(el.title)}</div>)}
+                {linksBottom?.map((el) => <div className={s.navigate_bottom_item} onClick={el.onClick && el.onClick}
+                                               key={el.title}>{t(el.title)}</div>)}
             </div>
         </div>
     );

@@ -94,7 +94,7 @@ const Page2 = () => {
     const [swiper, setSwiper] = useState({})
     const [active, setActive] = useState(0)
     return (
-        <div className={s.main}>
+        <div className={s.main} id={'discount'}>
             <Container>
                 <Title>{t('CКИДКИ И БОНУСЫ')}</Title>
 
@@ -102,17 +102,28 @@ const Page2 = () => {
                     <Swiper
                         spaceBetween={20}
                         slidesPerView={matches ? 1 : 3.1}
-                        onSlideChange={() => console.log('slide change')}
+                        onSlideChange={(e) => {
+                            if (!matches) {
+                                setActive(e?.activeIndex === 3 ? 1 : 0)
+                            } else {
+                                setActive(e?.activeIndex)
+                            }
+
+                        }}
                         onSwiper={setSwiper}
                     >
                         {mock?.map((el, i) => {
                             return <SwiperSlide key={i} onClick={() => {
-                                swiper?.slideTo(i, 500, true)
-                                setActive(i)
-                            }
-                            }>
-                                <div className={classNames(s.item)}
-                                     style={{border: active === i && '1px solid #e91e63'}}>
+                                if (!matches) {
+                                    if (i === 3) {
+                                        swiper?.slideTo(5, 500, true)
+                                    }
+                                    if (i === 2) {
+                                        swiper?.slideTo(0, 500, true)
+                                    }
+                                }
+                            }}>
+                                <div className={classNames(s.item)}>
                                     <div className={s.img_box}>
                                         <Avatar src={el.img} sx={{
                                             width: '100%', borderRadius: '0px', height: '100%',
@@ -142,12 +153,21 @@ const Page2 = () => {
                     </Swiper>
 
                     <div className={s.navigate}>
-                        {mock?.map((el, i) => {
+                        {(!matches ? [1, 2] : mock)?.map((el, i) => {
                             return <div onClick={() => {
-                                swiper?.slideTo(i, 500, true)
-                                setActive(i)
+                                if (!matches) {
+                                    if (i === 0) {
+                                        swiper?.slideTo(0, 500, true)
+                                    }
+                                    if (i === 1) {
+                                        swiper?.slideTo(5, 500, true)
+                                    }
+                                } else {
+                                    swiper?.slideTo(i, 500, true)
+                                }
+
                             }} key={i}
-                                        className={classNames(s.circle, i === active && s.circle_active)}/>
+                                        className={classNames(s.circle, (active === i) && s.circle_active)}/>
                         })}
                     </div>
                 </div>

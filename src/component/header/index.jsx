@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import s from './styles.module.css'
 import Container from "../container";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import classNames from "classnames";
 import {
     Box,
@@ -17,10 +17,20 @@ import MenuIcon from '@mui/icons-material/Menu';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import {useTranslation} from "react-i18next";
+import {scrollToTop} from "../../utils/scrollToTop";
+
+const path = {
+    '/': 1,
+    '/news': 2,
+    '/faq': 3,
+    '/root': 4,
+    '/callback': 5,
+}
 
 const Header = () => {
     const {t, i18n} = useTranslation()
-
+    const {pathname} = useLocation()
+    console.log(pathname)
     const [selectedLink, setSelectedLink] = useState(1);
     const lineRef = useRef(null);
     const [lineWidth, setLineWidth] = useState(0);
@@ -57,8 +67,10 @@ const Header = () => {
     }
 
     useEffect(() => {
-        moveLine();
-    }, [selectedLink, lang]);
+        setSelectedLink(path[pathname])
+        setTimeout(() => moveLine(), 0)
+
+    }, [selectedLink, lang, pathname]);
 
     useEffect(() => {
         const langLoc = localStorage.getItem('lang') || 'ru'
@@ -97,21 +109,24 @@ const Header = () => {
                     <div className={s.navigate}>
                         <div className={s.navigate_link}>
                             <div ref={lineRef} className={s.line} style={{width: lineWidth}}/>
-                            <NavLink onClick={() => handleNavLinkClick(1)}
-                                     className={classNames('navLink1', selectedLink === 1 && s.active)}
+                            <NavLink onClick={() => {
+                                handleNavLinkClick(1)
+                                scrollToTop()
+                            }}
+                                     className={classNames('navLink1', pathname === "/" && s.active)}
                                      to="/">{t('Главная')}</NavLink>
                             <NavLink onClick={() => handleNavLinkClick(2)}
-                                     className={classNames('navLink2', selectedLink === 2 && s.active)}
-                                     to="/">{t('Новости')}</NavLink>
+                                     className={classNames('navLink2', pathname === "/news" && s.active)}
+                                     to="/news">{t('Новости')}</NavLink>
                             <NavLink onClick={() => handleNavLinkClick(3)}
-                                     className={classNames('navLink3', selectedLink === 3 && s.active)}
-                                     to="/">FAQ</NavLink>
+                                     className={classNames('navLink3', pathname === "/faq" && s.active)}
+                                     to="/faq">FAQ</NavLink>
                             <NavLink onClick={() => handleNavLinkClick(4)}
-                                     className={classNames('navLink4', selectedLink === 4 && s.active)}
-                                     to="/">{t('Правила')}</NavLink>
+                                     className={classNames('navLink4', pathname === "/root" && s.active)}
+                                     to="/root">{t('Правила')}</NavLink>
                             <NavLink onClick={() => handleNavLinkClick(5)}
-                                     className={classNames('navLink5', selectedLink === 5 && s.active)}
-                                     to="/">{t('Обратная связь')}</NavLink>
+                                     className={classNames('navLink5', pathname === "/callback" && s.active)}
+                                     to="/callback">{t('Обратная связь')}</NavLink>
                         </div>
                         <div className={s.navigate_auth}>
                             <NavLink to={'/'}>{t('Вход')}</NavLink>

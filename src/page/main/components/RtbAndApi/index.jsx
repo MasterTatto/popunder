@@ -39,13 +39,13 @@ const RtbAndApi = () => {
     const {t} = useTranslation()
 
     return (
-        <div className={s.main}>
+        <div className={s.main} id={'rtb'}>
             <Container className={s.test}>
                 <Title color={'#00498f'} colorLine={'#00bcd4'}>{t('RTB И API')}</Title>
 
                 <div className={s.container}>
-                    {mock?.map((el,i) => {
-                        return <div className={classNames(s.item)}>
+                    {mock?.map((el, i) => {
+                        return <div className={classNames(s.item)} key={i}>
                             <div className={s.img_box}>
                                 <Avatar src={el.img} sx={{
                                     width: '100%', borderRadius: '0px', height: '100%',

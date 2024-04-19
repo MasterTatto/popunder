@@ -2,13 +2,16 @@ import './App.css';
 import Main from "./page/main";
 import Header from "./component/header";
 import Footer from "./component/footer";
+import Routers from "./routers";
 
 function App() {
     return (
         <>
             <div className="App">
                 <Header/>
-                <Main/>
+                <div className={'router'}>
+                    <Routers/>
+                </div>
                 <Footer/>
             </div>
 

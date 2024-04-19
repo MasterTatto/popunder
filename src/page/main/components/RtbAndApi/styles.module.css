@@ -6,7 +6,7 @@
 .container {
     margin-top: 48px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     height: 100%;
 }
@@ -73,7 +73,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .container{
+    .container {
         flex-direction: column;
         gap: 20px;
     }

@@ -89,13 +89,13 @@
 .circle_active:before {
     content: '';
     border-radius: 50%;
-    width: 70%;
-    height: 70%;
+    height: 8px;
+    width: 8px;
     background-color: #e91e63;
 }
 
 @media screen and (max-width: 768px) {
-    .desc_subtitle{
+    .desc_subtitle {
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 7; /* number of lines to show */
