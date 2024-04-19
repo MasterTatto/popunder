@@ -55,6 +55,7 @@ const Header = () => {
         return offset;
     };
 
+
     const moveLine = () => {
         const offset = getOffset(selectedLink);
         lineRef.current.style.transform = `translateX(${offset}px)`;
