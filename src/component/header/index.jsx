@@ -1,7 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {createContext, useContext, useEffect, useRef, useState} from 'react';
 import s from './styles.module.css'
 import Container from "../container";
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import classNames from "classnames";
 import {
     Box,
@@ -16,8 +16,10 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import {useTranslation} from "react-i18next";
 import {scrollToTop} from "../../utils/scrollToTop";
+import {LangContext} from "../../App";
 
 const path = {
     '/': 1,
@@ -28,14 +30,17 @@ const path = {
 }
 
 const Header = () => {
+    const {lang, setLang} = useContext(LangContext)
+
+
     const {t, i18n} = useTranslation()
     const {pathname} = useLocation()
-    console.log(pathname)
+    const navigate = useNavigate()
     const [selectedLink, setSelectedLink] = useState(1);
     const lineRef = useRef(null);
     const [lineWidth, setLineWidth] = useState(0);
     const [visibleLang, setVisibleLang] = useState(false)
-    const [lang, setLang] = useState('RU')
+
     const [openMenu, setOpenMenu] = useState(false)
 
     const handleNavLinkClick = (index) => {
@@ -57,9 +62,10 @@ const Header = () => {
 
 
     const moveLine = () => {
-        const offset = getOffset(selectedLink);
-        lineRef.current.style.transform = `translateX(${offset}px)`;
-        setLineWidth(getNavLinkWidth(selectedLink));
+        const offset = getOffset(selectedLink || 1);
+
+        lineRef.current.style.transform = `translateX(${offset + 15}px)`;
+        setLineWidth(getNavLinkWidth(selectedLink || 1) - 30);
     };
 
     const handlerLanguage = (lang) => {
@@ -68,15 +74,14 @@ const Header = () => {
     }
 
     useEffect(() => {
-        setSelectedLink(path[pathname])
-        setTimeout(() => moveLine(), 0)
+        setSelectedLink(path[pathname?.replace(lang?.toLowerCase(), '')?.replace('/', '')])
+
+        setTimeout(() => {
+            moveLine()
+        }, 0)
 
     }, [selectedLink, lang, pathname]);
 
-    useEffect(() => {
-        const langLoc = localStorage.getItem('lang') || 'ru'
-        setLang(langLoc?.toUpperCase())
-    }, [])
     return (
         <div className={s.header}>
             <SwipeableDrawer
@@ -115,19 +120,19 @@ const Header = () => {
                                 scrollToTop()
                             }}
                                      className={classNames('navLink1', pathname === "/" && s.active)}
-                                     to="/">{t('Главная')}</NavLink>
+                                     to={`/${lang?.toLowerCase()}`}>{t('Главная')}</NavLink>
                             <NavLink onClick={() => handleNavLinkClick(2)}
                                      className={classNames('navLink2', pathname === "/news" && s.active)}
-                                     to="/news">{t('Новости')}</NavLink>
+                                     to={`/${lang?.toLowerCase()}/news`}>{t('Новости')}</NavLink>
                             <NavLink onClick={() => handleNavLinkClick(3)}
                                      className={classNames('navLink3', pathname === "/faq" && s.active)}
-                                     to="/faq">FAQ</NavLink>
+                                     to={`/${lang?.toLowerCase()}/faq`}>FAQ</NavLink>
                             <NavLink onClick={() => handleNavLinkClick(4)}
                                      className={classNames('navLink4', pathname === "/root" && s.active)}
-                                     to="/root">{t('Правила')}</NavLink>
-                            <NavLink onClick={() => handleNavLinkClick(5)}
-                                     className={classNames('navLink5', pathname === "/callback" && s.active)}
-                                     to="/callback">{t('Обратная связь')}</NavLink>
+                                     to={`/${lang?.toLowerCase()}/root`}>{t('Правила')}</NavLink>
+                            {/*<NavLink onClick={() => handleNavLinkClick(5)}*/}
+                            {/*         className={classNames('navLink5', pathname === "/callback" && s.active)}*/}
+                            {/*         to={`/${lang?.toLowerCase()}/callback`}>{t('Обратная связь')}</NavLink>*/}
                         </div>
                         <div className={s.navigate_auth}>
                             <NavLink to={'/'}>{t('Вход')}</NavLink>
@@ -137,9 +142,12 @@ const Header = () => {
                                 </div>
                                 <div className={classNames(s.en, visibleLang && s.en_active)}
                                      onClick={async () => {
+
                                          await handlerLanguage(lang !== 'RU' ? 'ru' : "en")
                                          setVisibleLang(!visibleLang)
                                          setLang(lang !== 'RU' ? 'RU' : "EN")
+
+                                         navigate(pathname.replace(lang === 'RU' ? 'ru' : 'en', lang === 'RU' ? 'en' : 'ru'))
 
                                      }}
                                      style={{top: visibleLang ? '60px' : 0}}
@@ -147,6 +155,11 @@ const Header = () => {
                                     {lang !== 'RU' ? 'RU' : "EN"}
                                 </div>
                             </div>
+                            <a href="https://t.me/clickunder_bot?start=support" target={'_blank'}>
+                                <div className={classNames(s.ru, s.support)}>
+                                    <HeadsetMicIcon/>
+                                </div>
+                            </a>
                         </div>
                     </div>
 

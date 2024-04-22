@@ -36,21 +36,23 @@
     border-radius: 50%;
     height: 30px;
     width: 30px;
-    color: #fff;
+    color: #4FC3F7;
+    background-color: #fff;
+    overflow: hidden;
     cursor: pointer;
 }
 
-.icons_box .icon_social:nth-child(1) {
-    background-color: #2196F3;
-}
+/*.icons_box .icon_social:nth-child(1) {*/
+/*    background-color: #2196F3;*/
+/*}*/
 
-.icons_box .icon_social:nth-child(2) {
-    background-color: #4FC3F7;
-}
+/*.icons_box .icon_social:nth-child(2) {*/
+/*    background-color: #4FC3F7;*/
+/*}*/
 
-.icons_box .icon_social:nth-child(3) {
-    background-color: #2196F3;
-}
+/*.icons_box .icon_social:nth-child(3) {*/
+/*    background-color: #2196F3;*/
+/*}*/
 
 .footer_top {
     display: grid;

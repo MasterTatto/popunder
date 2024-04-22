@@ -41,7 +41,7 @@ const RtbAndApi = () => {
     return (
         <div className={s.main} id={'rtb'}>
             <Container className={s.test}>
-                <Title color={'#00498f'} colorLine={'#00bcd4'}>{t('RTB И API')}</Title>
+                <Title color={'#247ba0'} colorLine={'#247ba0'}>{t('RTB И API')}</Title>
 
                 <div className={s.container}>
                     {mock?.map((el, i) => {
