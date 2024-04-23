@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import s from './styles.module.css'
 import Container from "../../component/container";
 import Title from "../../common/title";
@@ -6,24 +6,42 @@ import {useTranslation} from "react-i18next";
 import {api} from "../../utils/api";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import moment from "moment";
+import {LangContext} from "../../App";
 
-const months = [
-    'Января',
-    'Февраля',
-    'Марта',
-    'Апреля',
-    'Мая',
-    'Июня',
-    'Июля',
-    'Августа',
-    'Сентября',
-    'Октября',
-    'Ноября',
-    'Декабря'
-];
+const months = {
+    'ru': [
+        'Января',
+        'Февраля',
+        'Марта',
+        'Апреля',
+        'Мая',
+        'Июня',
+        'Июля',
+        'Августа',
+        'Сентября',
+        'Октября',
+        'Ноября',
+        'Декабря'
+    ],
+    'en': [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ]
+};
 
 const News = () => {
     const newsBoxRef = useRef(null);
+    const {lang} = useContext(LangContext)
     const [limit, setLimit] = useState(10);
     const {t} = useTranslation()
     const [news, setNews] = useState([])
@@ -52,7 +70,6 @@ const News = () => {
         }
     };
 
-
     useEffect(() => {
         getNews();
     }, []);
@@ -70,6 +87,8 @@ const News = () => {
                 >
                     <Container>
                         {news?.map((el, i) => {
+                            const splitText = el?.text ? JSON.stringify(el.text)?.split('\\n') : el?.text
+
                             return <div className={s.item} key={el._id}>
                                 <div className={s.item_top}>
                                     <div className={s.item_top_left}>
@@ -77,7 +96,7 @@ const News = () => {
                                         <p className={s.day}>
                                             {moment(el?.created).format('DD')}
                                             &nbsp;
-                                            {months[moment(el?.created).month()]}
+                                            {months[lang?.toLowerCase()][moment(el?.created).month()]}
                                         </p>
                                     </div>
                                     <div className={s.item_top_right}>
@@ -88,7 +107,12 @@ const News = () => {
                                     {el.title}
                                 </div>
                                 <div className={s.item_bottom}>
-                                    {el.text}
+                                    {splitText ? splitText?.map((line, index) => {
+                                        return <React.Fragment key={index}>
+                                            {line?.replaceAll('"', '')}
+                                            <br/>
+                                        </React.Fragment>
+                                    }) : null}
                                 </div>
                             </div>
                         })}
