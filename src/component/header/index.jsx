@@ -21,6 +21,7 @@ import {useTranslation} from "react-i18next";
 import {scrollToTop} from "../../utils/scrollToTop";
 import {LangContext} from "../../App";
 import AuthButton from "../../common/auth_button";
+import moment from "moment/moment";
 
 const path = {
     '/': 1,
@@ -32,7 +33,6 @@ const path = {
 
 const Header = () => {
     const {lang, setLang} = useContext(LangContext)
-
 
     const {t, i18n} = useTranslation()
     const {pathname} = useLocation()
@@ -145,7 +145,7 @@ const Header = () => {
                                 </div>
                                 <div className={classNames(s.en, visibleLang && s.en_active)}
                                      onClick={async () => {
-
+                                         moment.locale(lang !== 'RU' ? 'ru' : 'en');
                                          await handlerLanguage(lang !== 'RU' ? 'ru' : "en")
                                          setVisibleLang(!visibleLang)
                                          setLang(lang !== 'RU' ? 'RU' : "EN")

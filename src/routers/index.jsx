@@ -4,6 +4,7 @@ import Main from "../page/main";
 import Faq from "../page/faq";
 import {LangContext} from "../App";
 import Root from "../page/root";
+import News from "../page/news";
 
 const Routers = () => {
     const {lang} = useContext(LangContext)
@@ -12,7 +13,7 @@ const Routers = () => {
             <Route path={'/:lang'} element={<Main/>}/>
             <Route path={'/:lang/faq'} element={<Faq/>}/>
 
-            <Route path={'/:lang/news'} element={<Main/>}/>
+            <Route path={'/:lang/news'} element={<News/>}/>
             <Route path={'/:lang/root'} element={<Root/>}/>
             <Route path={'/:lang/callback'} element={<Main/>}/>
 
