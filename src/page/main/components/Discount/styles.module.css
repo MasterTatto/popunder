@@ -1,5 +1,5 @@
 .main {
-    background-color: #247ba0;
+    background-color: #f7f7f7;
     padding: 4.4rem 0;
 }
 
@@ -12,7 +12,7 @@
     width: 100%;
     height: fit-content;
     min-height: 900px;
-    background: #fff;
+    background-color: #f7f7f7;
     border: 1px solid #ccc;
 }
 
@@ -32,7 +32,7 @@
 
 .content_title {
     padding: 1rem;
-    color: #00bcd4;
+    color: #247ba0;
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     line-height: 110%;
@@ -78,6 +78,7 @@
     height: 14px;
     width: 14px;
     background-color: #fff;
+    border: 3px solid #247ba0;
     border-radius: 50%;
     cursor: pointer;
     position: relative;
@@ -86,12 +87,9 @@
     justify-content: center;
 }
 
-.circle_active:before {
-    content: '';
-    border-radius: 50%;
-    height: 8px;
-    width: 8px;
-    background-color: #e91e63;
+.circle_active {
+    background-color: #247ba0;
+    border: 3px solid #247ba0;
 }
 
 @media screen and (max-width: 768px) {

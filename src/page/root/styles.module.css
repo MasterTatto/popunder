@@ -40,16 +40,16 @@
     height: 5px;
     border-radius: 20px;
     width: 50px;
-    background-color: #e91e63;
+    background-color: #247ba0;
     transition: 0.3s ease;
 }
 
 .navigate_item_active {
-    color: #e91e63;
+    color: #247ba0;
 }
 
 .navigate_item_active:hover {
-    color: #e91e63;
+    color: #247ba0;
 }
 
 .navigate_data {

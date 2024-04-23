@@ -1,5 +1,5 @@
 .main {
-    background-color: #247ba0;
+    background-color: #f7f7f7;
     padding: 4.4rem 0;
 }
 
@@ -20,6 +20,7 @@
     height: 14px;
     width: 14px;
     background-color: #fff;
+    border: 3px solid #247ba0;
     border-radius: 50%;
     cursor: pointer;
     position: relative;
@@ -28,12 +29,9 @@
     justify-content: center;
 }
 
-.circle_active:before {
-    content: '';
-    border-radius: 50%;
-    height: 8px;
-    width: 8px;
-    background-color: #e91e63;
+.circle_active {
+    background-color: #247ba0;
+    border: 3px solid #247ba0;
 }
 
 .item {
@@ -54,13 +52,13 @@
     align-items: center;
     justify-content: center;
     padding: 7px 14px;
-    border: 1px dotted #ffffff;
+    border: 1px dotted #247ba0;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
     font-style: normal;
     line-height: 1.8;
-    color: #fff;
+    color: #7b7b7b;
 }
 
 .description {
@@ -77,14 +75,14 @@
     font-size: 1.6em;
     line-height: 110%;
     font-weight: 400;
-    color: #fff;
+    color: #247ba0;
 }
 
 .text {
     text-align: center;
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
-    color: #fff;
+    color: #7b7b7b;
     font-weight: 400;
     font-style: normal;
     line-height: 1.8;

@@ -102,11 +102,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #e91e63;
+    background-color: lightgray;
     font-size: 1.1rem;
     font-weight: 500;
     font-family: 'Poppins', sans-serif;
-    color: #fff;
+    color: #247ba0;
     line-height: 0;
     cursor: pointer;
     user-select: none;
@@ -120,7 +120,7 @@
 .en {
     position: absolute;
     top: 0px;
-    background-color: #212121;
+    background-color: lightgray;
     z-index: 1;
     opacity: 1;
     transition: .4s all;

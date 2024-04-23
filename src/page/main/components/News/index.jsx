@@ -20,7 +20,7 @@ const News = () => {
 
     const getNews = async () => {
         try {
-            const res = await api().get('api/site/news?limit=10&offset=0')
+            const res = await api().get('api/site/news?limit=3&offset=0')
             setNews(res?.data?.result || [])
             console.log(res)
         } catch (e) {
@@ -31,10 +31,11 @@ const News = () => {
     useEffect(() => {
         getNews()
     }, [])
+
     return (
         <div className={s.main} id={'news'}>
             <Container>
-                <Title>{t('Новости')}</Title>
+                <Title color={'#247ba0'} colorLine={'#247ba0'}>{t('Новости')}</Title>
 
                 <div className={s.swiper_box}>
                     <Swiper
@@ -44,21 +45,32 @@ const News = () => {
                         onSwiper={setSwiper}
                     >
                         {news?.map((el) => {
+                            const splitText = el?.text ? JSON.stringify(el.text)?.split('\\n') : el?.text
+                            // const splitText = []
+                            console.log(splitText)
+                            console.log(JSON.stringify(el.text))
                             return <SwiperSlide key={el._id}>
                                 <div className={s.item}>
-                                    <div className={s.avatar}>
+                                    {el.image && <div className={s.avatar}>
                                         <Avatar sx={{width: '120px', height: '120px'}}
                                                 src={`https://clickinder.com${el.image}`}>
                                             {!el.image && <NoPhotographyIcon sx={{height: '60px', width: '60px'}}/>}
                                         </Avatar>
-                                    </div>
+                                    </div>}
                                     <div className={s.date}>
                                         {moment(el.created)?.format('DD.MM.YYYY')}
                                     </div>
 
                                     <div className={s.description}>
                                         <h4 className={s.title}>{el.title}</h4>
-                                        <p className={s.text}>{el?.text}</p>
+                                        <p className={s.text}>
+                                            {splitText ? splitText?.map((line, index) => {
+                                                return <React.Fragment key={index}>
+                                                    {line?.replaceAll('"', '')}
+                                                    <br/>
+                                                </React.Fragment>
+                                            }) : null}
+                                        </p>
                                     </div>
 
                                 </div>

@@ -1,12 +1,16 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import s from './styles.module.css'
 import Container from "../../component/container";
 import CodeIcon from '@mui/icons-material/Code';
 import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices';
 import classNames from "classnames";
 import {mock, mockv2} from "./mock";
+import {useTranslation} from "react-i18next";
+import {LangContext} from "../../App";
 
 const Root = () => {
+    const {t} = useTranslation()
+    const {lang} = useContext(LangContext)
     const [selectedLink, setSelectedLink] = useState(1);
     const lineRef = useRef(null);
 
@@ -45,19 +49,19 @@ const Root = () => {
                             className={classNames(s.navigate_item, selectedLink === 1 && s.navigate_item_active, 'navigate_item1')}
                             onClick={() => setSelectedLink(1)}>
                             <CodeIcon sx={{marginRight: '8px'}}/>
-                            Вебмастеру
+                            {t('Вебмастеру')}
                         </div>
                         <div
                             className={classNames(s.navigate_item, selectedLink === 2 && s.navigate_item_active, 'navigate_item2')}
                             onClick={() => setSelectedLink(2)}>
                             <ImportantDevicesIcon sx={{marginRight: '8px'}}/>
-                            Рекламодателю
+                            {t('Рекламодателю')}
                         </div>
                     </div>
 
                     <div
                         className={classNames(s.navigate_data, selectedLink === 1 ? s.navigate_data_animated : s.navigate_data_animated_v2)}>
-                        {(selectedLink === 1 ? mock : mockv2)?.map((el, i) => {
+                        {(selectedLink === 1 ? mock[lang?.toLowerCase()] : mockv2[lang?.toLowerCase()])?.map((el, i) => {
                             return <div key={i} className={s.item}>
                                 <h4 className={s.item_title}>{el.title}</h4>
                                 <div className={s.item_desription}>

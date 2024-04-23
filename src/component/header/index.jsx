@@ -20,6 +20,7 @@ import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import {useTranslation} from "react-i18next";
 import {scrollToTop} from "../../utils/scrollToTop";
 import {LangContext} from "../../App";
+import AuthButton from "../../common/auth_button";
 
 const path = {
     '/': 1,
@@ -110,7 +111,9 @@ const Header = () => {
 
             <Container>
                 <div className={s.content}>
-                    <div className={s.logo}/>
+                    <div className={s.logo}>
+                        <AuthButton/>
+                    </div>
 
                     <div className={s.navigate}>
                         <div className={s.navigate_link}>

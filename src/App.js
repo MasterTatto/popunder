@@ -40,6 +40,7 @@ function App() {
                 setLang: (lang) => setLang(lang),
                 lang: lang
             }}>
+
                 <div className="App">
                     <Header/>
                     <div className={'router'}>

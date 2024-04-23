@@ -96,7 +96,7 @@ const Page2 = () => {
     return (
         <div className={s.main} id={'discount'}>
             <Container>
-                <Title>{t('CКИДКИ И БОНУСЫ')}</Title>
+                <Title color={'#247ba0'} colorLine={'#247ba0'}>{t('CКИДКИ И БОНУСЫ')}</Title>
 
                 <div className={s.swiper_box}>
                     <Swiper
