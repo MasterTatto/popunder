@@ -1,22 +1,23 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import s from './styles.module.css'
 import Container from "../container";
 import {NavLink} from "react-router-dom";
 import {scrollToTop} from "../../utils/scrollToTop";
 import {useTranslation} from "react-i18next";
 import {ReactComponent as TgIcon} from "../../assetss/tg.svg";
+import {LangContext} from "../../App";
 
-const links = [
-    {title: 'Главная', link: '/'},
-    {title: 'Новости', link: '/'},
-    {title: 'FAQ', link: '/faq'},
-    {title: 'Правила', link: '/'},
-    {title: 'Вход', link: '/'},
-    {title: 'Регистрация', link: '/'},
-    {title: 'Контакты', link: '/'},
+const links = (lang) => [
+    {title: 'Главная', link: `${lang}/`},
+    {title: 'Новости', link: `${lang}/news`},
+    {title: 'FAQ', link: `${lang}/faq/publisher`},
+    {title: 'Правила', link: `${lang}/rules/publisher`},
+    {title: 'Вход', link: `${lang}/`},
 ]
 const Footer = () => {
     const {t} = useTranslation()
+    const {lang} = useContext(LangContext)
+
     return (
         <div className={s.footer}>
             <Container>
@@ -36,8 +37,8 @@ const Footer = () => {
                             <h3 className={s.footer_top_title}>{t('Меню')}</h3>
 
                             <div className={s.footer_navigate}>
-                                {links?.map((el, i) => <NavLink to={el.link} key={i}
-                                                                onClick={i === 0 && scrollToTop}>{t(el.title)}</NavLink>)}
+                                {links(lang?.toLowerCase())?.map((el, i) => <NavLink to={el.link} key={i}
+                                                                                     onClick={i === 0 && scrollToTop}>{t(el.title)}</NavLink>)}
                             </div>
                         </div>
                     </div>

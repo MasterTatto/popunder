@@ -9,6 +9,7 @@ import {useTranslation} from "react-i18next";
 import 'moment/locale/ru';
 
 import moment from "moment";
+import {scrollToTop} from "./utils/scrollToTop";
 
 export const LangContext = createContext(null)
 
@@ -36,6 +37,10 @@ function App() {
                 setLoading(false)
             })
     }, [])
+
+    useEffect(() => {
+        scrollToTop()
+    }, [pathname])
 
     if (loading) return null
     return (
