@@ -27,7 +27,11 @@ const path = {
     '/': 1,
     '/news': 2,
     '/faq': 3,
-    '/root': 4,
+    '/faq/publisher': 3,
+    '/faq/advertiser': 3,
+    '/rules': 4,
+    '/rules/publisher': 4,
+    '/rules/advertiser': 4,
     '/callback': 5,
 }
 
@@ -129,10 +133,10 @@ const Header = () => {
                                      to={`/${lang?.toLowerCase()}/news`}>{t('Новости')}</NavLink>
                             <NavLink onClick={() => handleNavLinkClick(3)}
                                      className={classNames('navLink3', pathname === "/faq" && s.active)}
-                                     to={`/${lang?.toLowerCase()}/faq`}>FAQ</NavLink>
+                                     to={`/${lang?.toLowerCase()}/faq/publisher`}>FAQ</NavLink>
                             <NavLink onClick={() => handleNavLinkClick(4)}
                                      className={classNames('navLink4', pathname === "/root" && s.active)}
-                                     to={`/${lang?.toLowerCase()}/root`}>{t('Правила')}</NavLink>
+                                     to={`/${lang?.toLowerCase()}/rules/publisher`}>{t('Правила')}</NavLink>
                             {/*<NavLink onClick={() => handleNavLinkClick(5)}*/}
                             {/*         className={classNames('navLink5', pathname === "/callback" && s.active)}*/}
                             {/*         to={`/${lang?.toLowerCase()}/callback`}>{t('Обратная связь')}</NavLink>*/}

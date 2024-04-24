@@ -51,18 +51,22 @@ const News = () => {
                             console.log(JSON.stringify(el.text))
                             return <SwiperSlide key={el._id}>
                                 <div className={s.item}>
-                                    {el.image && <div className={s.avatar}>
-                                        <Avatar sx={{width: '120px', height: '120px'}}
-                                                src={`https://clickinder.com${el.image}`}>
-                                            {!el.image && <NoPhotographyIcon sx={{height: '60px', width: '60px'}}/>}
-                                        </Avatar>
-                                    </div>}
-                                    <div className={s.date}>
-                                        {moment(el.created)?.format('DD.MM.YYYY')}
-                                    </div>
-
                                     <div className={s.description}>
-                                        <h4 className={s.title}>{el.title}</h4>
+                                        <div className={s.item_top}>
+                                            {el.image && <div className={s.avatar}>
+                                                <Avatar sx={{width: '90px', height: 'auto', borderRadius: '0'}}
+                                                        src={`https://clickinder.com${el.image}`}>
+                                                    {!el.image &&
+                                                        <NoPhotographyIcon sx={{height: '60px', width: '60px'}}/>}
+                                                </Avatar>
+                                            </div>}
+                                            <div className={s.item_bottom}>
+                                                <div className={s.date}>
+                                                    {moment(el.created)?.format('DD.MM.YYYY')}
+                                                </div>
+                                                <h4 className={s.title}>{el.title}</h4>
+                                            </div>
+                                        </div>
                                         <p className={s.text}>
                                             {splitText ? splitText?.map((line, index) => {
                                                 return <React.Fragment key={index}>

@@ -10,7 +10,7 @@ import {useTranslation} from "react-i18next";
 
 const mock = [
     {
-        img: 'https://popunder.net/assets/index/images/refill.jpg',
+        // img: 'https://popunder.net/assets/index/images/refill.jpg',
         title: 'За пополнение',
         description: [
             {
@@ -20,7 +20,7 @@ const mock = [
         ]
     },
     {
-        img: 'https://popunder.net/assets/index/images/loyality.jpg',
+        // img: 'https://popunder.net/assets/index/images/loyality.jpg',
         title: 'За лояльность',
         description: [
             {
@@ -36,7 +36,7 @@ const mock = [
         ]
     },
     {
-        img: 'https://popunder.net/assets/index/images/referals.jpg',
+        // img: 'https://popunder.net/assets/index/images/referals.jpg',
         title: 'За рефералов',
         description: [
             {
@@ -46,7 +46,7 @@ const mock = [
         ]
     },
     {
-        img: 'https://popunder.net/assets/index/images/quality.jpg',
+        // img: 'https://popunder.net/assets/index/images/quality.jpg',
         title: 'За качество',
         description: [
             {
@@ -56,7 +56,7 @@ const mock = [
         ]
     },
     {
-        img: 'https://popunder.net/assets/index/images/top.jpg',
+        // img: 'https://popunder.net/assets/index/images/top.jpg',
         title: 'За ТОП',
         description: [
             {
@@ -72,7 +72,7 @@ const mock = [
         ]
     },
     {
-        img: 'https://popunder.net/assets/index/images/geo_discount.jpg',
+        // img: 'https://popunder.net/assets/index/images/geo_discount.jpg',
         title: 'Скидка по географии',
         description: [
             {
@@ -93,6 +93,7 @@ const Page2 = () => {
 
     const [swiper, setSwiper] = useState({})
     const [active, setActive] = useState(0)
+
     return (
         <div className={s.main} id={'discount'}>
             <Container>

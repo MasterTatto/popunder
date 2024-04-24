@@ -4,6 +4,7 @@ import Container from "../container";
 import {NavLink} from "react-router-dom";
 import {scrollToTop} from "../../utils/scrollToTop";
 import {useTranslation} from "react-i18next";
+import {ReactComponent as TgIcon} from "../../assetss/tg.svg";
 
 const links = [
     {title: 'Главная', link: '/'},
@@ -24,10 +25,6 @@ const Footer = () => {
                         <div className={s.footer_top_left}>
                             <h3 className={s.footer_top_title}>{t('О нас')}</h3>
 
-                            <div className={s.logo}>
-                                <img src="https://ru.popunder.net/assets/index/images/popunder_logo.svg" alt="logo"/>
-                            </div>
-
                             <div className={s.description}>
                                 <p>{t('Рекламная сеть Popunder – продажа и покупка трафика.')}</p>
                                 <p>{t('Рекламодателю – увеличение посещаемости, возможность выгодно купить трафик на сайт, а это – новые пользователи, клиенты, партнёры.')}</p>
@@ -46,13 +43,12 @@ const Footer = () => {
                     </div>
 
                     <div className={s.footer_bottom}>
-                        <div className={s.footer_date}>{`© Popunder 2023-${new Date().getFullYear()}`}</div>
+                        <div className={s.footer_date}>{`© Clickunder 2023-${new Date().getFullYear()}`}</div>
 
                         <div className={s.icons_box}>
 
                             <a href={'https://t.me/clickunder_bot'} target={'_blank'} className={s.icon_social}>
-                                <i className={`fa fa-telegram fa-2x`}
-                                   aria-hidden="true"></i>
+                                <TgIcon/>
                             </a>
                         </div>
                     </div>

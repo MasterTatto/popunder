@@ -3,6 +3,23 @@
     padding: 4.4rem 0;
 }
 
+.item_top {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    margin-right: 12px;
+}
+
+.item_bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: space-between;
+    height: 100%;
+}
+
 .swiper_box {
     margin-top: 48px;
     position: relative;
@@ -43,8 +60,8 @@
     max-width: 700px;
     width: 100%;
     margin: 0 auto;
-    min-height: 390px;
-    max-height: 390px;
+    min-height: 245px;
+    max-height: 245px;
 }
 
 .date {
@@ -91,4 +108,6 @@
     -webkit-line-clamp: 5; /* number of lines to show */
     line-clamp: 5;
     -webkit-box-orient: vertical;
+    margin-top: 12px;
 }
+

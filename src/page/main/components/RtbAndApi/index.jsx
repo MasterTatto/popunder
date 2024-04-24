@@ -8,7 +8,7 @@ import {Avatar} from "@mui/material";
 
 const mock = [
     {
-        img: 'https://popunder.net/assets/index/images/rtbn.jpg',
+        // img: 'https://popunder.net/assets/index/images/rtbn.jpg',
         title: 'RTB, XML, JSON',
         description: [
             {
@@ -23,7 +23,7 @@ const mock = [
         ]
     },
     {
-        img: 'https://popunder.net/assets/index/images/apin.jpg',
+        // img: 'https://popunder.net/assets/index/images/apin.jpg',
         title: 'API',
         description: [
             {

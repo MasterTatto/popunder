@@ -17,7 +17,7 @@
 
 .line {
     position: absolute;
-    width: 150px;
+    width: 100%;
     bottom: -20px;
     height: 3px;
     background-color: #fff;

@@ -34,12 +34,23 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    height: 30px;
-    width: 30px;
+    height: 28px;
+    width: 28px;
     color: #4FC3F7;
-    background-color: #fff;
+    background-color: #4FC3F7;
     overflow: hidden;
     cursor: pointer;
+}
+
+.icon_social svg {
+    width: 18px;
+    height: auto;
+    margin-right: 3px;
+    margin-top: 1px;
+}
+
+.icon_social svg path {
+    fill: #fff;
 }
 
 /*.icons_box .icon_social:nth-child(1) {*/
