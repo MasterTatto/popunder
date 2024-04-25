@@ -55,7 +55,7 @@ const News = () => {
                                         <div className={s.item_top}>
                                             {el.image && <div className={s.avatar}>
                                                 <Avatar sx={{width: '90px', height: 'auto', borderRadius: '0'}}
-                                                        src={`https://clickinder.com${el.image}`}>
+                                                        src={`http://clickinder.com${el.image}`}>
                                                     {!el.image &&
                                                         <NoPhotographyIcon sx={{height: '60px', width: '60px'}}/>}
                                                 </Avatar>

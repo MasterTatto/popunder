@@ -90,7 +90,7 @@ const News = () => {
                                     <div className={s.item_top_main}>
                                         {el.image && <div className={s.img_box}>
                                             <Avatar sx={{borderRadius: '0', width: '100%', height: 'auto'}}
-                                                    src={`https://clickinder.com${el.image}`}/>
+                                                    src={`http://clickinder.com${el.image}`}/>
                                         </div>}
                                         <div className={s.item_top_main_right}>
                                             <div className={s.item_top}>

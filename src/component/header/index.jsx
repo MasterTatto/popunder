@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import s from './styles.module.css'
 import Container from "../container";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
@@ -14,14 +14,14 @@ import {
     SwipeableDrawer
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import {useTranslation} from "react-i18next";
 import {scrollToTop} from "../../utils/scrollToTop";
-import {LangContext} from "../../App";
+import {AuthContext, LangContext} from "../../App";
 import AuthButton from "../../common/auth_button";
 import moment from "moment/moment";
+import TelegramLoginButton from "telegram-login-button";
+import {api} from "../../utils/api";
 
 const path = {
     '/': 1,
@@ -37,6 +37,7 @@ const path = {
 
 const Header = () => {
     const {lang, setLang} = useContext(LangContext)
+    const {auth, setIsAuth} = useContext(AuthContext)
 
     const {t, i18n} = useTranslation()
     const {pathname} = useLocation()
@@ -76,6 +77,16 @@ const Header = () => {
     const handlerLanguage = (lang) => {
         localStorage.setItem('lang', lang)
         return i18n.changeLanguage(lang)
+    }
+
+    const logout = async () => {
+        try {
+            const res = await api().get('api/site/logout')
+            setIsAuth(false)
+        } catch (e) {
+            console.log(e)
+        }
+
     }
 
     useEffect(() => {
@@ -137,12 +148,32 @@ const Header = () => {
                             <NavLink onClick={() => handleNavLinkClick(4)}
                                      className={classNames('navLink4', pathname === "/root" && s.active)}
                                      to={`/${lang?.toLowerCase()}/rules/publisher`}>{t('Правила')}</NavLink>
-                            {/*<NavLink onClick={() => handleNavLinkClick(5)}*/}
-                            {/*         className={classNames('navLink5', pathname === "/callback" && s.active)}*/}
-                            {/*         to={`/${lang?.toLowerCase()}/callback`}>{t('Обратная связь')}</NavLink>*/}
                         </div>
                         <div className={s.navigate_auth}>
-                            <NavLink to={'/'}>{t('Вход')}</NavLink>
+                            {auth ?
+                                <NavLink className={s.login} onClick={logout}>Выход</NavLink> :
+                                <NavLink className={s.login}>
+                                    <TelegramLoginButton
+                                        botName="clickunder_bot"
+                                        dataOnauth={(user) => {
+                                            console.log(user)
+
+                                            api()
+                                                .get('http://clickinder.com/api/site/auth', {
+                                                    params: user
+                                                })
+                                                .then((res) => {
+                                                    console.log(res)
+                                                    setIsAuth(res.data?.ok)
+                                                })
+                                                .catch((e) => {
+                                                    console.log(e)
+                                                    setIsAuth(false)
+                                                })
+                                        }}
+                                    />
+                                    {t('Вход')}
+                                </NavLink>}
                             <div className={s.lang}>
                                 <div className={s.ru} onClick={() => setVisibleLang(!visibleLang)}>
                                     {lang === 'RU' ? 'RU' : "EN"}

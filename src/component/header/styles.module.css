@@ -124,7 +124,16 @@
     z-index: 1;
     opacity: 1;
     transition: .4s all;
+}
 
+.login {
+    position: relative;
+    overflow: hidden
+}
+
+.login div {
+    position: absolute;
+    opacity: 0;
 }
 
 .en_active {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = 'https://clickinder.com/'
+const BASE_URL = 'http://clickinder.com/'
 
 export const api = () => {
 
