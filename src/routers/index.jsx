@@ -9,6 +9,8 @@ import FaqWeb from "../page/faq/web";
 import FaqAdvent from "../page/faq/advent";
 import RootAdvent from "../page/root/advent";
 import RootWeb from "../page/root/web";
+import Lk from "../page/lk";
+import PubWebsite from "../page/lk/pages/p_website";
 
 const Routers = () => {
     const {lang} = useContext(LangContext)
@@ -26,6 +28,15 @@ const Routers = () => {
 
             <Route path={'/:lang/news'} element={<News/>}/>
             <Route path={'/:lang/callback'} element={<Main/>}/>
+
+            <Route path={'/:lang/lk'} element={<Lk/>}>
+                <Route index path={'publisher/websites'} element={<PubWebsite/>}/>
+                <Route index path={'publisher/reports'} element={<h1>publisher/reports</h1>}/>
+                <Route index path={'advertiser/campaigns'} element={<h1>advertiser/campaigns</h1>}/>
+                <Route index path={'advertiser/reports'} element={<h1>advertiser/reports</h1>}/>
+                <Route index path={'advertiser/traffic'} element={<h1>advertiser/traffic</h1>}/>
+                <Route index path={'billing'} element={<h1>billing</h1>}/>
+            </Route>
 
             <Route path={'*'} element={<Navigate to={`/${lang?.toLowerCase()}`} replace/>}/>
         </Routes>

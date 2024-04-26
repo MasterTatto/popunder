@@ -22,6 +22,7 @@ import AuthButton from "../../common/auth_button";
 import moment from "moment/moment";
 import TelegramLoginButton from "telegram-login-button";
 import {api} from "../../utils/api";
+import {useGetProfileMutation} from "../../redux/global.service";
 
 const path = {
     '/': 1,
@@ -32,12 +33,20 @@ const path = {
     '/rules': 4,
     '/rules/publisher': 4,
     '/rules/advertiser': 4,
-    '/callback': 5,
+    '/lk': 5,
+    '/lk/billing': 5,
+    '/lk/publisher/websites': 5,
+    '/lk/publisher/reports': 5,
+    '/lk/advertiser/campaigns': 5,
+    '/lk/advertiser/reports': 5,
+    '/lk/advertiser/traffic': 5,
 }
 
 const Header = () => {
     const {lang, setLang} = useContext(LangContext)
     const {auth, setIsAuth} = useContext(AuthContext)
+
+    const [getProfile] = useGetProfileMutation()
 
     const {t, i18n} = useTranslation()
     const {pathname} = useLocation()
@@ -148,10 +157,15 @@ const Header = () => {
                             <NavLink onClick={() => handleNavLinkClick(4)}
                                      className={classNames('navLink4', pathname === "/root" && s.active)}
                                      to={`/${lang?.toLowerCase()}/rules/publisher`}>{t('Правила')}</NavLink>
+                            {auth && <NavLink onClick={() => handleNavLinkClick(5)}
+                                              className={classNames('navLink5', pathname === "/lk" && s.active)}
+                                              to={`/${lang?.toLowerCase()}/lk/publisher/websites`}>Личный
+                                кабинет</NavLink>}
                         </div>
                         <div className={s.navigate_auth}>
                             {auth ?
-                                <NavLink className={s.login} onClick={logout}>Выход</NavLink> :
+                                <NavLink className={s.login} onClick={logout}>Выход</NavLink>
+                                :
                                 <NavLink className={s.login}>
                                     <TelegramLoginButton
                                         botName="clickunder_bot"
@@ -164,7 +178,17 @@ const Header = () => {
                                                 })
                                                 .then((res) => {
                                                     console.log(res)
-                                                    setIsAuth(res.data?.ok)
+
+                                                    getProfile()
+                                                        .unwrap()
+                                                        .then((res) => {
+                                                            setIsAuth(res?.ok)
+                                                        })
+                                                        .catch((e) => {
+                                                            console.log(e)
+                                                            setIsAuth(false)
+                                                        })
+
                                                 })
                                                 .catch((e) => {
                                                     console.log(e)

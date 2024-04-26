@@ -1,0 +1,7 @@
+.content {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+}
