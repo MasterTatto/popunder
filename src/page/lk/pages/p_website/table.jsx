@@ -113,7 +113,8 @@ const Table = ({data}) => {
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             {actionModal?.type === 'delete' ? <>
-                                Вы действительно хотите удалить домен <a className={s.table_text_link}
+                                Вы действительно хотите удалить домен <a style={{display: 'inline'}}
+                                                                         className={s.table_text_link}
                                                                          href={actionModal?.value?.domain}
                                                                          target={'_blank'}> {actionModal?.value?.domain}</a> ?
                             </> : <code>
