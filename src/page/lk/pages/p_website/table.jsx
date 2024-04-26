@@ -17,7 +17,7 @@ const Table = ({data}) => {
             {
                 headerName: 'ID',
                 menuTabs: [],
-
+                cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
                 autoHeight: true,
                 minWidth: 100,
@@ -30,11 +30,11 @@ const Table = ({data}) => {
             {
                 headerName: 'Domain',
                 menuTabs: [],
-
                 wrapText: true,
                 autoHeight: true,
                 minWidth: 100,
                 field: "domain",
+                cellStyle: {lineHeight: '1.3'},
                 flex: 1.5,
                 cellRenderer: (params) => {
                     return <a href={params?.value} target={'_blank'}
@@ -44,7 +44,7 @@ const Table = ({data}) => {
             {
                 headerName: 'Status',
                 menuTabs: [],
-
+                cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
                 autoHeight: true,
                 minWidth: 100,
@@ -57,7 +57,7 @@ const Table = ({data}) => {
             {
                 headerName: 'Actions',
                 menuTabs: [],
-
+                cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
                 autoHeight: true,
                 minWidth: 180,
