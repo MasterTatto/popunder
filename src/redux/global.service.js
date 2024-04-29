@@ -25,6 +25,46 @@ export const globalApi = createApi({
                 }),
                 providesTags: ['pWebsiteTable']
             }),
+            getPReportsTable: build.query({
+                query: ({domain, page, date}) => {
+                    const params = date ? {
+                        domain: domain,
+                        limit: 20,
+                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                        date: date
+                    } : {
+                        domain: domain,
+                        limit: 20,
+                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                    }
+                    return {
+                        url: `api/site/publisher/reports`,
+                        method: 'GET',
+                        params: params
+                    }
+                },
+                // providesTags: ['pWebsiteTable']
+            }),
+            getAReportsTable: build.query({
+                query: ({domain, page, date}) => {
+                    const params = date ? {
+                        campaignName: domain,
+                        limit: 20,
+                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                        date: date
+                    } : {
+                        campaignName: domain,
+                        limit: 20,
+                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                    }
+                    return {
+                        url: `api/site/advertiser/reports`,
+                        method: 'GET',
+                        params: params
+                    }
+                },
+                // providesTags: ['pWebsiteTable']
+            }),
             addedPWebsite: build.mutation({
                 query: (domain) => ({
                     url: `api/site/publisher/sites`,
@@ -49,4 +89,6 @@ export const {
     useRemovePWebsiteMutation,
     useAddedPWebsiteMutation,
     useGetPWebsiteTableQuery,
+    useGetPReportsTableQuery,
+    useGetAReportsTableQuery,
 } = globalApi;

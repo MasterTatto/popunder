@@ -4,10 +4,21 @@ import s from './styles.module.css'
 import {AgGridReact} from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    IconButton,
+    Tooltip
+} from "@mui/material";
 import {useRemovePWebsiteMutation} from "../../../../redux/global.service";
 import {toast} from "react-toastify";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import DeleteIcon from '@mui/icons-material/Delete';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const Table = ({data}) => {
         const [removePWebsite, {isLoading}] = useRemovePWebsiteMutation()
@@ -66,12 +77,17 @@ const Table = ({data}) => {
                 flex: 0.5,
                 cellRenderer: (params) => {
                     return <div className={classNames(s.table_text, s.table_text_action)}>
-                        <p className={s.code}
-                           onClick={() => setActionModal({type: 'code', value: params?.data || ''})}
-                        >Get code</p>
+                        <Tooltip title={'Get code'}>
+                            <IconButton onClick={() => setActionModal({type: 'code', value: params?.data || ''})}>
+                                <VisibilityIcon sx={{color: '#247ba0'}}/>
+                            </IconButton>
+                        </Tooltip>
                         <p>/</p>
-                        <p className={s.delete}
-                           onClick={() => setActionModal({type: 'delete', value: params?.data || ''})}>Delete</p>
+                        <Tooltip title={'Delete'}>
+                            <IconButton onClick={() => setActionModal({type: 'delete', value: params?.data || ''})}>
+                                <DeleteIcon sx={{color: '#d32f2f'}}/>
+                            </IconButton>
+                        </Tooltip>
 
                     </div>
                 }

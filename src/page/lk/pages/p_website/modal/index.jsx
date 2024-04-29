@@ -2,9 +2,10 @@ import React, {useEffect} from 'react';
 import ModalWrapper from "../../../../../common/modal";
 import s from './styles.module.css'
 import {useFormik} from "formik";
-import {Button, TextField} from "@mui/material";
+import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
 import {useAddedPWebsiteMutation} from "../../../../../redux/global.service";
 import {toast} from "react-toastify";
+import {CopyToClipboard} from "react-copy-to-clipboard";
 
 const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
     const [addedPWebsite, {isLoading}] = useAddedPWebsiteMutation()
@@ -52,19 +53,34 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
     })
 
     return (
-        <ModalWrapper title={'Added website'} open={openModalAdded} onClose={() => setOpenModalAdded(false)}>
+        <Dialog
+            open={Boolean(openModalAdded)}
+            onClose={() => setOpenModalAdded(false)}
+            maxWidth={'xs'}
+            fullWidth
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogTitle id="alert-dialog-title">
+                Added website
+            </DialogTitle>
             <form onSubmit={(e) => {
                 e.preventDefault()
                 formik.handleSubmit(e)
             }} className={s.content}>
-                <TextField value={formik.values.domain}
-                           helperText={formik.touched.domain && formik.errors.domain}
-                           error={formik.touched.domain && formik.errors.domain}
-                           name={'domain'} onBlur={formik.handleBlur}
-                           onChange={formik.handleChange} id="outlined-basic" label="Domain" variant="outlined"/>
-                <Button disabled={isLoading} type={'submit'} variant="contained">Added</Button>
+                <DialogContent>
+                    <TextField value={formik.values.domain}
+                               helperText={formik.touched.domain && formik.errors.domain}
+                               error={formik.touched.domain && formik.errors.domain}
+                               name={'domain'} onBlur={formik.handleBlur}
+                               sx={{width: '100%'}}
+                               onChange={formik.handleChange} id="outlined-basic" label="Domain" variant="outlined"/>
+                </DialogContent>
+                <DialogActions>
+                    <Button disabled={isLoading} type={'submit'}>Added</Button>
+                </DialogActions>
             </form>
-        </ModalWrapper>
+        </Dialog>
     );
 };
 

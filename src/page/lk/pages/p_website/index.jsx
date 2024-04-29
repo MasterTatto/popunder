@@ -59,10 +59,11 @@ const PubWebsite = () => {
                 <div className={s.button}>
                     <Button onClick={() => setOpenModalAdded(true)} sx={{
                         height: '56px', padding: '0 14px 0 0',
-                        background: 'green', color: '#fff',
+                        background: '#247ba0', color: '#fff',
                         '&:hover': {
-                            background: '#75af75'
-                        }
+                            background: 'rgba(36, 123, 160, 0.8)'
+                        },
+
                     }}
                             startIcon={
                                 <div className={s.btn}>

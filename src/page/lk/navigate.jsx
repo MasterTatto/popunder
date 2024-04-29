@@ -12,17 +12,28 @@ const NavigateItem = ({item}) => {
     const handleClick = (link) => {
         console.log(link)
         console.log(pathname)
-        if (link) {
-            navigate(link)
+        if (link === 'redirect') {
+            const link = document.createElement('a')
+            link.href = 'https://t.me/clickunder_bot?start=support'
+            link.setAttribute('target', '_blank')
+            document.body.appendChild(link)
+            link.click()
+            link.remove()
         } else {
-            setOpen(!open);
+            if (link) {
+                navigate(link)
+            } else {
+                setOpen(!open);
+            }
         }
+
 
     };
 
     return (
         <List>
-            <ListItemButton selected={pathname?.includes(item?.link)} onClick={() => handleClick(item?.link)}>
+            <ListItemButton selected={pathname?.includes(item?.link)}
+                            onClick={() => handleClick(item?.redirect ? 'redirect' : item?.link)}>
                 <ListItemIcon>
                     {item.icon}
                 </ListItemIcon>
