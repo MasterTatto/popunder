@@ -1,0 +1,86 @@
+.title {
+    margin: 0;
+}
+
+.navigate {
+    margin-top: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search_input {
+    max-width: 440px;
+    width: 100%;
+}
+
+.btn {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    margin-left: 3px;
+    background: #247ba0;
+}
+
+.table_text {
+    padding: 10px;
+    line-height: 130%;
+    font-family: Poppins, sans-serif;
+}
+
+.id {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    /*border: 1px solid red;*/
+    height: fit-content !important;
+    padding: 0;
+    margin: 10px;
+}
+
+.table_text_link {
+    color: #247ba0;
+    display: block;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.table_wrapp {
+    margin-top: 24px;
+    height: 100%;
+}
+
+.table {
+    height: 100%;
+}
+
+.pagination {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.table_text_action {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.code {
+    color: #247ba0;
+    cursor: pointer;
+}
+
+.delete {
+    color: #d32f2f;
+    cursor: pointer;
+}

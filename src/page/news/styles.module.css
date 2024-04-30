@@ -1,7 +1,7 @@
 .main {
     width: 100%;
     padding: 40px 0;
-    padding-top: 104px;
+    /*padding-top: 104px;*/
     min-height: calc(100vh - 340px);
 }
 

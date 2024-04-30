@@ -1,5 +1,5 @@
 .wrapper {
-    padding: 88px 24px 24px 24px;
+    padding: 24px 24px 24px 24px;
     min-height: calc(100vh);
     position: relative;
     display: flex;
@@ -22,13 +22,12 @@
 
 
 .content {
-    min-height: 100%;
     background: #fff;
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 8px;
     width: 100%;
     padding: 16px 16px;
-
+    height: calc(100vh - 112px);
 }
 
 .navigate_info {

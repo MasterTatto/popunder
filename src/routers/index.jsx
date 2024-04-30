@@ -13,6 +13,7 @@ import Lk from "../page/lk";
 import PubWebsite from "../page/lk/pages/p_website";
 import PubReports from "../page/lk/pages/p_reports";
 import AdvReports from "../page/lk/pages/a_reports";
+import AdvCampaigns from "../page/lk/pages/a_campaigns";
 
 const Routers = () => {
     const {lang} = useContext(LangContext)
@@ -34,7 +35,7 @@ const Routers = () => {
             <Route path={'/:lang/lk'} element={<Lk/>}>
                 <Route index path={'publisher/websites'} element={<PubWebsite/>}/>
                 <Route index path={'publisher/reports'} element={<PubReports/>}/>
-                <Route index path={'advertiser/campaigns'} element={<h1>advertiser/campaigns</h1>}/>
+                <Route index path={'advertiser/campaigns'} element={<AdvCampaigns/>}/>
                 <Route index path={'advertiser/reports'} element={<AdvReports/>}/>
                 <Route index path={'advertiser/traffic'} element={<h1>advertiser/traffic</h1>}/>
                 <Route index path={'billing'} element={<h1>billing</h1>}/>

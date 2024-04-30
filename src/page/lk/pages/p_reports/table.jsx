@@ -4,6 +4,7 @@ import s from './styles.module.css'
 import {AgGridReact} from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
+import moment from "moment/moment";
 
 const Table = ({data}) => {
         const [colDefs, setColDef] = useState([
@@ -14,10 +15,11 @@ const Table = ({data}) => {
                 wrapText: true,
                 autoHeight: true,
                 minWidth: 100,
-                field: "_id",
+                field: "date",
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <p className={classNames(s.table_text)}>{params?.value || 'id'}</p>
+                    return <p
+                        className={classNames(s.table_text)}>{(params?.value ? moment(params?.value)?.format('DD.MM.YYYY') : '') || ''}</p>
                 }
             },
             {
@@ -26,12 +28,12 @@ const Table = ({data}) => {
                 wrapText: true,
                 autoHeight: true,
                 minWidth: 100,
-                field: "domain",
+                field: "site",
                 cellStyle: {lineHeight: '1.3'},
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <a href={params?.value} target={'_blank'}
-                              className={classNames(s.table_text, s.table_text_link)}>{params?.value || 'id'}</a>
+                    return <p
+                              className={classNames(s.table_text)}>{params?.value || ''}</p>
                 }
             },
             {
@@ -41,7 +43,7 @@ const Table = ({data}) => {
                 wrapText: true,
                 autoHeight: true,
                 minWidth: 100,
-                field: "status",
+                field: "clicks",
                 flex: 1,
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{params?.value || 'Status'}</p>
@@ -54,7 +56,7 @@ const Table = ({data}) => {
                 wrapText: true,
                 autoHeight: true,
                 minWidth: 180,
-                field: "_id",
+                field: "cost",
 
                 flex: 1,
                 cellRenderer: (params) => {
