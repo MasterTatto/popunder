@@ -100,10 +100,18 @@ export const globalApi = createApi({
                 providesTags: ['campaigns']
             }),
             addedCampaign: build.mutation({
-                query: (domain) => ({
+                query: (payload) => ({
                     url: `api/site/campaigns`,
                     method: 'POST',
-                    body: {name: domain}
+                    body: payload
+                }),
+                invalidatesTags: (res, error, erg) => error ? [] : ['campaigns']
+            }),
+            editCampaign: build.mutation({
+                query: ({data,id}) => ({
+                    url: `api/site/campaigns/${id}`,
+                    method: 'PUT',
+                    body: data
                 }),
                 invalidatesTags: (res, error, erg) => error ? [] : ['campaigns']
             }),
@@ -116,7 +124,7 @@ export const globalApi = createApi({
             }),
             startStopCampaign: build.mutation({
                 query: ({type, id}) => ({
-                    url: `https://clickinder.com/api/site/campaign/${type}/${id}`,
+                    url: `api/site/campaign/${type}/${id}`,
                     // body: {
                     //     campaignId: id
                     // },
@@ -131,6 +139,7 @@ export const globalApi = createApi({
 export const {
     useGetProfileMutation,
     useStartStopCampaignMutation,
+    useEditCampaignMutation,
     useAddedCampaignMutation,
     useRemovePWebsiteMutation,
     useAddedPWebsiteMutation,

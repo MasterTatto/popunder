@@ -9,15 +9,21 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PopupState, {bindMenu, bindTrigger} from "material-ui-popup-state";
 import RemoveModal from "./remove_modal";
 import {useStartStopCampaignMutation} from "../../../../redux/global.service";
+import {toast} from "react-toastify";
 
-const Table = ({data}) => {
+const Table = ({data, openEditModal}) => {
         const [removeModal, setRemoveModal] = useState(false)
         const [startStopCampaign] = useStartStopCampaignMutation()
 
-        const handleStartStop = (id) => {
-            startStopCampaign({type: 'stop', id: id})
+        const handleStartStop = (type, id) => {
+            startStopCampaign({type: type, id: id})
                 .unwrap()
                 .then((res) => {
+                    if (type === 'start') {
+                        toast.success('Компания заупщена')
+                    } else {
+                        toast.warning('Компания приостановлена')
+                    }
                     console.log(res)
                 })
                 .catch((e) => {
@@ -44,7 +50,7 @@ const Table = ({data}) => {
                 menuTabs: [],
                 wrapText: true,
                 autoHeight: true,
-                minWidth: 100,
+                minWidth: 140,
                 field: "name",
                 cellStyle: {lineHeight: '1.3'},
                 flex: 1,
@@ -71,11 +77,12 @@ const Table = ({data}) => {
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
                 autoHeight: true,
-                minWidth: 100,
-                field: "_id",
+                minWidth: 160,
+                field: "url",
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <p className={s.table_text}>{params?.value || ''}</p>
+                    return <a href={params?.value} target={'_blank'}
+                              className={classNames(s.table_text, s.table_text_link)}>{params?.value || ''}</a>
                 }
             },
             {
@@ -85,7 +92,7 @@ const Table = ({data}) => {
                 wrapText: true,
                 autoHeight: true,
                 minWidth: 100,
-                field: "_id",
+                field: "cpm",
                 flex: 1,
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{params?.value || ''}</p>
@@ -98,7 +105,7 @@ const Table = ({data}) => {
                 wrapText: true,
                 autoHeight: true,
                 minWidth: 100,
-                field: "_id",
+                field: "dailyBudget",
                 flex: 1,
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{params?.value || ''}</p>
@@ -111,7 +118,7 @@ const Table = ({data}) => {
                 wrapText: true,
                 autoHeight: true,
                 minWidth: 100,
-                field: "_id",
+                field: "totalBudget",
                 flex: 1,
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{params?.value || ''}</p>
@@ -166,6 +173,8 @@ const Table = ({data}) => {
                 pinned: 'right',
                 flex: 1,
                 cellRenderer: (params) => {
+                    const visibleStartStop = params?.data?.status === 'RUNNING' || params?.data?.status === 'PAUSED'
+
                     return <PopupState placement="bottom-end" variant="popover" popupId="demo-popup-menu">
                         {(popupState) => (
                             <React.Fragment>
@@ -184,11 +193,15 @@ const Table = ({data}) => {
                                           horizontal: 'right',
                                       }}
                                 >
-                                    <MenuItem onClick={() => {
-                                        handleStartStop(params.value)
+                                    {visibleStartStop && <MenuItem onClick={() => {
+                                        handleStartStop(params?.data?.status === 'RUNNING' ? 'stop' : 'start', params.value)
                                         popupState.close()
-                                    }} sx={{color: '#1976d2'}}>Старт</MenuItem>
-                                    <MenuItem onClick={popupState.close} sx={{color: '#1976d2'}}>Редактировать</MenuItem>
+                                    }}
+                                                                   sx={{color: '#1976d2'}}>{params?.data?.status === 'RUNNING' ? 'Стоп' : 'Старт'}</MenuItem>}
+                                    <MenuItem onClick={() => {
+                                        openEditModal({...params?.data, typeModal: 'edit'})
+                                        popupState.close()
+                                    }} sx={{color: '#1976d2'}}>Редактировать</MenuItem>
                                     <MenuItem onClick={() => {
                                         setRemoveModal(params?.data)
                                         popupState.close()

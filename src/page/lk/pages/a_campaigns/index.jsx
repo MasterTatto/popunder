@@ -74,7 +74,7 @@ const AdvCampaigns = () => {
             </div>
 
             <div className={s.table_wrapp}>
-                <Table data={data}/>
+                <Table data={data} openEditModal={setOpenModalAdded}/>
             </div>
 
             <div className={s.pagination}>
