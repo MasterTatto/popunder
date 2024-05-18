@@ -29,8 +29,6 @@ const Table = ({data}) => {
                 headerName: 'ID',
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
-                wrapText: true,
-                autoHeight: true,
                 minWidth: 100,
                 field: "_id",
                 flex: .7,
@@ -41,8 +39,6 @@ const Table = ({data}) => {
             {
                 headerName: 'Domain',
                 menuTabs: [],
-                wrapText: true,
-                autoHeight: true,
                 minWidth: 100,
                 field: "domain",
                 cellStyle: {lineHeight: '1.3'},
@@ -56,8 +52,7 @@ const Table = ({data}) => {
                 headerName: 'Status',
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
-                wrapText: true,
-                autoHeight: true,
+
                 minWidth: 100,
                 field: "status",
                 flex: 0.5,
@@ -78,13 +73,15 @@ const Table = ({data}) => {
                 cellRenderer: (params) => {
                     return <div className={classNames(s.table_text, s.table_text_action)}>
                         <Tooltip title={'Get code'}>
-                            <IconButton onClick={() => setActionModal({type: 'code', value: params?.data || ''})}>
+                            <IconButton sx={{height: '20px', width: '20px'}}
+                                        onClick={() => setActionModal({type: 'code', value: params?.data || ''})}>
                                 <VisibilityIcon sx={{color: '#247ba0'}}/>
                             </IconButton>
                         </Tooltip>
                         <p>/</p>
                         <Tooltip title={'Delete'}>
-                            <IconButton onClick={() => setActionModal({type: 'delete', value: params?.data || ''})}>
+                            <IconButton sx={{height: '20px', width: '20px'}}
+                                        onClick={() => setActionModal({type: 'delete', value: params?.data || ''})}>
                                 <DeleteIcon sx={{color: '#d32f2f'}}/>
                             </IconButton>
                         </Tooltip>
@@ -171,6 +168,36 @@ const Table = ({data}) => {
                     suppressAggFuncInHeader={true}
                     suppressExcelExport={true}
                     tooltipShowDelay={0}
+
+                    navigateToNextCell={params => {
+                        const suggestedNextCell = params.nextCellPosition;
+
+                        // this is some code
+                        const KEY_UP = 'ArrowUp';
+                        const KEY_DOWN = 'ArrowDown';
+
+                        const noUpOrDownKey = params.key !== KEY_DOWN && params.key !== KEY_UP;
+                        if (noUpOrDownKey) {
+                            return suggestedNextCell;
+                        }
+
+                        params.api.forEachNode(node => {
+                            if (node?.rowIndex === null || node?.rowIndex === undefined || suggestedNextCell?.rowIndex === null || suggestedNextCell?.rowIndex === undefined) {
+                                return
+                            } else {
+                                if (node.rowIndex === suggestedNextCell.rowIndex) {
+                                    node.setSelected(true);
+                                }
+                            }
+
+
+                        });
+
+                        return suggestedNextCell;
+                    }}
+                    onCellClicked={(params) => {
+                        params.node.setSelected(true)
+                    }}
                 />
             </div>
         );

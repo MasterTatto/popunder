@@ -3,12 +3,10 @@
 }
 
 .navigate {
-    margin-top: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 16px;
-    flex-direction: column-reverse;
 }
 
 .search_input {
@@ -17,10 +15,17 @@
 
 .date_rang {
     width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 8px;
+    position: relative;
+}
+
+.date_rang_date {
     display: flex;
     align-items: center;
     gap: 8px;
-    position: relative;
+    width: 100%;
 }
 
 .btn_action {
@@ -67,6 +72,10 @@
     padding: 10px;
     line-height: 130%;
     font-family: Poppins, sans-serif;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .table_text_link {

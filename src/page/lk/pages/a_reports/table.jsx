@@ -12,8 +12,6 @@ const Table = ({data}) => {
                 headerName: 'Date',
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
-                wrapText: true,
-                autoHeight: true,
                 minWidth: 100,
                 field: "date",
                 flex: 1,
@@ -25,8 +23,6 @@ const Table = ({data}) => {
             {
                 headerName: 'campaignName',
                 menuTabs: [],
-                wrapText: true,
-                autoHeight: true,
                 minWidth: 100,
                 field: "campaignName",
                 cellStyle: {lineHeight: '1.3'},
@@ -39,8 +35,6 @@ const Table = ({data}) => {
                 headerName: 'Clicks',
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
-                wrapText: true,
-                autoHeight: true,
                 minWidth: 100,
                 field: "clicks",
                 flex: 1,
@@ -52,14 +46,12 @@ const Table = ({data}) => {
                 headerName: 'Coast',
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
-                wrapText: true,
-                autoHeight: true,
                 minWidth: 180,
                 field: "cost",
 
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <p className={s.table_text}>{params?.value || ''}</p>
+                    return <p className={s.table_text}>{(+params?.value || 0)?.toFixed(2) || ''}</p>
                 }
             },
         ])
@@ -80,6 +72,36 @@ const Table = ({data}) => {
                     suppressAggFuncInHeader={true}
                     suppressExcelExport={true}
                     tooltipShowDelay={0}
+
+                    navigateToNextCell={params => {
+                        const suggestedNextCell = params.nextCellPosition;
+
+                        // this is some code
+                        const KEY_UP = 'ArrowUp';
+                        const KEY_DOWN = 'ArrowDown';
+
+                        const noUpOrDownKey = params.key !== KEY_DOWN && params.key !== KEY_UP;
+                        if (noUpOrDownKey) {
+                            return suggestedNextCell;
+                        }
+
+                        params.api.forEachNode(node => {
+                            if (node?.rowIndex === null || node?.rowIndex === undefined || suggestedNextCell?.rowIndex === null || suggestedNextCell?.rowIndex === undefined) {
+                                return
+                            } else {
+                                if (node.rowIndex === suggestedNextCell.rowIndex) {
+                                    node.setSelected(true);
+                                }
+                            }
+
+
+                        });
+
+                        return suggestedNextCell;
+                    }}
+                    onCellClicked={(params) => {
+                        params.node.setSelected(true)
+                    }}
                 />
             </div>
         );

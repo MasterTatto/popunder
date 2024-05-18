@@ -5,16 +5,20 @@ import {NavLink} from "react-router-dom";
 import {scrollToTop} from "../../utils/scrollToTop";
 import {useTranslation} from "react-i18next";
 import {ReactComponent as TgIcon} from "../../assetss/tg.svg";
-import {LangContext} from "../../App";
+import {AuthContext, LangContext} from "../../App";
+import TelegramLoginButton from "telegram-login-button";
+import {api} from "../../utils/api";
+import {useGetProfileMutation} from "../../redux/global.service";
 
 const links = (lang) => [
     {title: 'Главная', link: `${lang}/`},
     {title: 'Новости', link: `${lang}/news`},
     {title: 'FAQ', link: `${lang}/faq/publisher`},
     {title: 'Правила', link: `${lang}/rules/publisher`},
-    {title: 'Вход', link: `${lang}/`},
 ]
 const Footer = () => {
+    const {auth, setIsAuth} = useContext(AuthContext)
+    const [getProfile] = useGetProfileMutation()
     const {t} = useTranslation()
     const {lang} = useContext(LangContext)
 
@@ -39,6 +43,37 @@ const Footer = () => {
                             <div className={s.footer_navigate}>
                                 {links(lang?.toLowerCase())?.map((el, i) => <NavLink to={el.link} key={i}
                                                                                      onClick={i === 0 && scrollToTop}>{t(el.title)}</NavLink>)}
+                                {!auth && <NavLink className={s.login}>
+                                    <TelegramLoginButton
+                                        botName="clickunder_bot"
+                                        dataOnauth={(user) => {
+                                            console.log(user)
+
+                                            api()
+                                                .get('http://clickinder.com/api/site/auth', {
+                                                    params: user
+                                                })
+                                                .then((res) => {
+                                                    console.log(res)
+
+                                                    getProfile()
+                                                        .unwrap()
+                                                        .then((res) => {
+                                                            setIsAuth(res?.ok)
+                                                        })
+                                                        .catch((e) => {
+                                                            console.log(e)
+                                                            setIsAuth(false)
+                                                        })
+
+                                                })
+                                                .catch((e) => {
+                                                    console.log(e)
+                                                    setIsAuth(false)
+                                                })
+                                        }}
+                                    />
+                                    Вход</NavLink>}
                             </div>
                         </div>
                     </div>

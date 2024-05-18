@@ -36,8 +36,8 @@ const Table = ({data, openEditModal}) => {
                 headerName: 'ID',
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3', padding: 0},
-                wrapText: true,
-                autoHeight: true,
+                // wrapText: true,
+                // autoHeight: true,
                 minWidth: 100,
                 field: "id",
                 flex: 1,
@@ -48,8 +48,8 @@ const Table = ({data, openEditModal}) => {
             {
                 headerName: 'Name',
                 menuTabs: [],
-                wrapText: true,
-                autoHeight: true,
+                // wrapText: true,
+                // autoHeight: true,
                 minWidth: 140,
                 field: "name",
                 cellStyle: {lineHeight: '1.3'},
@@ -62,8 +62,8 @@ const Table = ({data, openEditModal}) => {
                 headerName: 'Status',
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
-                wrapText: true,
-                autoHeight: true,
+                // wrapText: true,
+                // autoHeight: true,
                 minWidth: 145,
                 field: "status",
                 flex: 1,
@@ -75,9 +75,9 @@ const Table = ({data, openEditModal}) => {
                 headerName: 'URL',
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
-                wrapText: true,
-                autoHeight: true,
-                minWidth: 160,
+                // wrapText: true,
+                // autoHeight: true,
+                minWidth: 240,
                 field: "url",
                 flex: 1,
                 cellRenderer: (params) => {
@@ -104,7 +104,7 @@ const Table = ({data, openEditModal}) => {
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
                 autoHeight: true,
-                minWidth: 100,
+                minWidth: 130,
                 field: "dailyBudget",
                 flex: 1,
                 cellRenderer: (params) => {
@@ -117,7 +117,7 @@ const Table = ({data, openEditModal}) => {
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
                 autoHeight: true,
-                minWidth: 100,
+                minWidth: 130,
                 field: "totalBudget",
                 flex: 1,
                 cellRenderer: (params) => {
@@ -130,7 +130,7 @@ const Table = ({data, openEditModal}) => {
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
                 autoHeight: true,
-                minWidth: 100,
+                minWidth: 130,
                 field: "_id",
                 flex: 1,
                 cellRenderer: (params) => {
@@ -234,6 +234,36 @@ const Table = ({data, openEditModal}) => {
                     suppressAggFuncInHeader={true}
                     suppressExcelExport={true}
                     tooltipShowDelay={0}
+
+                    navigateToNextCell={params => {
+                        const suggestedNextCell = params.nextCellPosition;
+
+                        // this is some code
+                        const KEY_UP = 'ArrowUp';
+                        const KEY_DOWN = 'ArrowDown';
+
+                        const noUpOrDownKey = params.key !== KEY_DOWN && params.key !== KEY_UP;
+                        if (noUpOrDownKey) {
+                            return suggestedNextCell;
+                        }
+
+                        params.api.forEachNode(node => {
+                            if (node?.rowIndex === null || node?.rowIndex === undefined || suggestedNextCell?.rowIndex === null || suggestedNextCell?.rowIndex === undefined) {
+                                return
+                            } else {
+                                if (node.rowIndex === suggestedNextCell.rowIndex) {
+                                    node.setSelected(true);
+                                }
+                            }
+
+
+                        });
+
+                        return suggestedNextCell;
+                    }}
+                    onCellClicked={(params) => {
+                        params.node.setSelected(true)
+                    }}
                 />
             </div>
         );

@@ -28,18 +28,21 @@
     padding: 10px;
     line-height: 130%;
     font-family: Poppins, sans-serif;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .id {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* number of lines to show */
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
+    display: block;
     /*border: 1px solid red;*/
     height: fit-content !important;
     padding: 0;
     margin: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .table_text_link {

@@ -109,7 +109,7 @@
     gap: 14px;
 }
 
-.footer_navigate a {
+.footer_navigate a, .footer_navigate p {
     color: #fff;
     font-weight: 400;
     font-style: normal;
@@ -119,7 +119,20 @@
     transition: .3s all;
 }
 
-.footer_navigate a:hover {
+.login {
+    position: relative;
+    overflow: hidden;
+    /*border: 1px solid red;*/
+    width: fit-content;
+    white-space: nowrap;
+}
+
+.login div {
+    position: absolute;
+    opacity: 0;
+}
+
+.footer_navigate a:hover, .footer_navigate p:hover {
     color: rgba(255, 255, 255, 0.7);
 }
 

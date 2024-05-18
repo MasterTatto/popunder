@@ -28,6 +28,15 @@
     padding: 10px;
     line-height: 130%;
     font-family: Poppins, sans-serif;
+    /*display: block;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
 }
 
 .table_text_link {
@@ -60,7 +69,7 @@
 .table_text_action {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 12px;
 }
 
 .code {

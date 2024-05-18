@@ -59,14 +59,13 @@ const Lk = () => {
                 <div className={s.navigate_info}>
                     <Avatar src={user?.user?.photo} sx={{height: '50px', width: '50px'}}/>
                     <div className={s.navigate_desc}>
-                        <div className={s.navigate_top}>
-                            <p className={s.name}>{user?.user?.name || 'Incognito'}</p>
-                            <p className={s.uid}>
-                                <QrCode2Icon/> uid: {user?.user?.chatId || 'none'}
-                            </p>
-                        </div>
+
+                        <p className={s.name}>{user?.user?.name || 'Incognito'}</p>
                         <p className={s.uid}>
-                            Balance: {user?.user?.balance || '0'}$
+                            id: {user?.user?.chatId || 'none'}
+                        </p>
+                        <p className={s.uid}>
+                            Balance: {(user?.user?.balance || 0).toFixed(2) || '0'}$
                         </p>
                     </div>
                 </div>

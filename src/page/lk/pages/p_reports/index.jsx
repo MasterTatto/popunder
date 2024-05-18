@@ -1,7 +1,16 @@
 import React, {useState} from 'react';
 import s from './styles.module.css'
 import Title from "../../../../common/title";
-import {Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Pagination} from "@mui/material";
+import {
+    Button,
+    FormControl,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
+    Pagination, Select
+} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Table from "./table";
@@ -13,6 +22,7 @@ import moment from "moment";
 
 const PubReports = () => {
     const [filteredValue, setFilteredValue] = useState('')
+    const [diapason, setDiapason] = useState('')
     const [page, setPage] = useState(1)
     const [date, setDate] = useState({
         start: null,
@@ -78,43 +88,68 @@ const PubReports = () => {
                 </div>
 
                 <div className={s.date_rang}>
-                    <div className={s.btn_action}>
-                        <Button onClick={() => handlerSetDate(1)}>За сегодня</Button>
-                        <Button onClick={() => handlerSetDate(2)}>За вчера</Button>
-                        <Button onClick={() => handlerSetDate(3)}>За текущий месяц</Button>
-                        <Button onClick={() => handlerSetDate(4)}>За прошлый месяц</Button>
-                        <Button sx={{color: '#d32f2f'}} onClick={() => handlerSetDate(5)}>Сбросить</Button>
+                    <div className={s.date_rang_date}>
+                        <LocalizationProvider sx={{border: '1px solid red'}} localeText={{
+                            'okButtonLabel': 'ОК',
+                            'cancelButtonLabel': 'Отмена',
+                            'clearButtonLabel': 'Отмена',
+                        }} dateAdapter={AdapterMoment} adapterLocale={'de'}>
+                            <DatePicker value={date?.start} onChange={(e) => {
+                                setDate({end: date?.end, start: e})
+                                if (diapason) {
+                                    setDiapason('')
+                                }
+                            }}
+                                        sx={{width: '100%'}} ampm={false}
+                                        format="DD.MM.YYYY" slotProps={{
+                                textField: {
+                                    variant: "outlined",
+                                    InputProps: {disableUnderline: true, placeholder: 'Начало'},
+                                },
+                            }}/>
+                        </LocalizationProvider>
+                        <p>-</p>
+                        <LocalizationProvider sx={{border: '1px solid red'}} localeText={{
+                            'okButtonLabel': 'ОК',
+                            'cancelButtonLabel': 'Отмена',
+                            'clearButtonLabel': 'Отмена',
+                        }} dateAdapter={AdapterMoment} adapterLocale={'de'}>
+                            <DatePicker value={date?.end} onChange={(e) => {
+                                setDate({start: date?.start, end: e})
+                                if (diapason) {
+                                    setDiapason('')
+                                }
+                            }}
+                                        sx={{width: '100%'}}
+                                        ampm={false}
+                                        format="DD.MM.YYYY" slotProps={{
+                                textField: {
+                                    variant: "outlined",
+                                    InputProps: {disableUnderline: true, placeholder: 'Конец'},
+                                },
+                            }}/>
+                        </LocalizationProvider>
                     </div>
-                    <LocalizationProvider sx={{border: '1px solid red'}} localeText={{
-                        'okButtonLabel': 'ОК',
-                        'cancelButtonLabel': 'Отмена',
-                        'clearButtonLabel': 'Отмена',
-                    }} dateAdapter={AdapterMoment} adapterLocale={'de'}>
-                        <DatePicker value={date?.start} onChange={(e) => setDate({end: date?.end, start: e})}
-                                    sx={{width: '100%'}} ampm={false}
-                                    format="DD.MM.YYYY" slotProps={{
-                            textField: {
-                                variant: "outlined",
-                                InputProps: {disableUnderline: true, placeholder: 'Начало'},
-                            },
-                        }}/>
-                    </LocalizationProvider>
-                    <p>-</p>
-                    <LocalizationProvider sx={{border: '1px solid red'}} localeText={{
-                        'okButtonLabel': 'ОК',
-                        'cancelButtonLabel': 'Отмена',
-                        'clearButtonLabel': 'Отмена',
-                    }} dateAdapter={AdapterMoment} adapterLocale={'de'}>
-                        <DatePicker value={date?.end} onChange={(e) => setDate({start: date?.start, end: e})}
-                                    sx={{width: '100%'}}
-                                    ampm={false}
-                                    format="DD.MM.YYYY" slotProps={{
-                            textField: {
-                                variant: "outlined",
-                                InputProps: {disableUnderline: true, placeholder: 'Конец'},
-                            },
-                        }}/>
-                    </LocalizationProvider>
+
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Диапазон</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={diapason}
+                            label="Диапазон"
+                            onChange={(e) => {
+                                handlerSetDate(+e.target.value)
+                                setDiapason(+e.target.value)
+                            }}
+                        >
+                            <MenuItem value={5}>За все время</MenuItem>
+                            <MenuItem value={1}>За сегодня</MenuItem>
+                            <MenuItem value={2}>За вчера</MenuItem>
+                            <MenuItem value={3}>За текущий месяц</MenuItem>
+                            <MenuItem value={4}>За прошлый месяц</MenuItem>
+                        </Select>
+                    </FormControl>
                 </div>
             </div>
 

@@ -92,3 +92,26 @@ table {
     justify-content: center !important;
     text-align: center !important;
 }
+
+/*#2196f3*/
+.ag-row-selected {
+
+    /*background-color: #fff !important;*/
+}
+
+.ag-row-odd {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.ag-row-selected::before {
+    border: 1px solid #2196f3 !important;
+    background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.ag-cell-focus {
+    /*outline: none !important;*/
+}
+
+.ag-cell-focus {
+    border: 1px solid rgba(255, 255, 255, 0) !important;
+}
