@@ -25,20 +25,8 @@
     transition: .28s all;
 }
 
-.button {
-
-}
-
 .button:hover button span div {
     background: rgba(36, 123, 160, 0.01) !important;
-}
-
-.button {
-    padding: 10px;
-}
-
-.button:hover {
-    /*background: red !important;*/
 }
 
 
