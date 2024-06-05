@@ -40,7 +40,7 @@ const PubReports = () => {
 
     const debouncedFilter = _debounce((value) => {
         setFilteredValue(value);
-    }, 300);
+    }, 900);
 
     const handlerSetDate = (type) => {
         setDate({

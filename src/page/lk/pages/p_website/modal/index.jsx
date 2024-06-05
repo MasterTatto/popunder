@@ -53,17 +53,14 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
     })
 
     return (
-        <Dialog
+        <ModalWrapper
             open={Boolean(openModalAdded)}
             onClose={() => setOpenModalAdded(false)}
-            maxWidth={'xs'}
-            fullWidth
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
-            <DialogTitle id="alert-dialog-title">
+            title={<DialogTitle id="alert-dialog-title">
                 Added website
-            </DialogTitle>
+            </DialogTitle>}
+        >
+
             <form onSubmit={(e) => {
                 e.preventDefault()
                 formik.handleSubmit(e)
@@ -80,7 +77,7 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                     <Button disabled={isLoading} type={'submit'}>Added</Button>
                 </DialogActions>
             </form>
-        </Dialog>
+        </ModalWrapper>
     );
 };
 

@@ -170,7 +170,7 @@ const Table = ({data, openEditModal}) => {
                 field: "id",
                 resizable: false,
                 sortable: false,
-                pinned: 'right',
+                // pinned: 'right',
                 flex: 1,
                 cellRenderer: (params) => {
                     const visibleStartStop = params?.data?.status === 'RUNNING' || params?.data?.status === 'PAUSED'

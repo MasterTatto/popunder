@@ -14,15 +14,22 @@ export const globalApi = createApi({
                 }),
             }),
             getPWebsiteTable: build.query({
-                query: ({domain, page}) => ({
-                    url: `api/site/publisher/sites`,
-                    method: 'GET',
-                    params: {
+                query: ({domain, page}) => {
+                    const params = domain === '//' ? {
+                        limit: 20,
+                        offset: page === 1 ? 0 : ((page * 20) - 20)
+                    } : {
                         domain: domain,
                         limit: 20,
                         offset: page === 1 ? 0 : ((page * 20) - 20)
                     }
-                }),
+
+                    return {
+                        url: `api/site/publisher/sites`,
+                        method: 'GET',
+                        params: params
+                    }
+                },
                 providesTags: ['pWebsiteTable']
             }),
             getPReportsTable: build.query({
@@ -32,11 +39,14 @@ export const globalApi = createApi({
                         limit: 20,
                         offset: page === 1 ? 0 : ((page * 20) - 20),
                         date: date
-                    } : {
+                    } : (domain !== '//' ? {
                         site: domain,
                         limit: 20,
                         offset: page === 1 ? 0 : ((page * 20) - 20),
-                    }
+                    } : {
+                        limit: 20,
+                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                    })
                     return {
                         url: `api/site/publisher/reports`,
                         method: 'GET',
@@ -52,11 +62,14 @@ export const globalApi = createApi({
                         limit: 20,
                         offset: page === 1 ? 0 : ((page * 20) - 20),
                         date: date
-                    } : {
+                    } : (domain !== '//' ? {
                         campaignName: domain,
                         limit: 20,
                         offset: page === 1 ? 0 : ((page * 20) - 20),
-                    }
+                    } : {
+                        limit: 20,
+                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                    })
                     return {
                         url: `api/site/advertiser/reports`,
                         method: 'GET',
@@ -108,7 +121,7 @@ export const globalApi = createApi({
                 invalidatesTags: (res, error, erg) => error ? [] : ['campaigns']
             }),
             editCampaign: build.mutation({
-                query: ({data,id}) => ({
+                query: ({data, id}) => ({
                     url: `api/site/campaigns/${id}`,
                     method: 'PUT',
                     body: data

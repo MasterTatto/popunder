@@ -24,7 +24,7 @@ const PubWebsite = () => {
 
     const debouncedFilter = _debounce((value) => {
         setFilteredValue(value);
-    }, 300);
+    }, 900);
     return (
         <div className={s.main}>
             {openModalAdded && <ModalAdded openModalAdded={openModalAdded} setOpenModalAdded={setOpenModalAdded}/>}
@@ -62,6 +62,9 @@ const PubWebsite = () => {
                         background: '#247ba0', color: '#fff',
                         '&:hover': {
                             background: 'rgba(36, 123, 160, 0.8)'
+                        },
+                        '&:hover .btn': {
+                            background: 'rgba(36, 123, 160, 0.8) !important'
                         },
 
                     }}

@@ -4,9 +4,10 @@ import s from './styles.module.css'
 import {AgGridReact} from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import moment from "moment/moment";
+import moment from "moment-timezone";
 
 const Table = ({data}) => {
+
         const [colDefs, setColDef] = useState([
             {
                 headerName: 'Date',
@@ -17,8 +18,9 @@ const Table = ({data}) => {
                 field: "date",
                 flex: 1,
                 cellRenderer: (params) => {
+                    const timeInUTCPlus3 = params?.value ? moment(Number(params?.value)).utcOffset(+180)?.format('DD.MM.YYYY HH:mm') : null;
                     return <p
-                        className={classNames(s.table_text)}>{(params?.value ? moment(params?.value)?.format('DD.MM.YYYY') : '') || ''}</p>
+                        className={classNames(s.table_text)}>{(params?.value ? timeInUTCPlus3 : '') || ''}</p>
                 }
             },
             {

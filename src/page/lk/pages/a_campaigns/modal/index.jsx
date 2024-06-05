@@ -128,17 +128,14 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
         }
     }, [openModalAdded])
     return (
-        <Dialog
+        <ModalWrapper
             open={Boolean(openModalAdded)}
             onClose={() => setOpenModalAdded(false)}
-            maxWidth={'xs'}
-            fullWidth
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
-            <DialogTitle id="alert-dialog-title">
+            title={<DialogTitle id="alert-dialog-title">
                 {openModalAdded?.typeModal ? 'Edit campaign' : 'Create campaign'}
-            </DialogTitle>
+            </DialogTitle>}
+        >
+
             <form onSubmit={(e) => {
                 e.preventDefault()
                 formik.handleSubmit(e)
@@ -159,8 +156,8 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
 
                     <TextField value={formik.values.cpm}
                                type={'number'}
-                               inputProps={{step: ".01", min: 0}}
-                               step={0.01}
+                               inputProps={{step: ".05", min: 0}}
+                               step={0.05}
                                helperText={formik.touched.cpm && formik.errors.cpm}
                                error={formik.touched.cpm && formik.errors.cpm}
                                name={'cpm'} onBlur={formik.handleBlur}
@@ -168,8 +165,8 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                                onChange={formik.handleChange} id="outlined-basic" label="Cpm" variant="outlined"/>
                     <TextField value={formik.values.dailyBudget}
                                type={'number'}
-                               inputProps={{step: ".01", min: 0}}
-                               step={0.01}
+                               inputProps={{step: "1", min: 0}}
+                               step={1}
                                helperText={formik.touched.dailyBudget && formik.errors.dailyBudget}
                                error={formik.touched.dailyBudget && formik.errors.dailyBudget}
                                name={'dailyBudget'} onBlur={formik.handleBlur}
@@ -178,8 +175,8 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                                variant="outlined"/>
                     <TextField value={formik.values.totalBudget}
                                type={'number'}
-                               inputProps={{step: ".01", min: 0}}
-                               step={0.01}
+                               inputProps={{step: "1", min: 0}}
+                               step={1}
                                helperText={formik.touched.totalBudget && formik.errors.totalBudget}
                                error={formik.touched.totalBudget && formik.errors.totalBudget}
                                name={'totalBudget'} onBlur={formik.handleBlur}
@@ -235,7 +232,7 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                     <Button disabled={isLoading} type={'submit'}>{openModalAdded?.typeModal ? 'Save' : 'Added'}</Button>
                 </DialogActions>
             </form>
-        </Dialog>
+        </ModalWrapper>
     );
 };
 

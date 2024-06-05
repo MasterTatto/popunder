@@ -3,6 +3,7 @@ import {useFormik} from "formik";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
 import {useDeleteCampaignMutation} from "../../../../../redux/global.service";
 import {toast} from "react-toastify";
+import ModalWrapper from "../../../../../common/modal";
 
 const RemoveModal = ({openModalAdded, setOpenModalAdded}) => {
     const [deleteCampaign, {isLoading}] = useDeleteCampaignMutation()
@@ -27,17 +28,14 @@ const RemoveModal = ({openModalAdded, setOpenModalAdded}) => {
 
 
     return (
-        <Dialog
+        <ModalWrapper
             open={Boolean(openModalAdded)}
             onClose={() => setOpenModalAdded(false)}
-            maxWidth={'xs'}
-            fullWidth
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
-            <DialogTitle id="alert-dialog-title">
+            title={<DialogTitle id="alert-dialog-title">
                 Удаление
-            </DialogTitle>
+            </DialogTitle>}
+        >
+
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
                     Вы уверены что хотите удалить компанию <br/> <b>{openModalAdded?.name}</b> ?
@@ -49,7 +47,7 @@ const RemoveModal = ({openModalAdded, setOpenModalAdded}) => {
                     Удалить
                 </Button>
             </DialogActions>
-        </Dialog>
+        </ModalWrapper>
     );
 };
 

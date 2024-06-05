@@ -19,6 +19,7 @@ import {toast} from "react-toastify";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import ModalWrapper from "../../../../common/modal";
 
 const Table = ({data}) => {
         const [removePWebsite, {isLoading}] = useRemovePWebsiteMutation()
@@ -66,19 +67,23 @@ const Table = ({data}) => {
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
                 autoHeight: true,
-                minWidth: 180,
+                minWidth: 140,
                 field: "_id",
 
                 flex: 0.5,
                 cellRenderer: (params) => {
+                    console.log(params)
                     return <div className={classNames(s.table_text, s.table_text_action)}>
-                        <Tooltip title={'Get code'}>
-                            <IconButton sx={{height: '20px', width: '20px'}}
-                                        onClick={() => setActionModal({type: 'code', value: params?.data || ''})}>
-                                <VisibilityIcon sx={{color: '#247ba0'}}/>
-                            </IconButton>
-                        </Tooltip>
-                        <p>/</p>
+                        {['RUNNING', 'PAUSED']?.includes(params?.data?.status) && <>
+                            {/*{true && <>*/}
+                            <Tooltip title={'Get code'}>
+                                <IconButton sx={{height: '20px', width: '20px'}}
+                                            onClick={() => setActionModal({type: 'code', value: params?.data || ''})}>
+                                    <VisibilityIcon sx={{color: '#247ba0'}}/>
+                                </IconButton>
+                            </Tooltip>
+                            <p>/</p>
+                        </>}
                         <Tooltip title={'Delete'}>
                             <IconButton sx={{height: '20px', width: '20px'}}
                                         onClick={() => setActionModal({type: 'delete', value: params?.data || ''})}>
@@ -114,48 +119,48 @@ const Table = ({data}) => {
                 className={classNames("ag-theme-quartz", s.table)}
                 style={{minHeight: 300, width: '100%'}}
             >
-                {actionModal && <Dialog
-                    open={Boolean(actionModal)}
-                    onClose={() => setActionModal(null)}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">
-                        {actionModal?.type === 'delete' ? 'Подтверждение удаления' : 'Просмотр кода'}
-                    </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
+                {actionModal &&
+                    <ModalWrapper
+                        open={Boolean(actionModal)}
+                        onClose={() => setActionModal(false)}
+                        title={<DialogTitle id="alert-dialog-title">
+                            {actionModal?.type === 'delete' ? 'Подтверждение удаления' : 'Просмотр кода'}
+                        </DialogTitle>}
+                    >
+
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                {actionModal?.type === 'delete' ? <>
+                                    Вы действительно хотите удалить домен <a style={{display: 'inline'}}
+                                                                             className={s.table_text_link}
+                                                                             href={actionModal?.value?.domain}
+                                                                             target={'_blank'}> {actionModal?.value?.domain}</a> ?
+                                </> : <code>
+                                    {actionModal?.value?.code}
+                                </code>}
+
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
                             {actionModal?.type === 'delete' ? <>
-                                Вы действительно хотите удалить домен <a style={{display: 'inline'}}
-                                                                         className={s.table_text_link}
-                                                                         href={actionModal?.value?.domain}
-                                                                         target={'_blank'}> {actionModal?.value?.domain}</a> ?
-                            </> : <code>
-                                {actionModal?.value?.code}
-                            </code>}
+                                    <Button onClick={() => setActionModal(null)} disabled={isLoading}>Отмена</Button>
+                                    <Button disabled={isLoading} onClick={() => handleRemove(actionModal?.value?._id)}>
+                                        Подтвердить
+                                    </Button>
+                                </> :
+                                <CopyToClipboard text={actionModal?.value?.code}
+                                                 onCopy={() => {
+                                                     toast.success('Скопировано в буфер обмена')
+                                                     setActionModal(null)
+                                                 }}>
+                                    <Button>
+                                        Скопировать код в буфер обмена
+                                    </Button>
+                                </CopyToClipboard>
+                            }
 
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        {actionModal?.type === 'delete' ? <>
-                                <Button onClick={() => setActionModal(null)} disabled={isLoading}>Отмена</Button>
-                                <Button disabled={isLoading} onClick={() => handleRemove(actionModal?.value?._id)}>
-                                    Подтвердить
-                                </Button>
-                            </> :
-                            <CopyToClipboard text={actionModal?.value?.code}
-                                             onCopy={() => {
-                                                 toast.success('Скопировано в буфер обмена')
-                                                 setActionModal(null)
-                                             }}>
-                                <Button>
-                                    Скопировать код в буфер обмена
-                                </Button>
-                            </CopyToClipboard>
-                        }
-
-                    </DialogActions>
-                </Dialog>}
+                        </DialogActions>
+                    </ModalWrapper>}
 
                 <AgGridReact
                     columnSeparator={';'}

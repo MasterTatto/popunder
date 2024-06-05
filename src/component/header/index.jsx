@@ -183,6 +183,7 @@ const Header = () => {
                                                         .unwrap()
                                                         .then((res) => {
                                                             setIsAuth(res?.ok)
+                                                            navigate(`/${lang?.toLowerCase()}/lk/publisher/websites`)
                                                         })
                                                         .catch((e) => {
                                                             console.log(e)

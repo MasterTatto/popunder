@@ -4,7 +4,7 @@ import s from './styles.module.css'
 import CloseIcon from '@mui/icons-material/Close';
 
 const style = {
-    paddingRight: '20px',
+    paddingRight: '10px',
     maxHeight: '90%',
     height: 'fit-content',
     paddingBottom: '10px',
@@ -20,10 +20,10 @@ const styleS = {
     transform: 'translate(-50%, -50%)',
     maxWidth: '440px',
     width: '100%',
-    padding: '24px',
-    paddingRight: '4px',
+    padding: '0 10px',
+    paddingRight: '0px',
     background: '#fff',
-    borderRadius: '0px',
+    borderRadius: '10px',
     maxHeight: '98%',
 }
 
