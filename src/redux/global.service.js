@@ -4,7 +4,7 @@ export const globalApi = createApi({
         reducerPath: 'globalApi',
         baseQuery: fetchBaseQuery(
             {baseUrl: 'http://clickinder.com/'}),
-        tagTypes: ['globalApi', 'pWebsiteTable', 'campaigns'],
+        tagTypes: ['globalApi', 'pWebsiteTable', 'campaigns', 'payments'],
         endpoints: (build) => ({
 
             getProfile: build.mutation({
@@ -145,12 +145,50 @@ export const globalApi = createApi({
                 }),
                 invalidatesTags: (res, error, erg) => error ? [] : ['campaigns']
             }),
+            getTablePayments: build.query({
+                query: ({page = 1, type, status, date}) => {
+                    const params = {
+                        type: type,
+                        limit: 20,
+                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                        status: status,
+                        date: date,
+                    }
+                    if (!type) {
+                        delete params.type
+                    }
+                    if (!status) {
+                        delete params.status
+                    }
+                    if (!date) {
+                        delete params.date
+                    }
+                    return {
+                        url: `api/site/payments`,
+                        method: 'GET',
+                        params: params
+                    }
+                },
+                providesTags: ['payments']
+            }),
+            setDeposit: build.mutation({
+                query: (payload) => {
+                    return {
+                        url: `api/site/payments`,
+                        method: 'POST',
+                        body: payload
+                    }
+                },
+                invalidatesTags: (res, error, erg) => error ? [] : ['payments']
+            }),
         }),
     }
 )
 
 export const {
     useGetProfileMutation,
+    useSetDepositMutation,
+    useGetTablePaymentsQuery,
     useStartStopCampaignMutation,
     useEditCampaignMutation,
     useAddedCampaignMutation,
