@@ -5,11 +5,14 @@ import {AgGridReact} from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import moment from "moment";
+import {useTranslation} from "react-i18next";
 
 const Table = ({data}) => {
-        const [colDefs, setColDef] = useState([
+        const {t} = useTranslation()
+
+        const colDefs = [
             {
-                headerName: 'Date',
+                headerName: t("Дата"),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 minWidth: 100,
@@ -22,7 +25,7 @@ const Table = ({data}) => {
                 }
             },
             {
-                headerName: 'campaignName',
+                headerName: t('Кампания'),
                 menuTabs: [],
                 minWidth: 100,
                 field: "campaignName",
@@ -33,7 +36,7 @@ const Table = ({data}) => {
                 }
             },
             {
-                headerName: 'Clicks',
+                headerName: t("Переходы"),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 minWidth: 100,
@@ -44,7 +47,7 @@ const Table = ({data}) => {
                 }
             },
             {
-                headerName: 'Coast',
+                headerName: t("Стоимость"),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 minWidth: 180,
@@ -55,7 +58,7 @@ const Table = ({data}) => {
                     return <p className={s.table_text}>{(+params?.value || 0)?.toFixed(2) || ''}</p>
                 }
             },
-        ])
+        ]
 
         return (
             <div

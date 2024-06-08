@@ -24,23 +24,23 @@ import "ag-grid-community/styles/ag-theme-quartz.css";
 
 const navigate = [
     {
-        title: 'Publisher', icon: <PersonIcon/>, sub_data: [
-            {title: 'Websites', icon: <PublicIcon/>, link: 'publisher/websites'},
-            {title: 'Reports', icon: <QueryStatsIcon/>, link: 'publisher/reports'},
+        title: 'Вебмастер', icon: <PersonIcon/>, sub_data: [
+            {title: 'Площадки', icon: <PublicIcon/>, link: 'publisher/websites'},
+            {title: 'Статистика', icon: <QueryStatsIcon/>, link: 'publisher/reports'},
         ]
     },
     {
-        title: 'Advertiser', icon: <PersonSearchIcon/>, sub_data: [
-            {title: 'Campaigns', icon: <PublicIcon/>, link: 'advertiser/campaigns'},
-            {title: 'Reports', icon: <QueryStatsIcon/>, link: 'advertiser/reports'},
+        title: 'Рекламодатель', icon: <PersonSearchIcon/>, sub_data: [
+            {title: 'Кампании', icon: <PublicIcon/>, link: 'advertiser/campaigns'},
+            {title: 'Статистика', icon: <QueryStatsIcon/>, link: 'advertiser/reports'},
             // {title: 'Traffic Inventory', icon: <TrendingUpIcon/>, link: 'advertiser/traffic'},
         ]
     },
     {
-        title: 'Billing', icon: <PaidIcon/>, link: 'billing',
+        title: 'Финансы', icon: <PaidIcon/>, link: 'billing',
     },
     {
-        title: 'Contract', icon: <EmailIcon/>, redirect: true
+        title: 'Контакты', icon: <EmailIcon/>, redirect: true
     },
 ]
 

@@ -20,14 +20,18 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ModalWrapper from "../../../../common/modal";
+import {useTranslation} from "react-i18next";
 
 const Table = ({data}) => {
+        const {t} = useTranslation()
+
         const [removePWebsite, {isLoading}] = useRemovePWebsiteMutation()
 
         const [actionModal, setActionModal] = useState(null)
-        const [colDefs, setColDef] = useState([
+
+        const colDefs = [
             {
-                headerName: 'ID',
+                headerName: t('ID площадки'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 minWidth: 100,
@@ -38,7 +42,7 @@ const Table = ({data}) => {
                 }
             },
             {
-                headerName: 'Domain',
+                headerName: t('Площадка'),
                 menuTabs: [],
                 minWidth: 100,
                 field: "domain",
@@ -50,7 +54,7 @@ const Table = ({data}) => {
                 }
             },
             {
-                headerName: 'Status',
+                headerName: t('Статус'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
 
@@ -62,7 +66,7 @@ const Table = ({data}) => {
                 }
             },
             {
-                headerName: 'Actions',
+                headerName: t('Действия'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
@@ -75,8 +79,7 @@ const Table = ({data}) => {
                     console.log(params)
                     return <div className={classNames(s.table_text, s.table_text_action)}>
                         {['RUNNING', 'PAUSED']?.includes(params?.data?.status) && <>
-                            {/*{true && <>*/}
-                            <Tooltip title={'Get code'}>
+                            <Tooltip title={t('Получит код')}>
                                 <IconButton sx={{height: '20px', width: '20px'}}
                                             onClick={() => setActionModal({type: 'code', value: params?.data || ''})}>
                                     <VisibilityIcon sx={{color: '#247ba0'}}/>
@@ -84,7 +87,7 @@ const Table = ({data}) => {
                             </Tooltip>
                             <p>/</p>
                         </>}
-                        <Tooltip title={'Delete'}>
+                        <Tooltip title={t('Удалить')}>
                             <IconButton sx={{height: '20px', width: '20px'}}
                                         onClick={() => setActionModal({type: 'delete', value: params?.data || ''})}>
                                 <DeleteIcon sx={{color: '#d32f2f'}}/>
@@ -94,7 +97,7 @@ const Table = ({data}) => {
                     </div>
                 }
             },
-        ])
+        ]
 
         const handleRemove = (id) => {
             removePWebsite(id)
@@ -102,15 +105,15 @@ const Table = ({data}) => {
                 .then((res) => {
                     console.log(res)
                     if (res?.ok) {
-                        toast.success('Удалено')
+                        toast.success(t('Удалено'))
                         setActionModal(null)
                     } else {
-                        toast.error('Ошибка удаления')
+                        toast.error(t('Ошибка удаления'))
                     }
                 })
                 .catch((e) => {
                     console.log(e)
-                    toast.error('Ошибка удаления')
+                    toast.error(t('Ошибка удаления'))
                 })
         }
 
@@ -124,28 +127,36 @@ const Table = ({data}) => {
                         open={Boolean(actionModal)}
                         onClose={() => setActionModal(false)}
                         title={<DialogTitle id="alert-dialog-title">
-                            {actionModal?.type === 'delete' ? 'Подтверждение удаления' : 'Просмотр кода'}
+                            {actionModal?.type === 'delete' ? t('Подтверждение удаления') : t('Просмотр кода')}
                         </DialogTitle>}
                     >
 
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
                                 {actionModal?.type === 'delete' ? <>
-                                    Вы действительно хотите удалить домен <a style={{display: 'inline'}}
-                                                                             className={s.table_text_link}
-                                                                             href={actionModal?.value?.domain}
-                                                                             target={'_blank'}> {actionModal?.value?.domain}</a> ?
-                                </> : <code>
-                                    {actionModal?.value?.code}
-                                </code>}
+                                    {`${t('Вы действительно хотите удалить домен')}`}
+
+                                    <a style={{display: 'inline'}}
+                                       className={s.table_text_link}
+                                       href={actionModal?.value?.domain}
+                                       target={'_blank'}> {actionModal?.value?.domain}</a>
+                                </> : <>
+                                    {t("Установите этот код к себе на сайт. В любом месте между тегами <body> и </body>.")}
+                                    <b>
+                                        <code>
+                                            {actionModal?.value?.code}
+                                        </code>
+                                    </b>
+                                </>
+                                }
 
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
                             {actionModal?.type === 'delete' ? <>
-                                    <Button onClick={() => setActionModal(null)} disabled={isLoading}>Отмена</Button>
+                                    <Button onClick={() => setActionModal(null)} disabled={isLoading}>{t("Отмена")}</Button>
                                     <Button disabled={isLoading} onClick={() => handleRemove(actionModal?.value?._id)}>
-                                        Подтвердить
+                                        {t("Подтвердить")}
                                     </Button>
                                 </> :
                                 <CopyToClipboard text={actionModal?.value?.code}
@@ -154,7 +165,7 @@ const Table = ({data}) => {
                                                      setActionModal(null)
                                                  }}>
                                     <Button>
-                                        Скопировать код в буфер обмена
+                                        {t("Скопировать код в буфер обмена")}
                                     </Button>
                                 </CopyToClipboard>
                             }

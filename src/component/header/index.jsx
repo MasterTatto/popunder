@@ -159,12 +159,11 @@ const Header = () => {
                                      to={`/${lang?.toLowerCase()}/rules/publisher`}>{t('Правила')}</NavLink>
                             {auth && <NavLink onClick={() => handleNavLinkClick(5)}
                                               className={classNames('navLink5', pathname === "/lk" && s.active)}
-                                              to={`/${lang?.toLowerCase()}/lk/publisher/websites`}>Личный
-                                кабинет</NavLink>}
+                                              to={`/${lang?.toLowerCase()}/lk/publisher/websites`}>{t('Личный кабинет')}</NavLink>}
                         </div>
                         <div className={s.navigate_auth}>
                             {auth ?
-                                <NavLink className={s.login} onClick={logout}>Выход</NavLink>
+                                <NavLink className={s.login} onClick={logout}>{t("Выход")}</NavLink>
                                 :
                                 <NavLink className={s.login}>
                                     <TelegramLoginButton

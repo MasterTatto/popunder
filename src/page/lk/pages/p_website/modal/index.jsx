@@ -6,8 +6,11 @@ import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogT
 import {useAddedPWebsiteMutation} from "../../../../../redux/global.service";
 import {toast} from "react-toastify";
 import {CopyToClipboard} from "react-copy-to-clipboard";
+import {useTranslation} from "react-i18next";
 
 const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
+    const {t} = useTranslation()
+
     const [addedPWebsite, {isLoading}] = useAddedPWebsiteMutation()
 
     const formik = useFormik({
@@ -26,9 +29,9 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
             }
 
             if (!values.domain) {
-                errors.domain = 'Обязательное поле'
+                errors.domain = t('Обязательное поле')
             } else if (!validateResumeUrl(values?.domain)) {
-                errors.domain = 'Невалидная ссылка';
+                errors.domain = t('Невалидная ссылка');
             }
             return errors
         },
@@ -38,14 +41,14 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                 .then((res) => {
                     console.log(res)
                     if (res?.ok) {
-                        toast.success('Вебсайт добавлен')
+                        toast.success(t('Вебсайт добавлен'))
                     } else {
-                        toast.error('Ошибка добавления')
+                        toast.error(t('Ошибка добавления'))
                     }
                     setOpenModalAdded(false)
                 })
                 .catch((e) => {
-                    toast.error('Ошибка добавления')
+                    toast.error(t('Ошибка добавления'))
                     console.log(e)
                 })
             console.log('submit')
@@ -57,7 +60,7 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
             open={Boolean(openModalAdded)}
             onClose={() => setOpenModalAdded(false)}
             title={<DialogTitle id="alert-dialog-title">
-                Added website
+                {t("Добавить площадку")}
             </DialogTitle>}
         >
 
@@ -71,10 +74,11 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                                error={formik.touched.domain && formik.errors.domain}
                                name={'domain'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
-                               onChange={formik.handleChange} id="outlined-basic" label="Domain" variant="outlined"/>
+                               onChange={formik.handleChange} id="outlined-basic" label={t("Домен сайта")}
+                               variant="outlined"/>
                 </DialogContent>
                 <DialogActions>
-                    <Button disabled={isLoading} type={'submit'}>Added</Button>
+                    <Button disabled={isLoading} type={'submit'}>{t('Сохранить')}</Button>
                 </DialogActions>
             </form>
         </ModalWrapper>

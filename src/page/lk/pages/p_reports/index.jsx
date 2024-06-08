@@ -19,8 +19,11 @@ import _debounce from 'lodash/debounce';
 import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
+import {useTranslation} from "react-i18next";
 
 const PubReports = () => {
+    const {t} = useTranslation()
+
     const [filteredValue, setFilteredValue] = useState('')
     const [diapason, setDiapason] = useState('')
     const [page, setPage] = useState(1)
@@ -61,12 +64,12 @@ const PubReports = () => {
 
     return (
         <div className={s.main}>
-            <Title className={s.title} color={'#247ba0'} colorLine={'#247ba0'}>Publisher/Reports</Title>
+            <Title className={s.title} color={'#247ba0'} colorLine={'#247ba0'}>{t("Вебмастер/Статистика")}</Title>
 
             <div className={s.navigate}>
                 <div className={s.search_input}>
                     <FormControl fullWidth size={'medium'} variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">Search by domain...</InputLabel>
+                        <InputLabel htmlFor="outlined-adornment-password">{t('Поиск по домену...')}</InputLabel>
                         <OutlinedInput
                             onChange={(e) => {
                                 debouncedFilter(e.target.value)
@@ -82,7 +85,7 @@ const PubReports = () => {
                                     </IconButton>
                                 </InputAdornment>
                             }
-                            label="Search by domain..."
+                            label={t('Поиск по домену...')}
                         />
                     </FormControl>
                 </div>
@@ -104,7 +107,7 @@ const PubReports = () => {
                                         format="DD.MM.YYYY" slotProps={{
                                 textField: {
                                     variant: "outlined",
-                                    InputProps: {disableUnderline: true, placeholder: 'Начало'},
+                                    InputProps: {disableUnderline: true, placeholder: t('С')},
                                 },
                             }}/>
                         </LocalizationProvider>
@@ -125,29 +128,29 @@ const PubReports = () => {
                                         format="DD.MM.YYYY" slotProps={{
                                 textField: {
                                     variant: "outlined",
-                                    InputProps: {disableUnderline: true, placeholder: 'Конец'},
+                                    InputProps: {disableUnderline: true, placeholder: t('До')},
                                 },
                             }}/>
                         </LocalizationProvider>
                     </div>
 
                     <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Диапазон</InputLabel>
+                        <InputLabel id="demo-simple-select-label">{t("Диапазон дат")}</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={diapason}
-                            label="Диапазон"
+                            label={t("Диапазон дат")}
                             onChange={(e) => {
                                 handlerSetDate(+e.target.value)
                                 setDiapason(+e.target.value)
                             }}
                         >
-                            <MenuItem value={5}>За все время</MenuItem>
-                            <MenuItem value={1}>За сегодня</MenuItem>
-                            <MenuItem value={2}>За вчера</MenuItem>
-                            <MenuItem value={3}>За текущий месяц</MenuItem>
-                            <MenuItem value={4}>За прошлый месяц</MenuItem>
+                            <MenuItem value={5}>{t("За все время")}</MenuItem>
+                            <MenuItem value={1}>{t("За сегодня")}</MenuItem>
+                            <MenuItem value={2}>{t("За вчера")}</MenuItem>
+                            <MenuItem value={3}>{t("За текущий месяц")}</MenuItem>
+                            <MenuItem value={4}>{t("За прошлый месяц")}</MenuItem>
                         </Select>
                     </FormControl>
                 </div>

@@ -3,8 +3,11 @@ import {Collapse, List, ListItemButton, ListItemIcon, ListItemText} from "@mui/m
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import {useLocation, useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const NavigateItem = ({item}) => {
+    const {t} = useTranslation()
+
     const navigate = useNavigate()
     const {pathname} = useLocation()
     const [open, setOpen] = useState(true);
@@ -37,7 +40,7 @@ const NavigateItem = ({item}) => {
                 <ListItemIcon>
                     {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={item.title}/>
+                <ListItemText primary={t(item.title)}/>
                 {item.sub_data && <>
                     {open ? <ExpandLess/> : <ExpandMore/>}
                 </>}
@@ -51,7 +54,7 @@ const NavigateItem = ({item}) => {
                                 <ListItemIcon>
                                     {sub.icon}
                                 </ListItemIcon>
-                                <ListItemText primary={sub?.title}/>
+                                <ListItemText primary={t(sub?.title)}/>
                             </ListItemButton>
                         })}
                     </List>

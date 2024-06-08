@@ -8,8 +8,11 @@ import Table from "./table";
 import {useGetPWebsiteTableQuery} from "../../../../redux/global.service";
 import ModalAdded from "./modal";
 import _debounce from 'lodash/debounce';
+import {useTranslation} from "react-i18next";
 
 const PubWebsite = () => {
+    const {t} = useTranslation()
+
     const [openModalAdded, setOpenModalAdded] = useState(false)
     const [filteredValue, setFilteredValue] = useState('')
     const [page, setPage] = useState(1)
@@ -28,12 +31,12 @@ const PubWebsite = () => {
     return (
         <div className={s.main}>
             {openModalAdded && <ModalAdded openModalAdded={openModalAdded} setOpenModalAdded={setOpenModalAdded}/>}
-            <Title className={s.title} color={'#247ba0'} colorLine={'#247ba0'}>Publisher/WebSite</Title>
+            <Title className={s.title} color={'#247ba0'} colorLine={'#247ba0'}>{t("Вебмастер/Площадки")}</Title>
 
             <div className={s.navigate}>
                 <div className={s.search_input}>
                     <FormControl fullWidth size={'medium'} variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">Search by domain...</InputLabel>
+                        <InputLabel htmlFor="outlined-adornment-password">{t('Поиск по домену...')}</InputLabel>
                         <OutlinedInput
                             onChange={(e) => {
                                 debouncedFilter(e.target.value)
@@ -51,7 +54,7 @@ const PubWebsite = () => {
                                     </IconButton>
                                 </InputAdornment>
                             }
-                            label="Search by domain..."
+                            label={t('Поиск по домену')}
                         />
                     </FormControl>
                 </div>
@@ -73,7 +76,7 @@ const PubWebsite = () => {
                                     <AddCircleIcon/>
                                 </div>
                             }>
-                        Add Website
+                        {t("Добавить площадку")}
                     </Button>
                 </div>
             </div>
