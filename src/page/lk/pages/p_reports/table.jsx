@@ -18,7 +18,7 @@ const Table = ({data}) => {
                 field: "date",
                 flex: 1,
                 cellRenderer: (params) => {
-                    const timeInUTCPlus3 = params?.value ? moment(Number(params?.value)).utcOffset(+180)?.format('DD.MM.YYYY HH:mm') : null;
+                    const timeInUTCPlus3 = params?.value ? moment(Number(params?.value)).utcOffset(+180)?.format('DD.MM.YYYY') : null;
                     return <p
                         className={classNames(s.table_text)}>{(params?.value ? timeInUTCPlus3 : '') || ''}</p>
                 }

@@ -113,7 +113,7 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
 
         }
     })
-    console.log(formik.values)
+    console.log(openModalAdded)
     useEffect(() => {
         if (openModalAdded?.typeModal) {
             formik.setValues({
@@ -197,7 +197,7 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                             label="trafficFlow"
                         >
                             <MenuItem value={'STANDARD'}>STANDARD</MenuItem>
-                            <MenuItem value={'DISTRIBUTED '}>DISTRIBUTED</MenuItem>
+                            <MenuItem value={'DISTRIBUTED'}>DISTRIBUTED</MenuItem>
                         </Select>
                         <FormHelperText
                             error={true}>{formik.touched.trafficFlow && formik.errors.trafficFlow}</FormHelperText>

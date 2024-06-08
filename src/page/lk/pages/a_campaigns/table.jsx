@@ -130,8 +130,8 @@ const Table = ({data, openEditModal}) => {
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
                 autoHeight: true,
-                minWidth: 130,
-                field: "_id",
+                minWidth: 150,
+                field: "trafficFlow",
                 flex: 1,
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{params?.value || ''}</p>
@@ -143,11 +143,11 @@ const Table = ({data, openEditModal}) => {
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
                 autoHeight: true,
-                minWidth: 100,
-                field: "_id",
+                minWidth: 170,
+                field: "regions",
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <p className={s.table_text}>{params?.value || ''}</p>
+                    return <p className={s.table_text}>{params?.value?.slice('')?.join(', ') || ''}</p>
                 }
             },
             {

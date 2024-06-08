@@ -32,7 +32,7 @@ const PubReports = () => {
     const {data} = useGetPReportsTableQuery({
         domain: `/${filteredValue}/`,
         page: page,
-        date: ((!date?.start && !date?.end) || !date) ? '' : `${date?.start ? date?.start?.valueOf() : 0},${date?.end ? date?.end?.valueOf() : 0}`
+        date: ((!date?.start && !date?.end) || !date) ? '' : `${date?.start ? date?.start?.utcOffset(+180).valueOf() : 0},${date?.end ? date?.end?.utcOffset(+180).valueOf() : 0}`
     }, {
         refetchOnReconnect: true,
         refetchOnMountOrArgChange: true,

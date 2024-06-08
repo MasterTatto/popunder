@@ -44,15 +44,15 @@ const ModalPayout = ({open, handleClose}) => {
                 .unwrap()
                 .then((res) => {
                     if (res.ok) {
-                        console.log(res)
+
                         toast.success('Withdrawal request created')
                         handleClose()
                         // window.open(res?.result?.payUrl, '_blank')
 
                     } else {
-                        toast.error('Error')
+                        toast.error(res?.errorMessage ? res?.errorMessage : 'Error')
                     }
-
+                    console.log(res)
                 })
                 .catch((e) => {
                     console.log(e)

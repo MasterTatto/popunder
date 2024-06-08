@@ -24,6 +24,10 @@ export const globalApi = createApi({
                         offset: page === 1 ? 0 : ((page * 20) - 20)
                     }
 
+                    if (domain === '//') {
+                        delete params.domain
+                    }
+
                     return {
                         url: `api/site/publisher/sites`,
                         method: 'GET',
@@ -47,6 +51,11 @@ export const globalApi = createApi({
                         limit: 20,
                         offset: page === 1 ? 0 : ((page * 20) - 20),
                     })
+
+                    if (domain === '//') {
+                        delete params.site
+                    }
+
                     return {
                         url: `api/site/publisher/reports`,
                         method: 'GET',
@@ -70,6 +79,11 @@ export const globalApi = createApi({
                         limit: 20,
                         offset: page === 1 ? 0 : ((page * 20) - 20),
                     })
+
+                    if (domain === '//') {
+                        delete params.campaignName
+                    }
+
                     return {
                         url: `api/site/advertiser/reports`,
                         method: 'GET',
@@ -152,7 +166,7 @@ export const globalApi = createApi({
                         limit: 20,
                         offset: page === 1 ? 0 : ((page * 20) - 20),
                         status: status,
-                        date: date,
+                        created: date,
                     }
                     if (!type) {
                         delete params.type
@@ -161,7 +175,7 @@ export const globalApi = createApi({
                         delete params.status
                     }
                     if (!date) {
-                        delete params.date
+                        delete params.created
                     }
                     return {
                         url: `api/site/payments`,

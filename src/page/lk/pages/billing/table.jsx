@@ -71,7 +71,7 @@ const Table = ({data}) => {
                 // wrapText: true,
                 // autoHeight: true,
                 minWidth: 100,
-                field: "currency",
+                field: "wallet",
                 cellStyle: {lineHeight: '1.3'},
                 flex: 1,
                 cellRenderer: (params) => {

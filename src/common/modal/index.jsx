@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, IconButton, Modal, Stack, useMediaQuery} from "@mui/material";
+import {Box, Dialog, IconButton, Modal, Stack, useMediaQuery} from "@mui/material";
 import s from './styles.module.css'
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -14,11 +14,11 @@ const style = {
 };
 
 const styleS = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    maxWidth: '440px',
+    // position: 'absolute',
+    // top: '50%',
+    // left: '50%',
+    // transform: 'translate(-50%, -50%)',
+    // maxWidth: '440px',
     width: '100%',
     padding: '0 10px',
     paddingRight: '0px',
@@ -49,18 +49,22 @@ const full_heightS = {
 
 const ModalWrapper = ({children, width = '440px', height = 'fit-content', open, onClose, title = ''}) => {
     const query_700 = useMediaQuery('(max-width:780px)');
+    console.log('wtf')
     return (
-        <Modal
+        <Dialog
+            fullWidth
             sx={{
-                zIndex: 20,
-
+                '& .MuiPaper-root': {
+                    maxWidth: width,
+                }
             }}
             open={open}
             onClose={onClose}
+
         >
             <Stack sx={query_700 ? {...styleS, ...full_height} : {
                 ...styleS,
-                maxWidth: width,
+                // maxWidth: width,
                 height: height
             }}>
                 <Box sx={query_700 ? {...style, ...full_heightS} : {...style, height: '100%', maxHeight: '100%'}}>
@@ -73,7 +77,7 @@ const ModalWrapper = ({children, width = '440px', height = 'fit-content', open, 
                     {children}
                 </Box>
             </Stack>
-        </Modal>
+        </Dialog>
     );
 };
 
