@@ -7,10 +7,15 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Avatar, useMediaQuery} from "@mui/material";
 import classNames from "classnames";
 import {useTranslation} from "react-i18next";
+import img1 from '../../../../assetss/1за пополнение.jpg'
+import img2 from '../../../../assetss/2лояльность.jpg'
+import img3 from '../../../../assetss/3рефералы.jpg'
+import img4 from '../../../../assetss/4качество.png'
+import img5 from '../../../../assetss/5топ.jpg'
 
 const mock = [
     {
-        // img: 'https://popunder.net/assets/index/images/refill.jpg',
+        img: img1,
         title: 'За пополнение',
         description: [
             {
@@ -20,7 +25,7 @@ const mock = [
         ]
     },
     {
-        // img: 'https://popunder.net/assets/index/images/loyality.jpg',
+        img: img2,
         title: 'За лояльность',
         description: [
             {
@@ -36,7 +41,7 @@ const mock = [
         ]
     },
     {
-        // img: 'https://popunder.net/assets/index/images/referals.jpg',
+        img: img3,
         title: 'За рефералов',
         description: [
             {
@@ -46,7 +51,7 @@ const mock = [
         ]
     },
     {
-        // img: 'https://popunder.net/assets/index/images/quality.jpg',
+        img: img4,
         title: 'За качество',
         description: [
             {
@@ -56,7 +61,7 @@ const mock = [
         ]
     },
     {
-        // img: 'https://popunder.net/assets/index/images/top.jpg',
+        img: img5,
         title: 'За ТОП',
         description: [
             {
@@ -71,21 +76,21 @@ const mock = [
             },
         ]
     },
-    {
-        // img: 'https://popunder.net/assets/index/images/geo_discount.jpg',
-        title: 'Скидка по географии',
-        description: [
-            {
-                title: 'Скидка для рекламодателей',
-                sub_title: 'Получайте трафик из определённых стран со скидкой'
-            },
-            {
-                title: 'Скидка 50%',
-                sub_title: 'Албания, Алжир, Аргентина, Армения, Беларусь, Бразилия, Венесуэла, Вьетнам, Египет, Индия, Индонезия, Иордания, Ирак, Ирландия, Казахстан, Колумбия, Кыргызстан, Малайзия, Мексика, Молдова, Пакистан, Северная Корея, Тайланд, Турция, Узбекистан, Украина, Филиппины, Чили'
-            },
-
-        ]
-    },
+    // {
+    //     // img: 'https://popunder.net/assets/index/images/geo_discount.jpg',
+    //     title: 'Скидка по географии',
+    //     description: [
+    //         {
+    //             title: 'Скидка для рекламодателей',
+    //             sub_title: 'Получайте трафик из определённых стран со скидкой'
+    //         },
+    //         {
+    //             title: 'Скидка 50%',
+    //             sub_title: 'Албания, Алжир, Аргентина, Армения, Беларусь, Бразилия, Венесуэла, Вьетнам, Египет, Индия, Индонезия, Иордания, Ирак, Ирландия, Казахстан, Колумбия, Кыргызстан, Малайзия, Мексика, Молдова, Пакистан, Северная Корея, Тайланд, Турция, Узбекистан, Украина, Филиппины, Чили'
+    //         },
+    //
+    //     ]
+    // },
 ]
 const Page2 = () => {
     const matches = useMediaQuery('(max-width:768px)');

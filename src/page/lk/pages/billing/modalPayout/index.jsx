@@ -9,14 +9,15 @@ import {
     DialogTitle,
     TextField
 } from "@mui/material";
-import {useSetDepositMutation} from "../../../../../redux/global.service";
+import {useGetProfileMutation, useSetDepositMutation} from "../../../../../redux/global.service";
 import {toast} from "react-toastify";
+import {useTranslation} from "react-i18next";
 
 
 const ModalPayout = ({open, handleClose}) => {
-
+    const [getProfile, {isLoading: isLoadingProfile}] = useGetProfileMutation()
     const [setDeposit, {isLoading}] = useSetDepositMutation()
-
+    const {t} = useTranslation()
 
     const formik = useFormik({
         initialValues: {
@@ -28,13 +29,13 @@ const ModalPayout = ({open, handleClose}) => {
             const errors = {}
 
             if (!values.amount) {
-                errors.amount = 'Обязательное поле'
+                errors.amount = t('Обязательное поле')
             } else if (+values.amount < 1) {
-                errors.amount = 'Минимальная сумма 1'
+                errors.amount = t('Минимальная сумма 1')
             }
 
             if (!values.wallet) {
-                errors.wallet = 'Обязательное поле'
+                errors.wallet = t('Обязательное поле')
             }
 
             return errors
@@ -44,10 +45,16 @@ const ModalPayout = ({open, handleClose}) => {
                 .unwrap()
                 .then((res) => {
                     if (res.ok) {
+                        getProfile()
+                            .unwrap()
+                            .then((res) => {
+                                handleClose()
+                                toast.success(t('Запрос на вывод средств создан.'))
+                            })
+                            .catch((e) => {
+                                console.log(e)
 
-                        toast.success('Withdrawal request created')
-                        handleClose()
-                        // window.open(res?.result?.payUrl, '_blank')
+                            })
 
                     } else {
                         toast.error(res?.errorMessage ? res?.errorMessage : 'Error')
@@ -66,7 +73,7 @@ const ModalPayout = ({open, handleClose}) => {
             open={open}
             onClose={handleClose}
             title={<DialogTitle id="alert-dialog-title">
-                Payout
+                {t("Вывод")}
             </DialogTitle>}
         >
 
@@ -82,18 +89,20 @@ const ModalPayout = ({open, handleClose}) => {
                                error={formik.touched.amount && formik.errors.amount}
                                name={'amount'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
-                               onChange={formik.handleChange} id="outlined-basic" label="Amount" variant="outlined"/>
+                               onChange={formik.handleChange} id="outlined-basic" label={t("Сумма")}
+                               variant="outlined"/>
                     <TextField value={formik.values.wallet}
                                autoComplete={'new-password'}
                                helperText={formik.touched.wallet && formik.errors.wallet}
                                error={formik.touched.wallet && formik.errors.wallet}
                                name={'wallet'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
-                               onChange={formik.handleChange} id="outlined-basic" label="Wallet" variant="outlined"/>
+                               onChange={formik.handleChange} id="outlined-basic" label={t("Кошелек")}
+                               variant="outlined"/>
 
                 </DialogContent>
                 <DialogActions>
-                    <Button disabled={isLoading} type={'submit'}>Вывести</Button>
+                    <Button disabled={isLoading || isLoadingProfile} type={'submit'}>{t("Вывести")}</Button>
                 </DialogActions>
             </form>
         </ModalWrapper>

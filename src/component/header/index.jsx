@@ -55,7 +55,6 @@ const Header = () => {
     const lineRef = useRef(null);
     const [lineWidth, setLineWidth] = useState(0);
     const [visibleLang, setVisibleLang] = useState(false)
-
     const [openMenu, setOpenMenu] = useState(false)
 
     const handleNavLinkClick = (index) => {
@@ -91,7 +90,9 @@ const Header = () => {
     const logout = async () => {
         try {
             const res = await api().get('api/site/logout')
+            // window.location.reload()
             setIsAuth(false)
+
         } catch (e) {
             console.log(e)
         }
@@ -165,8 +166,9 @@ const Header = () => {
                             {auth ?
                                 <NavLink className={s.login} onClick={logout}>{t("Выход")}</NavLink>
                                 :
-                                <NavLink className={s.login}>
+                                <p className={s.login}>
                                     <TelegramLoginButton
+                                        language_code={'en'}
                                         botName="clickunder_bot"
                                         dataOnauth={(user) => {
                                             console.log(user)
@@ -197,7 +199,8 @@ const Header = () => {
                                         }}
                                     />
                                     {t('Вход')}
-                                </NavLink>}
+                                </p>
+                            }
                             <div className={s.lang}>
                                 <div className={s.ru} onClick={() => setVisibleLang(!visibleLang)}>
                                     {lang === 'RU' ? 'RU' : "EN"}

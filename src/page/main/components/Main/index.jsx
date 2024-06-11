@@ -6,8 +6,10 @@ import {useTranslation} from "react-i18next";
 import {scrollToTop} from "../../../../utils/scrollToTop";
 import {Avatar} from "@mui/material";
 import logo from '../../../../assetss/icon.png'
+import navigate from "../../../lk/navigate";
+import {useNavigate} from "react-router-dom";
 
-const linksBottom = [
+const linksBottom = (navigate) => [
 
     {
         title: 'CКИДКИ И БОНУСЫ', onClick: () => {
@@ -23,13 +25,13 @@ const linksBottom = [
     },
     {
         title: 'НОВОСТИ', onClick: () => {
-            const rtb = document.getElementById('news')
-            scrollToTop(rtb.offsetTop || 0)
+            navigate('news')
         }
     },
 ]
 
 const Page1 = () => {
+    const navigate = useNavigate()
     const {t} = useTranslation()
 
     return (
@@ -86,8 +88,9 @@ const Page1 = () => {
                 </div>
             </Container>
             <div className={s.navigate_bottom}>
-                {linksBottom?.map((el) => <div className={s.navigate_bottom_item} onClick={el.onClick && el.onClick}
-                                               key={el.title}>{t(el.title)}</div>)}
+                {linksBottom(navigate)?.map((el) => <div className={s.navigate_bottom_item}
+                                                         onClick={el.onClick && el.onClick}
+                                                         key={el.title}>{t(el.title)}</div>)}
             </div>
         </div>
     );

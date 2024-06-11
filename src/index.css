@@ -115,3 +115,7 @@ table {
 .ag-cell-focus {
     border: 1px solid rgba(255, 255, 255, 0) !important;
 }
+
+.telegram-login-clickunder_bot{
+    width: 100% !important;
+}

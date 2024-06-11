@@ -13,6 +13,7 @@ export const globalApi = createApi({
                     method: 'GET',
                 }),
             }),
+
             getPWebsiteTable: build.query({
                 query: ({domain, page}) => {
                     const params = domain === '//' ? {

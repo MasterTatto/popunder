@@ -10,7 +10,7 @@ import {LangContext} from "../../App";
 import {Avatar} from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-const months = {
+export const months = {
     'ru': [
         'Января',
         'Февраля',
@@ -48,25 +48,64 @@ const News = () => {
     const [news, setNews] = useState([])
     const [loading, setLoading] = useState(false);
     const [maxCount, setMaxCount] = useState(10)
-
+    const [forceHidden, setForceHidden] = useState(false)
     const getNews = async () => {
-        setLoading(true);
-        try {
-            const res = await api().get(`api/site/news?limit=${limit}&offset=${news.length}`);
-            setMaxCount(res?.data?.count)
-            setNews((prevNews) => [...prevNews, ...(res?.data?.result || [])]);
-            setLimit((prevLimit) => prevLimit + 10);
-        } catch (e) {
-            console.log(e);
-        } finally {
-            setLoading(false);
+        if (!forceHidden) {
+            return
+        } else {
+            setLoading(true);
+            try {
+                console.log('wow2', forceHidden)
+                const res = await api().get(`api/site/news?limit=${limit}&offset=${news.length}&language=${lang}`);
+                setMaxCount(res?.data?.count)
+                setNews((prevNews) => [...prevNews, ...(res?.data?.result || [])]);
+                setLimit((prevLimit) => prevLimit + 10);
+            } catch (e) {
+                console.log(e);
+            } finally {
+                setLoading(false);
+            }
         }
     };
 
     useEffect(() => {
-        getNews();
-    }, []);
+        if (!forceHidden) {
+            setTimeout(() => {
+                setForceHidden(true)
+            }, 300)
+        } else {
+            getNews();
+        }
 
+    }, [forceHidden]);
+
+    useEffect(() => {
+
+        const getNewsNew = async () => {
+            if (!forceHidden) {
+                return
+            } else {
+                setLoading(true);
+                try {
+                    console.log('wow')
+                    const res = await api().get(`api/site/news?limit=${2}&offset=${0}&language=${lang}`);
+                    setMaxCount(res?.data?.count)
+                    setNews(res?.data?.result || []);
+                    setLimit(10);
+                } catch (e) {
+                    console.log(e);
+                } finally {
+                    setLoading(false);
+                }
+            }
+        };
+        if (!forceHidden) {
+            return
+        } else {
+            getNewsNew()
+        }
+
+    }, [lang])
     return (
         <div className={s.main}>
 
@@ -78,14 +117,14 @@ const News = () => {
                 <div className={s.news_box}>
                     <Container>
                         <InfiniteScroll
+
                             dataLength={news.length}
                             next={getNews}
                             hasMore={maxCount !== news?.length}
 
                         >
                             {news?.map((el, i) => {
-                                const splitText = el?.text ? JSON.stringify(el.text)?.split('\\n') : el?.text
-
+                                const year = moment().format('YYYY') === moment(el?.created).format('YYYY')
                                 return <div className={s.item} key={el._id}>
                                     <div className={s.item_top_main}>
                                         {el.image && <div className={s.img_box}>
@@ -102,9 +141,9 @@ const News = () => {
                                                         {months[lang?.toLowerCase()][moment(el?.created).month()]}
                                                     </p>
                                                 </div>
-                                                <div className={s.item_top_right}>
+                                                {!year && <div className={s.item_top_right}>
                                                     {moment(el?.created).format('YYYY')}
-                                                </div>
+                                                </div>}
                                             </div>
                                             <div className={s.item_middle}>
                                                 {el.title}
@@ -112,12 +151,10 @@ const News = () => {
                                         </div>
                                     </div>
                                     <div className={s.item_bottom}>
-                                        {splitText ? splitText?.map((line, index) => {
-                                            return <React.Fragment key={index}>
-                                                {line?.replaceAll('"', '')}
-                                                <br/>
-                                            </React.Fragment>
-                                        }) : null}
+                                        <div dangerouslySetInnerHTML={{
+                                            __html:
+                                                `${el.text}`
+                                        }}/>
                                     </div>
                                 </div>
                             })}

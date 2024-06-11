@@ -8,11 +8,14 @@ import {IconButton, Menu, MenuItem} from "@mui/material";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PopupState, {bindMenu, bindTrigger} from "material-ui-popup-state";
 import moment from "moment/moment";
+import {useTranslation} from "react-i18next";
 
 const Table = ({data}) => {
+        const {t} = useTranslation()
+
         const colDefs = [
             {
-                headerName: 'Date',
+                headerName: t('Дата'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3', padding: 0},
                 // wrapText: true,
@@ -27,7 +30,7 @@ const Table = ({data}) => {
                 }
             },
             {
-                headerName: 'Type',
+                headerName: t('Тип'),
                 menuTabs: [],
                 // wrapText: true,
                 // autoHeight: true,
@@ -40,7 +43,7 @@ const Table = ({data}) => {
                 }
             },
             {
-                headerName: 'Status',
+                headerName: t('Статус'),
                 menuTabs: [],
                 // wrapText: true,
                 // autoHeight: true,
@@ -53,7 +56,7 @@ const Table = ({data}) => {
                 }
             },
             {
-                headerName: 'Amount',
+                headerName: t('Сумма'),
                 menuTabs: [],
                 // wrapText: true,
                 // autoHeight: true,
@@ -66,7 +69,7 @@ const Table = ({data}) => {
                 }
             },
             {
-                headerName: 'Wallet',
+                headerName: t('Кошелек'),
                 menuTabs: [],
                 // wrapText: true,
                 // autoHeight: true,

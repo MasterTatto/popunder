@@ -12,10 +12,11 @@ import {
 } from "@mui/material";
 import {useSetDepositMutation} from "../../../../../redux/global.service";
 import {toast} from "react-toastify";
+import {useTranslation} from "react-i18next";
 
 
 const ModalDeposit = ({open, handleClose}) => {
-
+    const {t} = useTranslation()
     const [setDeposit, {isLoading}] = useSetDepositMutation()
 
 
@@ -28,9 +29,9 @@ const ModalDeposit = ({open, handleClose}) => {
             const errors = {}
 
             if (!values.amount) {
-                errors.amount = 'Обязательное поле'
+                errors.amount = t('Обязательное поле')
             } else if (+values.amount < 1) {
-                errors.amount = 'Минимальная сумма 1'
+                errors.amount = t('Минимальная сумма 1')
             }
 
             return errors
@@ -61,7 +62,7 @@ const ModalDeposit = ({open, handleClose}) => {
             open={open}
             onClose={handleClose}
             title={<DialogTitle id="alert-dialog-title">
-                Deposit
+                {t("Пополнение")}
             </DialogTitle>}
         >
 
@@ -77,11 +78,12 @@ const ModalDeposit = ({open, handleClose}) => {
                                error={formik.touched.amount && formik.errors.amount}
                                name={'amount'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
-                               onChange={formik.handleChange} id="outlined-basic" label="Amount" variant="outlined"/>
+                               onChange={formik.handleChange} id="outlined-basic" label={t("Сумма")}
+                               variant="outlined"/>
 
                 </DialogContent>
                 <DialogActions>
-                    <Button disabled={isLoading} type={'submit'}>Пополнить</Button>
+                    <Button disabled={isLoading} type={'submit'}>{t("Пополнить")}</Button>
                 </DialogActions>
             </form>
         </ModalWrapper>

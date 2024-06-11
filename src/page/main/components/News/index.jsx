@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import s from './styles.module.css'
 import Title from "../../../../common/title";
 import Container from "../../../../component/container";
@@ -10,10 +10,12 @@ import {api} from "../../../../utils/api";
 import {Avatar} from "@mui/material";
 import moment from "moment";
 import NoPhotographyIcon from '@mui/icons-material/NoPhotography';
+import {months} from "../../../news";
+import {LangContext} from "../../../../App";
 
 const News = () => {
     const {t} = useTranslation()
-
+    const {lang} = useContext(LangContext)
     const [swiper, setSwiper] = useState({})
     const [active, setActive] = useState(0)
     const [news, setNews] = useState([])
@@ -45,10 +47,10 @@ const News = () => {
                         onSwiper={setSwiper}
                     >
                         {news?.map((el) => {
-                            const splitText = el?.text ? JSON.stringify(el.text)?.split('\\n') : el?.text
+                            // const splitText = el?.text ? JSON.stringify(el.text)?.split('\\n') : el?.text
                             // const splitText = []
-                            console.log(splitText)
-                            console.log(JSON.stringify(el.text))
+                            const year = moment().format('YYYY') === moment(el?.created).format('YYYY')
+
                             return <SwiperSlide key={el._id}>
                                 <div className={s.item}>
                                     <div className={s.description}>
@@ -62,18 +64,23 @@ const News = () => {
                                             </div>}
                                             <div className={s.item_bottom}>
                                                 <div className={s.date}>
-                                                    {moment(el.created)?.format('DD.MM.YYYY')}
+                                                    {moment(el?.created).format('DD')}
+                                                    &nbsp;
+                                                    {months[lang?.toLowerCase()][moment(el?.created).month()]}
+                                                    &nbsp;
+                                                    {!year && moment(el?.created).format('YYYY')}
                                                 </div>
                                                 <h4 className={s.title}>{el.title}</h4>
                                             </div>
                                         </div>
                                         <p className={s.text}>
-                                            {splitText ? splitText?.map((line, index) => {
-                                                return <React.Fragment key={index}>
-                                                    {line?.replaceAll('"', '')}
-                                                    <br/>
-                                                </React.Fragment>
-                                            }) : null}
+                                            <div dangerouslySetInnerHTML={{__html: el.text}}/>
+                                            {/*{splitText ? splitText?.map((line, index) => {*/}
+                                            {/*    return <React.Fragment key={index}>*/}
+                                            {/*        {line?.replaceAll('"', '')}*/}
+                                            {/*        <br/>*/}
+                                            {/*    </React.Fragment>*/}
+                                            {/*}) : null}*/}
                                         </p>
                                     </div>
 

@@ -35,7 +35,7 @@ const AdvReports = () => {
     const {data} = useGetAReportsTableQuery({
         domain: `/${filteredValue}/`,
         page: page,
-        date: ((!date?.start && !date?.end) || !date) ? '' : `${date?.start ? date?.start?.utcOffset(+180)?.valueOf() : 0},${date?.end ? date?.end?.utcOffset(+180)?.valueOf() : 0}`
+        date: ((!date?.start && !date?.end) || !date) ? '' : `${date?.start ? (Number(moment(date?.start?.valueOf()).format('x')) + (moment(date?.start?.valueOf()).utcOffset() - 180) * 60 * 1000) : 0},${date?.end ? (Number(moment(date?.end?.valueOf()).format('x')) + (moment(date?.end?.valueOf()).utcOffset() - 180) * 60 * 1000) : 0}`
     }, {
         refetchOnReconnect: true,
         refetchOnMountOrArgChange: true,

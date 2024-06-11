@@ -5,25 +5,26 @@ import {useTranslation} from "react-i18next";
 import Container from "../../../../component/container";
 import classNames from "classnames";
 import {Avatar} from "@mui/material";
+import img1 from '../../../../assetss/api.jpg'
 
 const mock = [
+    // {
+    //     // img: 'https://popunder.net/assets/index/images/rtbn.jpg',
+    //     title: 'RTB, XML, JSON',
+    //     description: [
+    //         {
+    //             sub_title: 'Мы сотрудничаем с различными сетями путём интеграции по ORTB, XML, JSON.'
+    //         },
+    //         {
+    //             sub_title: 'Готовы работать с новыми партнёрами в обе стороны - на покупку и на продажу трафика.'
+    //         },
+    //         {
+    //             sub_title: 'Обращайтесь, пожалуйста.'
+    //         },
+    //     ]
+    // },
     {
-        // img: 'https://popunder.net/assets/index/images/rtbn.jpg',
-        title: 'RTB, XML, JSON',
-        description: [
-            {
-                sub_title: 'Мы сотрудничаем с различными сетями путём интеграции по ORTB, XML, JSON.'
-            },
-            {
-                sub_title: 'Готовы работать с новыми партнёрами в обе стороны - на покупку и на продажу трафика.'
-            },
-            {
-                sub_title: 'Обращайтесь, пожалуйста.'
-            },
-        ]
-    },
-    {
-        // img: 'https://popunder.net/assets/index/images/apin.jpg',
+        img: img1,
         title: 'API',
         description: [
             {

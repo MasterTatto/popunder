@@ -67,7 +67,7 @@
     transform: translateX(80%);
 }
 
-.navigate_link a, .navigate_auth a {
+.navigate_link a, .navigate_auth a, .navigate_auth p {
     cursor: pointer;
     padding: 0 15px;
 
@@ -128,13 +128,31 @@
 
 .login {
     position: relative;
-    overflow: hidden
+    display: flex !important;
+    overflow: hidden;
+    /*margin: 0 15px !important;*/
+    padding: 10px 15px !important;
+    margin-right: 15px;
+    border: 1px solid lightgrey;
+    height: fit-content !important;
+    z-index: 1;
+    border-radius: 20px;
+    /*width: 100px;*/
 }
 
 .login div {
-    position: absolute;
-    opacity: 0;
+    position: absolute !important;
+    z-index: 0 !important;
+    opacity: 0.1;
+    background: red !important;
+    /*position: relative;*/
+    z-index: 2 !important;
+    /*padding: 0 15px !important;*/
 }
+
+/*.login div iframe {*/
+/*    width: 100px !important;*/
+/*}*/
 
 .en_active {
     opacity: 1;

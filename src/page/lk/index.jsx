@@ -21,6 +21,7 @@ import {selectGlobal} from "../../redux/slice/global.slice";
 
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
+import {useTranslation} from "react-i18next";
 
 const navigate = [
     {
@@ -45,6 +46,8 @@ const navigate = [
 ]
 
 const Lk = () => {
+    const {t} = useTranslation()
+
     const {lang} = useContext(LangContext)
     const {auth} = useContext(AuthContext)
 
@@ -65,7 +68,7 @@ const Lk = () => {
                             id: {user?.user?.chatId || 'none'}
                         </p>
                         <p className={s.uid}>
-                            Balance: {(user?.user?.balance || 0).toFixed(2) || '0'}$
+                            {t("Баланс")}: {(user?.user?.balance || 0).toFixed(2) || '0'}$
                         </p>
                     </div>
                 </div>
