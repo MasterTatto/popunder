@@ -97,7 +97,7 @@ const ModalPayout = ({open, handleClose}) => {
                                error={formik.touched.wallet && formik.errors.wallet}
                                name={'wallet'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
-                               onChange={formik.handleChange} id="outlined-basic" label={t("Кошелек")}
+                               onChange={formik.handleChange} id="outlined-basic" label={t("Адрес USDT TRC20")}
                                variant="outlined"/>
 
                 </DialogContent>

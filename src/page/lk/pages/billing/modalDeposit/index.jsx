@@ -62,7 +62,7 @@ const ModalDeposit = ({open, handleClose}) => {
             open={open}
             onClose={handleClose}
             title={<DialogTitle id="alert-dialog-title">
-                {t("Пополнение")}
+                {t("Пополнение вашего счёта")}
             </DialogTitle>}
         >
 

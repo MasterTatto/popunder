@@ -22,7 +22,7 @@ const News = () => {
 
     const getNews = async () => {
         try {
-            const res = await api().get('api/site/news?limit=3&offset=0')
+            const res = await api().get(`api/site/news?limit=3&offset=0&language=${lang}`)
             setNews(res?.data?.result || [])
             console.log(res)
         } catch (e) {
@@ -32,7 +32,7 @@ const News = () => {
 
     useEffect(() => {
         getNews()
-    }, [])
+    }, [lang])
 
     return (
         <div className={s.main} id={'news'}>

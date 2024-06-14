@@ -41,7 +41,7 @@ const navigate = [
         title: 'Финансы', icon: <PaidIcon/>, link: 'billing',
     },
     {
-        title: 'Контакты', icon: <EmailIcon/>, redirect: true
+        title: 'Обратная связь', icon: <EmailIcon/>, redirect: true
     },
 ]
 

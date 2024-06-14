@@ -19,8 +19,11 @@ import {
 } from "../../../../../redux/global.service";
 import {toast} from "react-toastify";
 import {CopyToClipboard} from "react-copy-to-clipboard";
+import {useTranslation} from "react-i18next";
 
 const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
+    const {t} = useTranslation()
+
     const [addedCampaign, {isLoading: isLoadingAdded}] = useAddedCampaignMutation()
     const [editCampaign, {isLoading: isLoadingEdit}] = useEditCampaignMutation()
 
@@ -132,7 +135,7 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
             open={Boolean(openModalAdded)}
             onClose={() => setOpenModalAdded(false)}
             title={<DialogTitle id="alert-dialog-title">
-                {openModalAdded?.typeModal ? 'Edit campaign' : 'Create campaign'}
+                {openModalAdded?.typeModal ? t('Редактировать кампанию') : t('Создать кампанию')}
             </DialogTitle>}
         >
 
@@ -146,13 +149,13 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                                error={formik.touched.name && formik.errors.name}
                                name={'name'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
-                               onChange={formik.handleChange} id="outlined-basic" label="Name" variant="outlined"/>
+                               onChange={formik.handleChange} id="outlined-basic" label={t('Имя')} variant="outlined"/>
                     <TextField value={formik.values.url}
                                helperText={formik.touched.url && formik.errors.url}
                                error={formik.touched.url && formik.errors.url}
                                name={'url'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
-                               onChange={formik.handleChange} id="outlined-basic" label="Url" variant="outlined"/>
+                               onChange={formik.handleChange} id="outlined-basic" label={t('Ссылка')} variant="outlined"/>
 
                     <TextField value={formik.values.cpm}
                                type={'number'}
@@ -162,7 +165,8 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                                error={formik.touched.cpm && formik.errors.cpm}
                                name={'cpm'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
-                               onChange={formik.handleChange} id="outlined-basic" label="Cpm" variant="outlined"/>
+                               onChange={formik.handleChange} id="outlined-basic" label={t("Ставка")}
+                               variant="outlined"/>
                     <TextField value={formik.values.dailyBudget}
                                type={'number'}
                                inputProps={{step: "1", min: 0}}
@@ -171,7 +175,7 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                                error={formik.touched.dailyBudget && formik.errors.dailyBudget}
                                name={'dailyBudget'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
-                               onChange={formik.handleChange} id="outlined-basic" label="dailyBudget"
+                               onChange={formik.handleChange} id="outlined-basic" label={t('Дневной бюджет')}
                                variant="outlined"/>
                     <TextField value={formik.values.totalBudget}
                                type={'number'}
@@ -181,10 +185,10 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                                error={formik.touched.totalBudget && formik.errors.totalBudget}
                                name={'totalBudget'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
-                               onChange={formik.handleChange} id="outlined-basic" label="totalBudget"
+                               onChange={formik.handleChange} id="outlined-basic" label={t("Общий бюджет")}
                                variant="outlined"/>
                     <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">trafficFlow</InputLabel>
+                        <InputLabel id="demo-simple-select-label">{t("Способ показа")}</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
@@ -194,10 +198,10 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                             error={formik.touched.trafficFlow && formik.errors.trafficFlow}
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
-                            label="trafficFlow"
+                            label={t("Способ показа")}
                         >
-                            <MenuItem value={'STANDARD'}>STANDARD</MenuItem>
-                            <MenuItem value={'DISTRIBUTED'}>DISTRIBUTED</MenuItem>
+                            <MenuItem value={'STANDARD'}>{t("СТАНДАРТ")}</MenuItem>
+                            <MenuItem value={'DISTRIBUTED'}>{t("РАСПРЕДЕЛЕННЫЕ")}</MenuItem>
                         </Select>
                         <FormHelperText
                             error={true}>{formik.touched.trafficFlow && formik.errors.trafficFlow}</FormHelperText>
@@ -219,7 +223,7 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                         error={formik.touched.regions && formik.errors.regions}
                         onBlur={formik.handleBlur}
 
-                        label="regions"
+                        label={t("Регионы")}
                     >
                         <MenuItem value={'RUSSIA'}>RUSSIA</MenuItem>
                         <MenuItem value={'POLAND'}>POLAND</MenuItem>
@@ -229,7 +233,8 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
 
                 </DialogContent>
                 <DialogActions>
-                    <Button disabled={isLoading} type={'submit'}>{openModalAdded?.typeModal ? 'Save' : 'Added'}</Button>
+                    <Button disabled={isLoading}
+                            type={'submit'}>{openModalAdded?.typeModal ? t('Сохранить') : t('Добавить')}</Button>
                 </DialogActions>
             </form>
         </ModalWrapper>

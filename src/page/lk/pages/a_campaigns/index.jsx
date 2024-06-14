@@ -15,8 +15,11 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Table from "./table";
 import {useGetCampaignsTableQuery} from "../../../../redux/global.service";
 import ModalAdded from "./modal";
+import {useTranslation} from "react-i18next";
 
 const AdvCampaigns = () => {
+    const {t} = useTranslation()
+
     const [openModalAdded, setOpenModalAdded] = useState(false)
     const [filteredValue, setFilteredValue] = useState('all')
     const [page, setPage] = useState(1)
@@ -32,24 +35,24 @@ const AdvCampaigns = () => {
     return (
         <div className={s.main}>
             {openModalAdded && <ModalAdded openModalAdded={openModalAdded} setOpenModalAdded={setOpenModalAdded}/>}
-            <Title className={s.title} color={'#247ba0'} colorLine={'#247ba0'}>Advertiser/Campaigns</Title>
+            <Title className={s.title} color={'#247ba0'} colorLine={'#247ba0'}>{t("Рекламодатель/Кампании")}</Title>
 
             <div className={s.navigate}>
                 <div className={s.search_input}>
                     <FormControl fullWidth size={'medium'} variant="outlined">
-                        <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                        <InputLabel id="demo-simple-select-label">{t('Статус')}</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={filteredValue}
-                            label="Status"
+                            label={t('Статус')}
                             onChange={(e) => setFilteredValue(e.target.value)}
                         >
-                            <MenuItem value={'all'}>ALL</MenuItem>
-                            <MenuItem value={'REJECTED'}>REJECTED</MenuItem>
-                            <MenuItem value={'PAUSED'}>PAUSED</MenuItem>
-                            <MenuItem value={'RUNNING'}>RUNNING</MenuItem>
-                            <MenuItem value={'MODERATION'}>MODERATION</MenuItem>
+                            <MenuItem value={'all'}>{t('Все статусы')}</MenuItem>
+                            <MenuItem value={'REJECTED'}>{t('Отклоненный')}</MenuItem>
+                            <MenuItem value={'PAUSED'}>{t('Приостановлено')}</MenuItem>
+                            <MenuItem value={'RUNNING'}>{t('Запущено')}</MenuItem>
+                            <MenuItem value={'MODERATION'}>{t('Проверка')}</MenuItem>
                         </Select>
                     </FormControl>
                 </div>
@@ -68,7 +71,7 @@ const AdvCampaigns = () => {
                                     <AddCircleIcon/>
                                 </div>
                             }>
-                        Create Campaign
+                        {t("Создать кампанию")}
                     </Button>
                 </div>
             </div>

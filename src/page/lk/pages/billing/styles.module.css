@@ -82,6 +82,15 @@
     text-overflow: ellipsis;
 }
 
+.balance {
+    line-height: 130%;
+    font-family: Poppins, sans-serif;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .table_text_link {
     color: #247ba0;
     display: block;

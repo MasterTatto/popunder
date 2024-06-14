@@ -10,8 +10,11 @@ import PopupState, {bindMenu, bindTrigger} from "material-ui-popup-state";
 import RemoveModal from "./remove_modal";
 import {useStartStopCampaignMutation} from "../../../../redux/global.service";
 import {toast} from "react-toastify";
+import {useTranslation} from "react-i18next";
 
 const Table = ({data, openEditModal}) => {
+        const {t} = useTranslation()
+
         const [removeModal, setRemoveModal] = useState(false)
         const [startStopCampaign] = useStartStopCampaignMutation()
 
@@ -20,9 +23,9 @@ const Table = ({data, openEditModal}) => {
                 .unwrap()
                 .then((res) => {
                     if (type === 'start') {
-                        toast.success('Компания заупщена')
+                        toast.success(t('Кампания заупщена'))
                     } else {
-                        toast.warning('Компания приостановлена')
+                        toast.warning(t('Кампания приостановлена'))
                     }
                     console.log(res)
                 })
@@ -33,7 +36,7 @@ const Table = ({data, openEditModal}) => {
 
         const colDefs = [
             {
-                headerName: 'ID',
+                headerName: t('ID кампании'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3', padding: 0},
                 // wrapText: true,
@@ -46,7 +49,7 @@ const Table = ({data, openEditModal}) => {
                 }
             },
             {
-                headerName: 'Name',
+                headerName: t('Имя'),
                 menuTabs: [],
                 // wrapText: true,
                 // autoHeight: true,
@@ -59,7 +62,7 @@ const Table = ({data, openEditModal}) => {
                 }
             },
             {
-                headerName: 'Status',
+                headerName: t('Статус'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 // wrapText: true,
@@ -72,7 +75,7 @@ const Table = ({data, openEditModal}) => {
                 }
             },
             {
-                headerName: 'URL',
+                headerName: t('Ссылка'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 // wrapText: true,
@@ -86,7 +89,7 @@ const Table = ({data, openEditModal}) => {
                 }
             },
             {
-                headerName: 'CPM',
+                headerName: t('Ставка'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
@@ -99,7 +102,33 @@ const Table = ({data, openEditModal}) => {
                 }
             },
             {
-                headerName: 'Daily budget',
+                headerName: t('Кликов сегодня'),
+                menuTabs: [],
+                cellStyle: {lineHeight: '1.3'},
+                wrapText: true,
+                autoHeight: true,
+                minWidth: 100,
+                field: "clicksToday",
+                flex: 1,
+                cellRenderer: (params) => {
+                    return <p className={s.table_text}>{params?.value || 0}</p>
+                }
+            },
+            {
+                headerName: t("Потрачено сегодня"),
+                menuTabs: [],
+                cellStyle: {lineHeight: '1.3'},
+                wrapText: true,
+                autoHeight: true,
+                minWidth: 100,
+                field: "costToday",
+                flex: 1,
+                cellRenderer: (params) => {
+                    return <p className={s.table_text}>{params?.value || 0}</p>
+                }
+            },
+            {
+                headerName: t('Дневной бюджет'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
@@ -112,7 +141,20 @@ const Table = ({data, openEditModal}) => {
                 }
             },
             {
-                headerName: 'Total budget',
+                headerName: t('Потрачено всего'),
+                menuTabs: [],
+                cellStyle: {lineHeight: '1.3'},
+                wrapText: true,
+                autoHeight: true,
+                minWidth: 100,
+                field: "costTotal",
+                flex: 1,
+                cellRenderer: (params) => {
+                    return <p className={s.table_text}>{params?.value || 0}</p>
+                }
+            },
+            {
+                headerName: t('Общий бюджет'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
@@ -121,11 +163,11 @@ const Table = ({data, openEditModal}) => {
                 field: "totalBudget",
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <p className={s.table_text}>{params?.value || ''}</p>
+                    return <p className={s.table_text}>{params?.value || 0}</p>
                 }
             },
             {
-                headerName: 'Traffic flow',
+                headerName: t('Способ показа'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
@@ -134,11 +176,11 @@ const Table = ({data, openEditModal}) => {
                 field: "trafficFlow",
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <p className={s.table_text}>{params?.value || ''}</p>
+                    return <p className={s.table_text}>{t(params?.value) || ''}</p>
                 }
             },
             {
-                headerName: 'Regions',
+                headerName: t('Регионы'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 wrapText: true,
@@ -151,7 +193,7 @@ const Table = ({data, openEditModal}) => {
                 }
             },
             {
-                headerName: 'Action',
+                headerName: t('Действия'),
                 menuTabs: [],
                 headerClass: 'center-grid-title',
                 cellStyle: {
@@ -197,16 +239,16 @@ const Table = ({data, openEditModal}) => {
                                         handleStartStop(params?.data?.status === 'RUNNING' ? 'stop' : 'start', params.value)
                                         popupState.close()
                                     }}
-                                                                   sx={{color: '#1976d2'}}>{params?.data?.status === 'RUNNING' ? 'Стоп' : 'Старт'}</MenuItem>}
+                                                                   sx={{color: '#1976d2'}}>{params?.data?.status === 'RUNNING' ? t('Стоп') : t('Старт')}</MenuItem>}
                                     <MenuItem onClick={() => {
                                         openEditModal({...params?.data, typeModal: 'edit'})
                                         popupState.close()
-                                    }} sx={{color: '#1976d2'}}>Редактировать</MenuItem>
+                                    }} sx={{color: '#1976d2'}}>{t("Редактировать")}</MenuItem>
                                     <MenuItem onClick={() => {
                                         setRemoveModal(params?.data)
                                         popupState.close()
                                     }
-                                    } sx={{color: '#d32f2f'}}>Удалить</MenuItem>
+                                    } sx={{color: '#d32f2f'}}>{t("Удалить")}</MenuItem>
                                 </Menu>
                             </React.Fragment>
                         )}
