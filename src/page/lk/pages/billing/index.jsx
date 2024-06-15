@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './styles.module.css'
 import Title from "../../../../common/title";
 import {
@@ -19,6 +19,7 @@ import moment from "moment/moment";
 import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
 import {selectGlobal} from "../../../../redux/slice/global.slice";
+import {scrollToTop} from "../../../../utils/scrollToTop";
 
 const Billing = () => {
     const {t} = useTranslation()
@@ -68,7 +69,9 @@ const Billing = () => {
         })
     }
 
-    console.log(data)
+    useEffect(() => {
+        scrollToTop()
+    }, [])
     return (
         <div className={s.main}>
 

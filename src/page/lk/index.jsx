@@ -22,7 +22,7 @@ import {selectGlobal} from "../../redux/slice/global.slice";
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import {useTranslation} from "react-i18next";
-
+import LogoutIcon from '@mui/icons-material/Logout';
 const navigate = [
     {
         title: 'Вебмастер', icon: <PersonIcon/>, sub_data: [
@@ -42,6 +42,9 @@ const navigate = [
     },
     {
         title: 'Обратная связь', icon: <EmailIcon/>, redirect: true
+    },
+    {
+        title: 'Выход', icon: <LogoutIcon/>, isLogout: true
     },
 ]
 

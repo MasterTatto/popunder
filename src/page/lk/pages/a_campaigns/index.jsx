@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './styles.module.css'
 import Title from "../../../../common/title";
 import {
@@ -16,6 +16,7 @@ import Table from "./table";
 import {useGetCampaignsTableQuery} from "../../../../redux/global.service";
 import ModalAdded from "./modal";
 import {useTranslation} from "react-i18next";
+import {scrollToTop} from "../../../../utils/scrollToTop";
 
 const AdvCampaigns = () => {
     const {t} = useTranslation()
@@ -31,6 +32,10 @@ const AdvCampaigns = () => {
         refetchOnReconnect: true,
         refetchOnMountOrArgChange: true,
     })
+
+    useEffect(() => {
+        scrollToTop()
+    }, [])
 
     return (
         <div className={s.main}>

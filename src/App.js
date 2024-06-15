@@ -10,8 +10,6 @@ import 'moment/locale/ru';
 
 import moment from "moment";
 import {scrollToTop} from "./utils/scrollToTop";
-import AuthButton from "./common/auth_button";
-import {api} from "./utils/api";
 import {useGetProfileMutation} from "./redux/global.service";
 
 export const LangContext = createContext(null)
@@ -55,10 +53,6 @@ function App() {
             })
     }, [])
 
-
-    useEffect(() => {
-        scrollToTop()
-    }, [pathname])
 
     if (pathname.includes('api/site/auth')) {
         return <Navigate to={`/${lang?.toLowerCase()}`} replace/>

@@ -8,6 +8,7 @@ import {mock, mockv2} from "./mock";
 import {useTranslation} from "react-i18next";
 import {LangContext} from "../../App";
 import {Navigate, NavLink, Outlet, useLocation} from "react-router-dom";
+import {scrollToTop} from "../../utils/scrollToTop";
 
 const Root = () => {
     const {pathname} = useLocation()
@@ -45,6 +46,10 @@ const Root = () => {
         )
         moveLine();
     }, [selectedLink, pathname, localStorage.getItem('lang')]);
+
+    useEffect(() => {
+        scrollToTop()
+    }, [])
 
     if (pathname?.split('/')?.at(-1) === 'rules') {
         return <Navigate to={`publisher`} replace/>

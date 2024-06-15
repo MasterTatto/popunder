@@ -6,6 +6,7 @@ import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices';
 import classNames from "classnames";
 import {useTranslation} from "react-i18next";
 import {Navigate, NavLink, Outlet, useLocation} from "react-router-dom";
+import {scrollToTop} from "../../utils/scrollToTop";
 
 const Faq = () => {
     const {pathname} = useLocation()
@@ -43,6 +44,10 @@ const Faq = () => {
         )
         moveLine();
     }, [selectedLink, pathname, localStorage.getItem('lang')]);
+
+    useEffect(() => {
+        scrollToTop()
+    }, [])
 
     if (pathname?.split('/')?.at(-1) === 'faq' || pathname?.split('/')?.at(-1) === 'rules') {
         return <Navigate to={`publisher`} replace/>

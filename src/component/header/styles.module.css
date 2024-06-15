@@ -32,6 +32,11 @@
     position: relative;
 }
 
+.auth_isAuth {
+    position: absolute !important;
+    top: -1000px;
+}
+
 .support {
     /*margin-left: 15px;*/
 }
@@ -142,12 +147,8 @@
 
 .login div {
     position: absolute !important;
-    z-index: 0 !important;
-    opacity: 0.1;
-    background: red !important;
-    /*position: relative;*/
+    opacity: 0.01;
     z-index: 2 !important;
-    /*padding: 0 15px !important;*/
 }
 
 /*.login div iframe {*/

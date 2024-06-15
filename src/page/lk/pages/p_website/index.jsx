@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './styles.module.css'
 import Title from "../../../../common/title";
 import {Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Pagination} from "@mui/material";
@@ -9,6 +9,7 @@ import {useGetPWebsiteTableQuery} from "../../../../redux/global.service";
 import ModalAdded from "./modal";
 import _debounce from 'lodash/debounce';
 import {useTranslation} from "react-i18next";
+import {scrollToTop} from "../../../../utils/scrollToTop";
 
 const PubWebsite = () => {
     const {t} = useTranslation()
@@ -28,6 +29,10 @@ const PubWebsite = () => {
     const debouncedFilter = _debounce((value) => {
         setFilteredValue(value);
     }, 900);
+
+    useEffect(() => {
+        scrollToTop()
+    }, [])
     return (
         <div className={s.main}>
             {openModalAdded && <ModalAdded openModalAdded={openModalAdded} setOpenModalAdded={setOpenModalAdded}/>}

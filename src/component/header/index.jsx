@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import s from './styles.module.css'
 import Container from "../container";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
@@ -23,6 +23,7 @@ import moment from "moment/moment";
 import TelegramLoginButton from "telegram-login-button";
 import {api} from "../../utils/api";
 import {useGetProfileMutation} from "../../redux/global.service";
+import {toast} from "react-toastify";
 
 const path = {
     '/': 1,
@@ -47,6 +48,8 @@ const Header = () => {
     const {auth, setIsAuth} = useContext(AuthContext)
 
     const [getProfile] = useGetProfileMutation()
+
+    const telegramWrapperRef = useRef(null);
 
     const {t, i18n} = useTranslation()
     const {pathname} = useLocation()
@@ -87,18 +90,6 @@ const Header = () => {
         return i18n.changeLanguage(lang)
     }
 
-    const logout = async () => {
-        try {
-            const res = await api().get('api/site/logout')
-            // window.location.reload()
-            setIsAuth(false)
-
-        } catch (e) {
-            console.log(e)
-        }
-
-    }
-
     useEffect(() => {
         setSelectedLink(path[pathname?.replace(lang?.toLowerCase(), '')?.replace('/', '')])
 
@@ -108,6 +99,41 @@ const Header = () => {
 
     }, [selectedLink, lang, pathname]);
 
+    useEffect(() => {
+        const body = (document.getElementsByTagName('body') && document.getElementsByTagName('body')[0]) ? document.getElementsByTagName('body')[0] : null;
+        const iframe = body ? body.querySelector('iframe') : null;
+
+        if (iframe) {
+            telegramWrapperRef.current?.appendChild(iframe)
+
+            window.onTelegramAuth = function (user) {
+                console.log(user)
+                api()
+                    .get('http://clickinder.com/api/site/auth', {
+                        params: user
+                    })
+                    .then((res) => {
+                        console.log(res)
+
+                        getProfile()
+                            .unwrap()
+                            .then((res) => {
+                                setIsAuth(res?.ok)
+                                navigate(`/${lang?.toLowerCase()}/lk/publisher/websites`)
+                            })
+                            .catch((e) => {
+                                console.log(e)
+                                setIsAuth(false)
+                            })
+
+                    })
+                    .catch((e) => {
+                        console.log(e)
+                        setIsAuth(false)
+                    })
+            }
+        }
+    }, [])
     return (
         <div className={s.header}>
             <SwipeableDrawer
@@ -163,44 +189,17 @@ const Header = () => {
                                               to={`/${lang?.toLowerCase()}/lk/publisher/websites`}>{t('Личный кабинет')}</NavLink>}
                         </div>
                         <div className={s.navigate_auth}>
-                            {auth ?
-                                <NavLink className={s.login} onClick={logout}>{t("Выход")}</NavLink>
-                                :
-                                <p className={s.login}>
-                                    <TelegramLoginButton
-                                        language_code={'en'}
-                                        botName="clickunder_bot"
-                                        dataOnauth={(user) => {
-                                            console.log(user)
 
-                                            api()
-                                                .get('http://clickinder.com/api/site/auth', {
-                                                    params: user
-                                                })
-                                                .then((res) => {
-                                                    console.log(res)
+                            <p className={classNames(s.login, auth && s.auth_isAuth)}>
+                                <div ref={telegramWrapperRef}
+                                     className={classNames(auth && s.auth_isAuth)}
+                                     id={'telegramWrapperRef'}
+                                />
 
-                                                    getProfile()
-                                                        .unwrap()
-                                                        .then((res) => {
-                                                            setIsAuth(res?.ok)
-                                                            navigate(`/${lang?.toLowerCase()}/lk/publisher/websites`)
-                                                        })
-                                                        .catch((e) => {
-                                                            console.log(e)
-                                                            setIsAuth(false)
-                                                        })
+                                {t('Вход')}
+                            </p>
 
-                                                })
-                                                .catch((e) => {
-                                                    console.log(e)
-                                                    setIsAuth(false)
-                                                })
-                                        }}
-                                    />
-                                    {t('Вход')}
-                                </p>
-                            }
+
                             <div className={s.lang}>
                                 <div className={s.ru} onClick={() => setVisibleLang(!visibleLang)}>
                                     {lang === 'RU' ? 'RU' : "EN"}

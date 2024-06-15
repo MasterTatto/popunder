@@ -9,6 +9,7 @@ import moment from "moment";
 import {LangContext} from "../../App";
 import {Avatar} from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
+import {scrollToTop} from "../../utils/scrollToTop";
 
 export const months = {
     'ru': [
@@ -67,6 +68,10 @@ const News = () => {
             }
         }
     };
+
+    useEffect(() => {
+        scrollToTop()
+    }, [])
 
     useEffect(() => {
         if (!forceHidden) {

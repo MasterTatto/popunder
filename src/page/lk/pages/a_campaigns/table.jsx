@@ -124,7 +124,7 @@ const Table = ({data, openEditModal}) => {
                 field: "costToday",
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <p className={s.table_text}>{params?.value || 0}</p>
+                    return <p className={s.table_text}>{Number(params?.value || 0).toFixed(2)}</p>
                 }
             },
             {
@@ -150,7 +150,7 @@ const Table = ({data, openEditModal}) => {
                 field: "costTotal",
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <p className={s.table_text}>{params?.value || 0}</p>
+                    return <p className={s.table_text}>{Number(params?.value || 0).toFixed(2)}</p>
                 }
             },
             {
