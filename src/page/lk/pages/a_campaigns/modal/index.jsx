@@ -51,30 +51,30 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
             }
 
             if (!values.name) {
-                errors.name = 'Обязательное поле'
+                errors.name = t('Обязательное поле')
             }
             if (!values.cpm) {
-                errors.cpm = 'Обязательное поле'
+                errors.cpm = t('Обязательное поле')
             }
             if (!values.dailyBudget) {
-                errors.dailyBudget = 'Обязательное поле'
+                errors.dailyBudget = t('Обязательное поле')
             }
             if (!values.totalBudget) {
-                errors.totalBudget = 'Обязательное поле'
+                errors.totalBudget = t('Обязательное поле')
             }
             if (!values.trafficFlow) {
-                errors.trafficFlow = 'Обязательное поле'
+                errors.trafficFlow = t('Обязательное поле')
             }
             if (!values.regions) {
-                errors.regions = 'Обязательное поле'
+                errors.regions = t('Обязательное поле')
             } else if (values.regions?.length === 0) {
-                errors.regions = 'Обязательное поле'
+                errors.regions = t('Обязательное поле')
             }
 
             if (!values.url) {
-                errors.url = 'Обязательное поле'
+                errors.url = t('Обязательное поле')
             } else if (!validateResumeUrl(values?.url)) {
-                errors.url = 'Невалидная ссылка';
+                errors.url = t('Невалидная ссылка');
             }
             return errors
         },
@@ -198,8 +198,8 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                             onChange={formik.handleChange}
                             label={t("Способ показа")}
                         >
-                            <MenuItem value={'STANDARD'}>{t("СТАНДАРТ")}</MenuItem>
-                            <MenuItem value={'DISTRIBUTED'}>{t("РАСПРЕДЕЛЕННЫЕ")}</MenuItem>
+                            <MenuItem value={'STANDARD'}>{t("Стандарт")}</MenuItem>
+                            <MenuItem value={'DISTRIBUTED'}>{t("Распределенные")}</MenuItem>
                         </Select>
                         <FormHelperText
                             error={true}>{formik.touched.trafficFlow ? formik.errors.trafficFlow : ''}</FormHelperText>

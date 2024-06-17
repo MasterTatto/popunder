@@ -54,10 +54,10 @@ const AdvCampaigns = () => {
                             onChange={(e) => setFilteredValue(e.target.value)}
                         >
                             <MenuItem value={'all'}>{t('Все статусы')}</MenuItem>
-                            <MenuItem value={'REJECTED'}>{t('Отклоненный')}</MenuItem>
-                            <MenuItem value={'PAUSED'}>{t('Приостановлено')}</MenuItem>
+                            <MenuItem value={'REJECTED'}>{t('Отклонено')}</MenuItem>
+                            <MenuItem value={'PAUSED'}>{t('Остановлено')}</MenuItem>
                             <MenuItem value={'RUNNING'}>{t('Запущено')}</MenuItem>
-                            <MenuItem value={'MODERATION'}>{t('Проверка')}</MenuItem>
+                            <MenuItem value={'MODERATION'}>{t('На модерации')}</MenuItem>
                         </Select>
                     </FormControl>
                 </div>

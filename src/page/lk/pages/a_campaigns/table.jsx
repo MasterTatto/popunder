@@ -70,7 +70,14 @@ const Table = ({data, openEditModal}) => {
                 field: "status",
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <p className={s.table_text}>{params?.value || ''}</p>
+                    const translated = {
+                        PAUSED: 'Остановлено',
+                        REJECTED: 'Отклонено',
+                        RUNNING: 'Запущено',
+                        MODERATION: 'На модерации',
+                        "OUT OF FUNDS": 'Закончился бюджет',
+                    }
+                    return <p className={s.table_text}>{t(translated[params?.value || '']) || ''}</p>
                 }
             },
             {
@@ -175,7 +182,11 @@ const Table = ({data, openEditModal}) => {
                 field: "trafficFlow",
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <p className={s.table_text}>{t(params?.value) || ''}</p>
+                    const translated = {
+                        DISTRIBUTED: 'Распределенные',
+                        STANDARD: 'Стандарт',
+                    }
+                    return <p className={s.table_text}>{t(translated[params?.value] || '') || ''}</p>
                 }
             },
             {
@@ -263,7 +274,7 @@ const Table = ({data, openEditModal}) => {
                 style={{minHeight: 300, width: '100%'}}
             >
 
-                {removeModal && <RemoveModal openModalAdded={removeModal} setOpenModalAdded={setRemoveModal}/>}
+                {removeModal && <RemoveModal handleClose={() => setRemoveModal(false)} openModalAdded={removeModal} setOpenModalAdded={setRemoveModal}/>}
                 <AgGridReact
                     columnSeparator={';'}
                     rowData={data?.result || []}

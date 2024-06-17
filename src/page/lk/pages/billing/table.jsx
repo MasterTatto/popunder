@@ -39,7 +39,11 @@ const Table = ({data}) => {
                 cellStyle: {lineHeight: '1.3'},
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <p className={classNames(s.table_text)}>{params?.value || ''}</p>
+                    const translated = {
+                        deposit: 'Пополнение',
+                        payout: 'Выплата',
+                    }
+                    return <p className={classNames(s.table_text)}>{t(translated[params?.value] || '') || ''}</p>
                 }
             },
             {
@@ -52,7 +56,12 @@ const Table = ({data}) => {
                 cellStyle: {lineHeight: '1.3'},
                 flex: 1,
                 cellRenderer: (params) => {
-                    return <p className={classNames(s.table_text)}>{params?.value || ''}</p>
+                    const translated = {
+                        created: 'Создано',
+                        completed: 'Успешно',
+                        rejected: 'Отклонено',
+                    }
+                    return <p className={classNames(s.table_text)}>{t(translated[params?.value] || '') || ''}</p>
                 }
             },
             {

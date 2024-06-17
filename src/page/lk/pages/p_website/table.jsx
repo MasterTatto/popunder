@@ -62,7 +62,15 @@ const Table = ({data}) => {
                 field: "status",
                 flex: 0.5,
                 cellRenderer: (params) => {
-                    return <p className={s.table_text}>{params?.value || 'Status'}</p>
+                    const translated = {
+                        PAUSED: 'Остановлено',
+                        REJECTED: 'Отклонено',
+                        APPROVED: 'Одобрено',
+                        RUNNING: 'Запущено',
+                        MODERATION: 'На модерации',
+                        "OUT OF FUNDS": 'Закончился бюджет',
+                    }
+                    return <p className={s.table_text}>{t(translated[params?.value] || '') || ''}</p>
                 }
             },
             {

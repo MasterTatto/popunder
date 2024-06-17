@@ -109,25 +109,6 @@ const Billing = () => {
 
                 <div className={s.date_rang}>
                     <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">{t("Статус")}</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={status}
-                            label={t("Статус")}
-                            onChange={(e) => {
-                                // handlerSetDate(+e.target.value)
-                                setStatus(e.target.value)
-                            }}
-                        >
-                            <MenuItem value={''}>{t("Все статусы")}</MenuItem>
-                            <MenuItem value={'created'}>{t("Созданный")}</MenuItem>
-                            <MenuItem value={'completed'}>{t("Завершенный")}</MenuItem>
-                            <MenuItem value={'rejected'}>{t("Отклоненный")}</MenuItem>
-                        </Select>
-                    </FormControl>
-
-                    <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">{t("Тип")}</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
@@ -140,8 +121,27 @@ const Billing = () => {
                             }}
                         >
                             <MenuItem value={''}>{t("Все типы")}</MenuItem>
-                            <MenuItem value={'deposit'}>{t("Пополнения")}</MenuItem>
-                            <MenuItem value={'payout'}>{t("Выводы")}</MenuItem>
+                            <MenuItem value={'deposit'}>{t("Пополнение")}</MenuItem>
+                            <MenuItem value={'payout'}>{t("Выплата")}</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">{t("Статус")}</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={status}
+                            label={t("Статус")}
+                            onChange={(e) => {
+                                // handlerSetDate(+e.target.value)
+                                setStatus(e.target.value)
+                            }}
+                        >
+                            <MenuItem value={''}>{t("Все статусы")}</MenuItem>
+                            <MenuItem value={'created'}>{t("Создано")}</MenuItem>
+                            <MenuItem value={'completed'}>{t("Успешно")}</MenuItem>
+                            <MenuItem value={'rejected'}>{t("Отклонено")}</MenuItem>
                         </Select>
                     </FormControl>
 
