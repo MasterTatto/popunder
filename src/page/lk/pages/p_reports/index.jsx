@@ -110,11 +110,11 @@ const PubReports = () => {
                                     setDiapason('')
                                 }
                             }}
-                                        sx={{width: '100%'}} ampm={false}
+                                        sx={{width: '100%'}} ampm={"false"}
                                         format="DD.MM.YYYY" slotProps={{
                                 textField: {
                                     variant: "outlined",
-                                    InputProps: {disableUnderline: true, placeholder: t('С')},
+                                    InputProps: {disableunderline: "true", placeholder: t('С')},
                                 },
                             }}/>
                         </LocalizationProvider>
@@ -131,11 +131,11 @@ const PubReports = () => {
                                 }
                             }}
                                         sx={{width: '100%'}}
-                                        ampm={false}
+                                        ampm={"false"}
                                         format="DD.MM.YYYY" slotProps={{
                                 textField: {
                                     variant: "outlined",
-                                    InputProps: {disableUnderline: true, placeholder: t('До')},
+                                    InputProps: {disableunderline: "true", placeholder: t('До')},
                                 },
                             }}/>
                         </LocalizationProvider>

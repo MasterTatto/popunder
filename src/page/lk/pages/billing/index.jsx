@@ -153,13 +153,15 @@ const Billing = () => {
                         }} dateAdapter={AdapterMoment} adapterLocale={'de'}>
                             <DatePicker value={date?.start} onChange={(e) => {
                                 setDate({end: date?.end, start: e})
-
+                                if (diapason) {
+                                    setDiapason('')
+                                }
                             }}
-                                        sx={{width: '100%'}} ampm={false}
+                                        sx={{width: '100%'}} ampm={"false"}
                                         format="DD.MM.YYYY" slotProps={{
                                 textField: {
                                     variant: "outlined",
-                                    InputProps: {disableUnderline: true, placeholder: t('С')},
+                                    InputProps: {disableunderline: "true", placeholder: t('С')},
                                 },
                             }}/>
                         </LocalizationProvider>
@@ -171,14 +173,16 @@ const Billing = () => {
                         }} dateAdapter={AdapterMoment} adapterLocale={'de'}>
                             <DatePicker value={date?.end} onChange={(e) => {
                                 setDate({start: date?.start, end: e})
-
+                                if (diapason) {
+                                    setDiapason('')
+                                }
                             }}
                                         sx={{width: '100%'}}
-                                        ampm={false}
+                                        ampm={"false"}
                                         format="DD.MM.YYYY" slotProps={{
                                 textField: {
                                     variant: "outlined",
-                                    InputProps: {disableUnderline: true, placeholder: t('До')},
+                                    InputProps: {disableunderline: "true", placeholder: t('До')},
                                 },
                             }}/>
                         </LocalizationProvider>

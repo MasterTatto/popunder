@@ -76,7 +76,7 @@ const Table = ({data}) => {
 
                 flex: 0.5,
                 cellRenderer: (params) => {
-                    console.log(params)
+
                     return <div className={classNames(s.table_text, s.table_text_action)}>
                         {['RUNNING', 'PAUSED']?.includes(params?.data?.status) && <>
                             <Tooltip title={t('Получит код')}>
@@ -103,7 +103,6 @@ const Table = ({data}) => {
             removePWebsite(id)
                 .unwrap()
                 .then((res) => {
-                    console.log(res)
                     if (res?.ok) {
                         toast.success(t('Удалено'))
                         setActionModal(null)

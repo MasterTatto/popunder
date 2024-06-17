@@ -12,7 +12,6 @@ const RemoveModal = ({openModalAdded, setOpenModalAdded}) => {
         deleteCampaign(openModalAdded.id)
             .unwrap()
             .then((res) => {
-                console.log(res)
                 if (res?.ok) {
                     toast.success('Компания удалена')
                 } else {

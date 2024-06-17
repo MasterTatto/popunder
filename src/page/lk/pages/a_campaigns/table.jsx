@@ -27,7 +27,6 @@ const Table = ({data, openEditModal}) => {
                     } else {
                         toast.warning(t('Кампания приостановлена'))
                     }
-                    console.log(res)
                 })
                 .catch((e) => {
                     console.log(e)

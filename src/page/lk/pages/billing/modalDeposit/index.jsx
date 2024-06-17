@@ -41,7 +41,6 @@ const ModalDeposit = ({open, handleClose}) => {
                 .unwrap()
                 .then((res) => {
                     if (res.ok) {
-                        console.log(res)
                         handleClose()
                         window.open(res?.result?.payUrl, '_blank')
 
@@ -74,8 +73,8 @@ const ModalDeposit = ({open, handleClose}) => {
                     <TextField value={formik.values.amount}
                                type={'number'}
                                autoComplete={'new-password'}
-                               helperText={formik.touched.amount && formik.errors.amount}
-                               error={formik.touched.amount && formik.errors.amount}
+                               helperText={formik.touched.amount ? formik.errors.amount : ''}
+                               error={Boolean(formik.touched.amount && formik.errors.amount)}
                                name={'amount'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
                                onChange={formik.handleChange} id="outlined-basic" label={t("Сумма")}

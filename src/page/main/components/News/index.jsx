@@ -24,7 +24,7 @@ const News = () => {
         try {
             const res = await api().get(`api/site/news?limit=3&offset=0&language=${lang}`)
             setNews(res?.data?.result || [])
-            console.log(res)
+
         } catch (e) {
             console.log(e)
         }
@@ -47,8 +47,6 @@ const News = () => {
                         onSwiper={setSwiper}
                     >
                         {news?.map((el) => {
-                            // const splitText = el?.text ? JSON.stringify(el.text)?.split('\\n') : el?.text
-                            // const splitText = []
                             const year = moment().format('YYYY') === moment(el?.created).format('YYYY')
 
                             return <SwiperSlide key={el._id}>
@@ -73,15 +71,9 @@ const News = () => {
                                                 <h4 className={s.title}>{el.title}</h4>
                                             </div>
                                         </div>
-                                        <p className={s.text}>
-                                            <div dangerouslySetInnerHTML={{__html: el.text}}/>
-                                            {/*{splitText ? splitText?.map((line, index) => {*/}
-                                            {/*    return <React.Fragment key={index}>*/}
-                                            {/*        {line?.replaceAll('"', '')}*/}
-                                            {/*        <br/>*/}
-                                            {/*    </React.Fragment>*/}
-                                            {/*}) : null}*/}
-                                        </p>
+
+                                        <div className={s.text} dangerouslySetInnerHTML={{__html: el.text}}/>
+
                                     </div>
 
                                 </div>

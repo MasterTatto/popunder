@@ -59,7 +59,7 @@ const ModalPayout = ({open, handleClose}) => {
                     } else {
                         toast.error(res?.errorMessage ? res?.errorMessage : 'Error')
                     }
-                    console.log(res)
+
                 })
                 .catch((e) => {
                     console.log(e)
@@ -85,16 +85,16 @@ const ModalPayout = ({open, handleClose}) => {
                     <TextField value={formik.values.amount}
                                type={'number'}
                                autoComplete={'new-password'}
-                               helperText={formik.touched.amount && formik.errors.amount}
-                               error={formik.touched.amount && formik.errors.amount}
+                               helperText={formik.touched.amount ? formik.errors.amount : ''}
+                               error={Boolean(formik.touched.amount && formik.errors.amount)}
                                name={'amount'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
                                onChange={formik.handleChange} id="outlined-basic" label={t("Сумма")}
                                variant="outlined"/>
                     <TextField value={formik.values.wallet}
                                autoComplete={'new-password'}
-                               helperText={formik.touched.wallet && formik.errors.wallet}
-                               error={formik.touched.wallet && formik.errors.wallet}
+                               helperText={formik.touched.wallet ? formik.errors.wallet : ''}
+                               error={Boolean(formik.touched.wallet && formik.errors.wallet)}
                                name={'wallet'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
                                onChange={formik.handleChange} id="outlined-basic" label={t("Адрес USDT TRC20")}

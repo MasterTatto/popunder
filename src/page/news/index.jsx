@@ -56,7 +56,6 @@ const News = () => {
         } else {
             setLoading(true);
             try {
-                console.log('wow2', forceHidden)
                 const res = await api().get(`api/site/news?limit=${limit}&offset=${news.length}&language=${lang}`);
                 setMaxCount(res?.data?.count)
                 setNews((prevNews) => [...prevNews, ...(res?.data?.result || [])]);
@@ -92,7 +91,7 @@ const News = () => {
             } else {
                 setLoading(true);
                 try {
-                    console.log('wow')
+
                     const res = await api().get(`api/site/news?limit=${2}&offset=${0}&language=${lang}`);
                     setMaxCount(res?.data?.count)
                     setNews(res?.data?.result || []);

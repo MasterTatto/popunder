@@ -32,7 +32,6 @@ function App() {
                         setIsAuth(res?.ok)
                     })
                     .catch((e) => {
-                        console.log(e)
                         setIsAuth(false)
                     })
                     .finally(async () => {

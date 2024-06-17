@@ -55,7 +55,7 @@ const Lk = () => {
     const {auth} = useContext(AuthContext)
 
     const {user} = useSelector(selectGlobal)
-    console.log(user)
+
     if (!auth) {
         return <Navigate to={`/${lang?.toLowerCase()}`} replace/>
     }

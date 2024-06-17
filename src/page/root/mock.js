@@ -148,7 +148,7 @@ export const mock = {
                     We have to maintain quality of our publisher's sites, so don't be surprised:
                 </>,
                 <>
-                    <p style={{marginLeft: '40px'}}>
+                    <span style={{marginLeft: '40px', display: 'block'}}>
                         <b>1)</b> if we ask you to provide us an access to one of your statistic systems, such as Google
                         Analytics. If we don't get the access we reserve the right to block permanently or suspend your
                         account.
@@ -177,7 +177,7 @@ export const mock = {
                         <b>9)</b> Account balance of publisher will be reduced to zero in case of two years of
                         inactivity. For instance: if balance of publisher's account has no changes within 2016, 2017 and
                         2018 (at least 1 day of the year) it will be irreversibly reset.
-                    </p>
+                    </span>
                 </>,
                 'Rules of advertising network Popunder may be changed at any time and without notice. Actual version could be found at this page.'
             ]
@@ -315,7 +315,7 @@ export const mockv2 = {
                 'We allow advertising of sites the contents of which can be categorized as "Erotic". However, in this case you must specify it in your campaign settings by selecting "Yes" in "Are you promoting 18+ materials?" field.',
                 <>
                     <b>1.</b> It's strongly prohibited to send visitors:
-                    <p style={{marginLeft: '40px'}}>
+                    <span style={{marginLeft: '40px', display: 'block'}}>
                         directly to files (including .exe, Android applications files, etc.) and any other kinds of
                         files;
                         <br/>
@@ -328,7 +328,7 @@ export const mockv2 = {
                         to websites which are blocked by browsers or anti-virus systems;
                         <br/>
                         to tech support campaigns
-                    </p>
+                    </span>
                     In such cases we'll block advertiser's account without warning and permanently. No further appeals
                     are allowed and no withdrawal or refund will be made.
                     <br/>

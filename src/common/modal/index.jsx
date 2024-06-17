@@ -49,13 +49,13 @@ const full_heightS = {
 
 const ModalWrapper = ({children, width = '440px', height = 'fit-content', open, onClose, title = ''}) => {
     const query_700 = useMediaQuery('(max-width:780px)');
-    console.log('wtf')
+
     return (
         <Dialog
             fullWidth
             sx={{
                 '& .MuiPaper-root': {
-                    maxWidth: width,
+                    maxWidth: width || 0,
                 }
             }}
             open={open}
@@ -69,7 +69,7 @@ const ModalWrapper = ({children, width = '440px', height = 'fit-content', open, 
             }}>
                 <Box sx={query_700 ? {...style, ...full_heightS} : {...style, height: '100%', maxHeight: '100%'}}>
                     {title && <div className={s.modal_top}>
-                        <p className={s.title}>{title}</p>
+                        <div className={s.title}>{title}</div>
                         <IconButton onClick={onClose}>
                             <CloseIcon/>
                         </IconButton>

@@ -58,7 +58,7 @@ const Faq = () => {
             <Container>
                 <div className={s.content}>
                     <div className={s.navigate}>
-                        <div className={s.line} ref={lineRef} style={{width: selectedWidth}}/>
+                        <div className={s.line} ref={lineRef} style={{width: selectedWidth || 0}}/>
 
                         <NavLink to={'publisher'}
                                  className={classNames(s.navigate_item, selectedLink === 1 && s.navigate_item_active, 'navigate_item1')}>

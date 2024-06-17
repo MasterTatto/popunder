@@ -39,7 +39,6 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
             addedPWebsite(values.domain)
                 .unwrap()
                 .then((res) => {
-                    console.log(res)
                     if (res?.ok) {
                         toast.success(t('Вебсайт добавлен'))
                     } else {
@@ -51,7 +50,7 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                     toast.error(t('Ошибка добавления'))
                     console.log(e)
                 })
-            console.log('submit')
+
         }
     })
 
@@ -71,7 +70,7 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                 <DialogContent>
                     <TextField value={formik.values.domain}
                                helperText={formik.touched.domain && formik.errors.domain}
-                               error={formik.touched.domain && formik.errors.domain}
+                               error={Boolean(formik.touched.domain && formik.errors.domain)}
                                name={'domain'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
                                onChange={formik.handleChange} id="outlined-basic" label={t("Домен сайта")}

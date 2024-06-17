@@ -24,6 +24,7 @@ import TelegramLoginButton from "telegram-login-button";
 import {api} from "../../utils/api";
 import {useGetProfileMutation} from "../../redux/global.service";
 import {toast} from "react-toastify";
+import logo from '../../assetss/logo.png'
 
 const path = {
     '/': 1,
@@ -107,14 +108,12 @@ const Header = () => {
             telegramWrapperRef.current?.appendChild(iframe)
 
             window.onTelegramAuth = function (user) {
-                console.log(user)
+
                 api()
                     .get('http://clickinder.com/api/site/auth', {
                         params: user
                     })
                     .then((res) => {
-                        console.log(res)
-
                         getProfile()
                             .unwrap()
                             .then((res) => {
@@ -163,12 +162,12 @@ const Header = () => {
             <Container>
                 <div className={s.content}>
                     <div className={s.logo}>
-                        <AuthButton/>
+                        <img src={logo} alt="logo" className={s.logo_png}/>
                     </div>
 
                     <div className={s.navigate}>
                         <div className={s.navigate_link}>
-                            <div ref={lineRef} className={s.line} style={{width: lineWidth}}/>
+                            <div ref={lineRef} className={s.line} style={{width: lineWidth || 0}}/>
                             <NavLink onClick={() => {
                                 handleNavLinkClick(1)
                                 scrollToTop()
@@ -190,14 +189,14 @@ const Header = () => {
                         </div>
                         <div className={s.navigate_auth}>
 
-                            <p className={classNames(s.login, auth && s.auth_isAuth)}>
+                            <div className={classNames(s.login, s.login_text, auth && s.auth_isAuth)}>
                                 <div ref={telegramWrapperRef}
                                      className={classNames(auth && s.auth_isAuth)}
                                      id={'telegramWrapperRef'}
                                 />
 
                                 {t('Вход')}
-                            </p>
+                            </div>
 
 
                             <div className={s.lang}>

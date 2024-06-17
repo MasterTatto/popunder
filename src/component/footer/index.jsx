@@ -47,15 +47,11 @@ const Footer = () => {
                                     <TelegramLoginButton
                                         botName="clickunder_bot"
                                         dataOnauth={(user) => {
-                                            console.log(user)
-
                                             api()
                                                 .get('http://clickinder.com/api/site/auth', {
                                                     params: user
                                                 })
                                                 .then((res) => {
-                                                    console.log(res)
-
                                                     getProfile()
                                                         .unwrap()
                                                         .then((res) => {

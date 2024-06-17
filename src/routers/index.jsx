@@ -18,6 +18,7 @@ import Billing from "../page/lk/pages/billing";
 
 const Routers = () => {
     const {lang} = useContext(LangContext)
+
     return (
         <Routes>
             <Route path={'/:lang'} element={<Main/>}/>
@@ -35,11 +36,10 @@ const Routers = () => {
 
             <Route path={'/:lang/lk'} element={<Lk/>}>
                 <Route index path={'publisher/websites'} element={<PubWebsite/>}/>
-                <Route index path={'publisher/reports'} element={<PubReports/>}/>
-                <Route index path={'advertiser/campaigns'} element={<AdvCampaigns/>}/>
-                <Route index path={'advertiser/reports'} element={<AdvReports/>}/>
-                <Route index path={'advertiser/traffic'} element={<h1>advertiser/traffic</h1>}/>
-                <Route index path={'billing'} element={<Billing/>}/>
+                <Route path={'publisher/reports'} element={<PubReports/>}/>
+                <Route path={'advertiser/campaigns'} element={<AdvCampaigns/>}/>
+                <Route path={'advertiser/reports'} element={<AdvReports/>}/>
+                <Route path={'billing'} element={<Billing/>}/>
             </Route>
 
             <Route path={'*'} element={<Navigate to={`/${lang?.toLowerCase()}`} replace/>}/>

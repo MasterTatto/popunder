@@ -83,7 +83,6 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                 editCampaign({data: values, id: openModalAdded?.id})
                     .unwrap()
                     .then((res) => {
-                        console.log(res)
                         if (res?.ok) {
                             toast.success('Сохранено')
                         } else {
@@ -99,7 +98,6 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                 addedCampaign(values)
                     .unwrap()
                     .then((res) => {
-                        console.log(res)
                         if (res?.ok) {
                             toast.success('Вебсайт добавлен')
                         } else {
@@ -116,7 +114,7 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
 
         }
     })
-    console.log(openModalAdded)
+
     useEffect(() => {
         if (openModalAdded?.typeModal) {
             formik.setValues({
@@ -145,24 +143,25 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
             }} className={s.content}>
                 <DialogContent sx={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
                     <TextField value={formik.values.name}
-                               helperText={formik.touched.name && formik.errors.name}
-                               error={formik.touched.name && formik.errors.name}
+                               helperText={formik.touched.name ? formik.errors.name : ''}
+                               error={Boolean(formik.touched.name && formik.errors.name)}
                                name={'name'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
                                onChange={formik.handleChange} id="outlined-basic" label={t('Имя')} variant="outlined"/>
                     <TextField value={formik.values.url}
-                               helperText={formik.touched.url && formik.errors.url}
-                               error={formik.touched.url && formik.errors.url}
+                               helperText={formik.touched.url ? formik.errors.url : ''}
+                               error={Boolean(formik.touched.url && formik.errors.url)}
                                name={'url'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
-                               onChange={formik.handleChange} id="outlined-basic" label={t('Ссылка')} variant="outlined"/>
+                               onChange={formik.handleChange} id="outlined-basic" label={t('Ссылка')}
+                               variant="outlined"/>
 
                     <TextField value={formik.values.cpm}
                                type={'number'}
                                inputProps={{step: ".05", min: 0}}
                                step={0.05}
-                               helperText={formik.touched.cpm && formik.errors.cpm}
-                               error={formik.touched.cpm && formik.errors.cpm}
+                               helperText={formik.touched.cpm ? formik.errors.cpm : ''}
+                               error={Boolean(formik.touched.cpm && formik.errors.cpm)}
                                name={'cpm'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
                                onChange={formik.handleChange} id="outlined-basic" label={t("Ставка")}
@@ -171,8 +170,8 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                                type={'number'}
                                inputProps={{step: "1", min: 0}}
                                step={1}
-                               helperText={formik.touched.dailyBudget && formik.errors.dailyBudget}
-                               error={formik.touched.dailyBudget && formik.errors.dailyBudget}
+                               helperText={formik.touched.dailyBudget ? formik.errors.dailyBudget : ''}
+                               error={Boolean(formik.touched.dailyBudget && formik.errors.dailyBudget)}
                                name={'dailyBudget'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
                                onChange={formik.handleChange} id="outlined-basic" label={t('Дневной бюджет')}
@@ -181,8 +180,8 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                                type={'number'}
                                inputProps={{step: "1", min: 0}}
                                step={1}
-                               helperText={formik.touched.totalBudget && formik.errors.totalBudget}
-                               error={formik.touched.totalBudget && formik.errors.totalBudget}
+                               helperText={formik.touched.totalBudget ? formik.errors.totalBudget : ''}
+                               error={Boolean(formik.touched.totalBudget && formik.errors.totalBudget)}
                                name={'totalBudget'} onBlur={formik.handleBlur}
                                sx={{width: '100%'}}
                                onChange={formik.handleChange} id="outlined-basic" label={t("Общий бюджет")}
@@ -194,8 +193,7 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                             id="demo-simple-select"
                             name={'trafficFlow'}
                             value={formik.values.trafficFlow}
-                            helperText={formik.touched.trafficFlow && formik.errors.trafficFlow}
-                            error={formik.touched.trafficFlow && formik.errors.trafficFlow}
+                            error={Boolean(formik.touched.trafficFlow && formik.errors.trafficFlow)}
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
                             label={t("Способ показа")}
@@ -204,12 +202,11 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                             <MenuItem value={'DISTRIBUTED'}>{t("РАСПРЕДЕЛЕННЫЕ")}</MenuItem>
                         </Select>
                         <FormHelperText
-                            error={true}>{formik.touched.trafficFlow && formik.errors.trafficFlow}</FormHelperText>
+                            error={true}>{formik.touched.trafficFlow ? formik.errors.trafficFlow : ''}</FormHelperText>
                     </FormControl>
 
 
                     <TextField
-                        labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         name={'regions'}
                         select
@@ -219,8 +216,8 @@ const ModalAdded = ({openModalAdded, setOpenModalAdded}) => {
                             onChange: formik.handleChange,
                         }}
 
-                        helperText={formik.touched.regions && formik.errors.regions}
-                        error={formik.touched.regions && formik.errors.regions}
+                        helperText={formik.touched.regions ? formik.errors.regions : ''}
+                        error={Boolean(formik.touched.regions && formik.errors.regions)}
                         onBlur={formik.handleBlur}
 
                         label={t("Регионы")}
