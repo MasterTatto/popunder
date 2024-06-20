@@ -128,3 +128,25 @@
     font-style: normal;
     line-height: 1.8;
 }
+
+@media screen and (max-width: 768px) {
+    .navigate {
+        flex-direction: column;
+        width: 100%;
+        gap: 13px;
+
+    }
+
+    .navigate_item {
+        padding: 0;
+    }
+
+    .navigate_item_active {
+        border-bottom: 3px solid #247ba0;
+        width: 100%;
+    }
+
+    .line {
+        display: none;
+    }
+}

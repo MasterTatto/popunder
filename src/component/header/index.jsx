@@ -11,7 +11,7 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
-    SwipeableDrawer
+    SwipeableDrawer, useMediaQuery
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
@@ -25,6 +25,8 @@ import {api} from "../../utils/api";
 import {useGetProfileMutation} from "../../redux/global.service";
 import {toast} from "react-toastify";
 import logo from '../../assetss/logo.png'
+import NavigateItem from "../../page/lk/navigate";
+import {navigate, navigateItems} from "../../page/lk";
 
 const path = {
     '/': 1,
@@ -45,6 +47,8 @@ const path = {
 }
 
 const Header = () => {
+    const matches = useMediaQuery('(max-width:768px)');
+
     const {lang, setLang} = useContext(LangContext)
     const {auth, setIsAuth} = useContext(AuthContext)
 
@@ -105,8 +109,13 @@ const Header = () => {
         const iframe = body ? body.querySelector('iframe') : null;
 
         if (iframe) {
+            iframe.style = 'display:none'
+        }
+
+        if (iframe && telegramWrapperRef?.current) {
             telegramWrapperRef.current?.appendChild(iframe)
 
+            iframe.style = 'display:block'
             window.onTelegramAuth = function (user) {
 
                 api()
@@ -132,7 +141,8 @@ const Header = () => {
                     })
             }
         }
-    }, [])
+    }, [openMenu, matches])
+
     return (
         <div className={s.header}>
             <SwipeableDrawer
@@ -142,20 +152,81 @@ const Header = () => {
                 onOpen={() => setOpenMenu(true)}
             >
                 <Box
-                    sx={{width: 250, background: '#252525', height: '100%'}}
+                    sx={{width: 250, background: '#252525', height: '100%', overflow: 'auto', paddingBottom: '20px'}}
                     role="presentation"
                     onClick={() => setOpenMenu(false)}
                     onKeyDown={() => setOpenMenu(true)}
                 >
                     <List>
-                        {['Главная', 'Новости', 'FAQ', 'Правила', 'Обратная связь', 'Вход'].map((text, index) => (
-                            <ListItem key={text} disablePadding sx={{borderBottom: '1px solid #fff'}}>
-                                <ListItemButton>
-                                    <ListItemText primary={t(text)} sx={{color: '#fff'}}/>
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
+                        <ListItem disablePadding sx={{borderBottom: '1px solid #fff'}}>
+                            <ListItemButton onClick={() => navigate(`/${lang?.toLowerCase()}`)}>
+                                <ListItemText primary={t('Главная')} sx={{color: '#fff'}}/>
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding sx={{borderBottom: '1px solid #fff'}}>
+                            <ListItemButton onClick={() => navigate(`/${lang?.toLowerCase()}/news`)}>
+                                <ListItemText primary={t('Новости')} sx={{color: '#fff'}}/>
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding sx={{borderBottom: '1px solid #fff'}}>
+                            <ListItemButton onClick={() => navigate(`/${lang?.toLowerCase()}/faq/publisher`)}>
+                                <ListItemText primary={t('FAQ')} sx={{color: '#fff'}}/>
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding sx={{borderBottom: '1px solid #fff'}}>
+                            <ListItemButton onClick={() => navigate(`/${lang?.toLowerCase()}/rules/publisher`)}>
+                                <ListItemText primary={t('Правила')} sx={{color: '#fff'}}/>
+                            </ListItemButton>
+                        </ListItem>
+
+                        {matches && <ListItem disablePadding sx={{
+                            borderBottom: '1px solid #fff',
+                            padding: 0,
+                            position: !auth ? 'static' : 'absolute',
+                            top: auth && '-10000px'
+                        }}>
+                            <ListItemButton sx={{padding: 0}}>
+
+                                <div className={classNames(s.login, s.login_text, auth && s.auth_isAuth)}>
+                                    <div ref={telegramWrapperRef}
+                                         className={classNames(s.login_btn_mobile)}
+                                         id={'telegramWrapperRef'}
+                                    />
+
+                                    {t('Вход')}
+                                </div>
+                            </ListItemButton>
+                        </ListItem>}
                     </List>
+
+                    {auth && <>{navigateItems?.map((item, index) => {
+                        return <NavigateItem item={item} key={index}/>
+                    })}</>}
+
+                    <div className={s.lang_mobile}>
+                        <div className={classNames(s.lang_text, lang === 'RU' && s.lang_text_active)}
+                             onClick={async () => {
+                                 moment.locale(lang !== 'RU' ? 'ru' : 'en');
+                                 await handlerLanguage(lang !== 'RU' ? 'ru' : "en")
+                                 setVisibleLang(!visibleLang)
+                                 setLang(lang !== 'RU' ? 'RU' : "EN")
+
+                                 navigate(pathname.replace(lang === 'RU' ? 'ru' : 'en', lang === 'RU' ? 'en' : 'ru'))
+
+                             }}>RU
+                        </div>
+                        <div className={classNames(s.lang_text, lang === 'EN' && s.lang_text_active)}
+                             onClick={async () => {
+                                 moment.locale(lang !== 'RU' ? 'ru' : 'en');
+                                 await handlerLanguage(lang !== 'RU' ? 'ru' : "en")
+                                 setVisibleLang(!visibleLang)
+                                 setLang(lang !== 'RU' ? 'RU' : "EN")
+
+                                 navigate(pathname.replace(lang === 'RU' ? 'ru' : 'en', lang === 'RU' ? 'en' : 'ru'))
+
+                             }}>EN
+                        </div>
+                    </div>
                 </Box>
             </SwipeableDrawer>
 
@@ -189,14 +260,14 @@ const Header = () => {
                         </div>
                         <div className={s.navigate_auth}>
 
-                            <div className={classNames(s.login, s.login_text, auth && s.auth_isAuth)}>
+                            {!matches && <div className={classNames(s.login, s.login_text, auth && s.auth_isAuth)}>
                                 <div ref={telegramWrapperRef}
                                      className={classNames(auth && s.auth_isAuth)}
                                      id={'telegramWrapperRef'}
                                 />
 
                                 {t('Вход')}
-                            </div>
+                            </div>}
 
 
                             <div className={s.lang}>

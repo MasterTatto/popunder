@@ -69,7 +69,7 @@ const Footer = () => {
                                                 })
                                         }}
                                     />
-                                    Вход</NavLink>}
+                                    {t("Вход")}</NavLink>}
                             </div>
                         </div>
                     </div>

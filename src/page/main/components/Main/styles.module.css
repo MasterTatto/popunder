@@ -150,5 +150,6 @@
     .main {
         min-height: fit-content;
         height: fit-content;
+        margin-top: 50px;
     }
 }
