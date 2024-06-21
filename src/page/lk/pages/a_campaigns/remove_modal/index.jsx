@@ -45,7 +45,7 @@ const RemoveModal = ({openModalAdded, setOpenModalAdded, handleClose}) => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button>{t("Отмена")}</Button>
+                <Button onClick={handleClose}>{t("Отмена")}</Button>
                 <Button color={'error'} onClick={handleRemove}>
                     {t("Удалить")}
                 </Button>

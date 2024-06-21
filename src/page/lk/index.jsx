@@ -23,6 +23,7 @@ import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the 
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import {useTranslation} from "react-i18next";
 import LogoutIcon from '@mui/icons-material/Logout';
+import Profile from "./profile";
 
 export const navigateItems = [
     {
@@ -63,19 +64,7 @@ const Lk = () => {
     return (
         <div className={s.wrapper}>
             <div className={s.navigate}>
-                <div className={s.navigate_info}>
-                    <Avatar src={user?.user?.photo} sx={{height: '50px', width: '50px'}}/>
-                    <div className={s.navigate_desc}>
-
-                        <p className={s.name}>{user?.user?.name || 'Incognito'}</p>
-                        <p className={s.uid}>
-                            id: {user?.user?.chatId || 'none'}
-                        </p>
-                        <p className={s.uid}>
-                            {t("Баланс")}: {(user?.user?.balance || 0).toFixed(2) || '0'}$
-                        </p>
-                    </div>
-                </div>
+                <Profile user={user}/>
                 <Divider/>
                 {navigateItems?.map((item, index) => {
                     return <NavigateItem item={item} key={index}/>

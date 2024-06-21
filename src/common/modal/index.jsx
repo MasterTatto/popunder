@@ -53,7 +53,13 @@ const ModalWrapper = ({children, width = '440px', height = 'fit-content', open, 
     return (
         <Dialog
             fullWidth
-            sx={{
+            sx={query_700 ? {
+                '& .MuiPaper-root': {
+                    maxWidth: query_700 ? '100%' : (width || 0),
+                    width: query_700 ? '100%' : 'inherit',
+                    margin: query_700 && '12px',
+                }
+            } : {
                 '& .MuiPaper-root': {
                     maxWidth: width || 0,
                 }
@@ -62,12 +68,12 @@ const ModalWrapper = ({children, width = '440px', height = 'fit-content', open, 
             onClose={onClose}
 
         >
-            <Stack sx={query_700 ? {...styleS, ...full_height} : {
+            <Stack sx={{
                 ...styleS,
                 // maxWidth: width,
                 height: height
             }}>
-                <Box sx={query_700 ? {...style, ...full_heightS} : {...style, height: '100%', maxHeight: '100%'}}>
+                <Box sx={{...style, height: '100%', maxHeight: '100%'}}>
                     {title && <div className={s.modal_top}>
                         <div className={s.title}>{title}</div>
                         <IconButton onClick={onClose}>

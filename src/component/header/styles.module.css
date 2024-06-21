@@ -56,13 +56,13 @@
     justify-content: center;
     padding: 18px 10px;
     /*border-radius: 50%;*/
-    border: 1px solid lightgray;
+    border: 1px solid #000000DE;
     /*background-color: lightgray;*/
     font-size: 1.1rem;
     font-weight: 500;
     width: 100%;
     font-family: 'Poppins', sans-serif;
-    color: lightgray;
+    color: #000000DE;
     line-height: 0;
     cursor: pointer;
     user-select: none;
@@ -74,9 +74,9 @@
 }
 
 .lang_text_active {
-    background: rgba(36, 123, 160, 0.1);
+    background: rgba(36, 123, 160, 1);
     color: #fff;
-    border: 1px solid #fff;
+    border: 1px solid rgba(36, 123, 160, 1);
 }
 
 .line {
@@ -259,6 +259,8 @@
         height: fit-content !important;
         z-index: 1;
         border-radius: 0px;
+        color: #000000DE;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
         /*width: 100px;*/
     }
 

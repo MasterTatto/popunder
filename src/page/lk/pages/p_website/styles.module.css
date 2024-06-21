@@ -70,6 +70,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    gap: 16px;
 }
 
 .table_text_action {
@@ -86,4 +87,20 @@
 .delete {
     color: #d32f2f;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+    .navigate {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .button, .button button {
+        width: 100%;
+    }
+
+    .pagination {
+        flex-direction: column-reverse;
+        align-items: flex-end;
+    }
 }

@@ -1,7 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import s from './styles.module.css'
 import Title from "../../../../common/title";
-import {Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Pagination} from "@mui/material";
+import {
+    Button,
+    FormControl,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    OutlinedInput,
+    Pagination,
+    useMediaQuery
+} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Table from "./table";
@@ -10,13 +19,17 @@ import ModalAdded from "./modal";
 import _debounce from 'lodash/debounce';
 import {useTranslation} from "react-i18next";
 import {scrollToTop} from "../../../../utils/scrollToTop";
+import PaginationSize from "../../../../common/paginationSize";
 
 const PubWebsite = () => {
     const {t} = useTranslation()
-
+    const matches = useMediaQuery('(max-width:768px)');
     const [openModalAdded, setOpenModalAdded] = useState(false)
     const [filteredValue, setFilteredValue] = useState('')
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState({
+        page: 1,
+        size: 20
+    })
 
     const {data} = useGetPWebsiteTableQuery({
         domain: `/${filteredValue}/`,
@@ -91,9 +104,14 @@ const PubWebsite = () => {
             </div>
 
             <div className={s.pagination}>
-                <Pagination count={data?.count ? Math.ceil(data?.count / 20) : 1} page={page} onChange={(a, b) => {
-                    setPage(b)
-                }} shape="rounded" variant="outlined"
+                <PaginationSize value={page?.size} handleChange={(e) => {
+                    setPage({...page, page: 1, size: +e.target.value})
+                }}/>
+                <Pagination size={matches ? 'small' : 'medium'}
+                            count={data?.count ? Math.ceil(data?.count / page?.size) : 1} page={page?.page}
+                            onChange={(a, b) => {
+                                setPage({...page, page: b})
+                            }} shape="rounded" variant="outlined"
                             color="primary"/>
             </div>
         </div>

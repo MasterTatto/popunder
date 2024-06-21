@@ -7,7 +7,7 @@ import {
     InputLabel,
     MenuItem,
     Pagination,
-    Select
+    Select, useMediaQuery
 } from "@mui/material";
 import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
@@ -20,16 +20,20 @@ import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
 import {selectGlobal} from "../../../../redux/slice/global.slice";
 import {scrollToTop} from "../../../../utils/scrollToTop";
+import PaginationSize from "../../../../common/paginationSize";
 
 const Billing = () => {
     const {t} = useTranslation()
-
+    const matches = useMediaQuery('(max-width:768px)');
     const {user} = useSelector(selectGlobal)
 
     const [openDeposit, setOpenDeposit] = useState(false)
     const [openPayout, setOpenPayout] = useState(false)
 
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState({
+        page: 1,
+        size: 20
+    })
     const [type, setType] = useState('')
     const [status, setStatus] = useState('')
     const [date, setDate] = useState({
@@ -219,13 +223,14 @@ const Billing = () => {
             </div>
 
             <div className={s.pagination}>
-                <Pagination
-                    count={data?.count ? Math.ceil(data?.count / 20) : 1} page={page}
-                    onChange={(a, b) => {
-                        setPage(b)
-                    }}
-                    shape="rounded" variant="outlined"
-                    color="primary"/>
+                <PaginationSize value={page?.size} handleChange={(e) => {
+                    setPage({...page, page: 1, size: +e.target.value})
+                }}/>
+                <Pagination size={matches ? 'small' : 'medium'} count={data?.count ? Math.ceil(data?.count / page?.size) : 1} page={page?.page}
+                            onChange={(a, b) => {
+                                setPage({...page, page: b})
+                            }} shape="rounded" variant="outlined"
+                            color="primary"/>
             </div>
         </div>
     );

@@ -9,7 +9,7 @@ import {
     InputLabel, MenuItem,
     OutlinedInput,
     Pagination,
-    Select
+    Select, useMediaQuery
 } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -21,12 +21,16 @@ import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
 import {useTranslation} from "react-i18next";
 import {scrollToTop} from "../../../../utils/scrollToTop";
+import PaginationSize from "../../../../common/paginationSize";
 
 const AdvReports = () => {
     const {t} = useTranslation()
-
+    const matches = useMediaQuery('(max-width:768px)');
     const [filteredValue, setFilteredValue] = useState('')
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState({
+        page: 1,
+        size: 20
+    })
     const [diapason, setDiapason] = useState('')
     const [date, setDate] = useState({
         start: null,
@@ -171,9 +175,13 @@ const AdvReports = () => {
             </div>
 
             <div className={s.pagination}>
-                <Pagination count={data?.count ? Math.ceil(data?.count / 20) : 1} page={page} onChange={(a, b) => {
-                    setPage(b)
-                }} shape="rounded" variant="outlined"
+                <PaginationSize value={page?.size} handleChange={(e) => {
+                    setPage({...page, page: 1, size: +e.target.value})
+                }}/>
+                <Pagination size={matches ? 'small' : 'medium'} count={data?.count ? Math.ceil(data?.count / page?.size) : 1} page={page?.page}
+                            onChange={(a, b) => {
+                                setPage({...page, page: b})
+                            }} shape="rounded" variant="outlined"
                             color="primary"/>
             </div>
         </div>

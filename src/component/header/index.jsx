@@ -27,6 +27,9 @@ import {toast} from "react-toastify";
 import logo from '../../assetss/logo.png'
 import NavigateItem from "../../page/lk/navigate";
 import {navigate, navigateItems} from "../../page/lk";
+import Profile from "../../page/lk/profile";
+import {useSelector} from "react-redux";
+import {selectGlobal} from "../../redux/slice/global.slice";
 
 const path = {
     '/': 1,
@@ -48,6 +51,8 @@ const path = {
 
 const Header = () => {
     const matches = useMediaQuery('(max-width:768px)');
+
+    const {user} = useSelector(selectGlobal)
 
     const {lang, setLang} = useContext(LangContext)
     const {auth, setIsAuth} = useContext(AuthContext)
@@ -152,30 +157,33 @@ const Header = () => {
                 onOpen={() => setOpenMenu(true)}
             >
                 <Box
-                    sx={{width: 250, background: '#252525', height: '100%', overflow: 'auto', paddingBottom: '20px'}}
+                    // sx={{width: 250, background: '#252525', height: '100%', overflow: 'auto', paddingBottom: '20px'}}
+                    sx={{width: 250, background: '#fff', height: '100%', overflow: 'auto', paddingBottom: '20px'}}
                     role="presentation"
                     onClick={() => setOpenMenu(false)}
                     onKeyDown={() => setOpenMenu(true)}
                 >
+                    {auth && <Profile user={user}/>}
+
                     <List>
-                        <ListItem disablePadding sx={{borderBottom: '1px solid #fff'}}>
+                        <ListItem disablePadding sx={{borderBottom: '1px solid rgba(0,0,0,0.25)'}}>
                             <ListItemButton onClick={() => navigate(`/${lang?.toLowerCase()}`)}>
-                                <ListItemText primary={t('Главная')} sx={{color: '#fff'}}/>
+                                <ListItemText primary={t('Главная')} sx={{color: '#000000DE'}}/>
                             </ListItemButton>
                         </ListItem>
-                        <ListItem disablePadding sx={{borderBottom: '1px solid #fff'}}>
+                        <ListItem disablePadding sx={{borderBottom: '1px solid rgba(0,0,0,0.25)'}}>
                             <ListItemButton onClick={() => navigate(`/${lang?.toLowerCase()}/news`)}>
-                                <ListItemText primary={t('Новости')} sx={{color: '#fff'}}/>
+                                <ListItemText primary={t('Новости')} sx={{color: '#000000DE'}}/>
                             </ListItemButton>
                         </ListItem>
-                        <ListItem disablePadding sx={{borderBottom: '1px solid #fff'}}>
+                        <ListItem disablePadding sx={{borderBottom: '1px solid rgba(0,0,0,0.25)'}}>
                             <ListItemButton onClick={() => navigate(`/${lang?.toLowerCase()}/faq/publisher`)}>
-                                <ListItemText primary={t('FAQ')} sx={{color: '#fff'}}/>
+                                <ListItemText primary={t('FAQ')} sx={{color: '#000000DE'}}/>
                             </ListItemButton>
                         </ListItem>
-                        <ListItem disablePadding sx={{borderBottom: '1px solid #fff'}}>
+                        <ListItem disablePadding sx={{borderBottom: '1px solid rgba(0,0,0,0.25)'}}>
                             <ListItemButton onClick={() => navigate(`/${lang?.toLowerCase()}/rules/publisher`)}>
-                                <ListItemText primary={t('Правила')} sx={{color: '#fff'}}/>
+                                <ListItemText primary={t('Правила')} sx={{color: '#000000DE'}}/>
                             </ListItemButton>
                         </ListItem>
 

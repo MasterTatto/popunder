@@ -17,12 +17,12 @@ export const globalApi = createApi({
             getPWebsiteTable: build.query({
                 query: ({domain, page}) => {
                     const params = domain === '//' ? {
-                        limit: 20,
-                        offset: page === 1 ? 0 : ((page * 20) - 20)
+                        limit: page?.size,
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size)
                     } : {
                         domain: domain,
-                        limit: 20,
-                        offset: page === 1 ? 0 : ((page * 20) - 20)
+                        limit: page?.size,
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size)
                     }
 
                     if (domain === '//') {
@@ -41,16 +41,16 @@ export const globalApi = createApi({
                 query: ({domain, page, date}) => {
                     const params = date ? {
                         site: domain,
-                        limit: 20,
-                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                        limit: page?.size,
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
                         date: date
                     } : (domain !== '//' ? {
                         site: domain,
-                        limit: 20,
-                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                        limit: page?.size,
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size)
                     } : {
-                        limit: 20,
-                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                        limit: page?.size,
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size)
                     })
 
                     if (domain === '//') {
@@ -69,16 +69,16 @@ export const globalApi = createApi({
                 query: ({domain, page, date}) => {
                     const params = date ? {
                         campaignName: domain,
-                        limit: 20,
-                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                        limit: page?.size,
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
                         date: date
                     } : (domain !== '//' ? {
                         campaignName: domain,
-                        limit: 20,
-                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                        limit: page?.size,
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
                     } : {
-                        limit: 20,
-                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                        limit: page?.size,
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
                     })
 
                     if (domain === '//') {
@@ -113,11 +113,11 @@ export const globalApi = createApi({
                 query: ({page, status}) => {
                     const params = (status && status !== 'all') ? {
                         status: status,
-                        limit: 20,
-                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                        limit: page?.size,
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
                     } : {
-                        limit: 20,
-                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                        limit: page?.size,
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
                     }
                     return {
                         url: `api/site/campaigns`,
@@ -164,8 +164,8 @@ export const globalApi = createApi({
                 query: ({page = 1, type, status, date}) => {
                     const params = {
                         type: type,
-                        limit: 20,
-                        offset: page === 1 ? 0 : ((page * 20) - 20),
+                        limit: page?.size,
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
                         status: status,
                         created: date,
                     }

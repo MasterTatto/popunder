@@ -116,6 +116,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    gap: 16px;
 }
 
 .table_text_action {
@@ -143,3 +144,33 @@
         width: 100%;
     }
 }
+
+@media screen and (max-width: 1024px) {
+    .navigate {
+        flex-direction: column;
+        display: flex;
+    }
+
+    .date_rang {
+        flex-direction: column;
+        display: flex;
+    }
+
+    .search_input {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .search_input button {
+        width: 100%;
+    }
+
+    .pagination {
+        flex-direction: column-reverse;
+        align-items: flex-end;
+    }
+}
+

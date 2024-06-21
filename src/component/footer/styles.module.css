@@ -4,7 +4,7 @@
     min-height: 100px;
     width: 100%;
     position: relative;
-    z-index: 9999;
+    z-index: 3;
     background: url('/public/icon/footer.webp') repeat;
 }
 

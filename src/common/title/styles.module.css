@@ -23,4 +23,10 @@
     background-color: #fff;
 }
 
-
+@media screen and (max-width: 1024px) {
+    .title {
+        font-size: 16px !important;
+        font-weight: 600;
+        width: 100%;
+    }
+}

@@ -59,11 +59,39 @@
 .uid {
     display: flex;
     align-items: center;
-
 }
 
 @media screen and (max-width: 1024px) {
     .navigate {
         display: none;
     }
+
+    .name, .uid {
+        /*color: #fff;*/
+    }
+
+    .navigate_info {
+        margin-bottom: -12px;
+    }
+
+    .content {
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 8px;
+        width: 100%;
+        padding: 16px 16px;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .wrapper {
+        padding: 12px;
+        min-height: calc(100vh);
+        position: relative;
+        display: flex;
+        width: 100%;
+        gap: 24px;
+
+    }
+
 }

@@ -103,6 +103,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    gap: 16px;
 }
 
 .table_text_action {
@@ -128,5 +129,22 @@
 
     .search_input, .date_rang {
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .navigate {
+        flex-direction: column;
+        display: flex;
+    }
+
+    .date_rang {
+        flex-direction: column;
+        display: flex;
+    }
+
+    .pagination {
+        flex-direction: column-reverse;
+        align-items: flex-end;
     }
 }
