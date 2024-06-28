@@ -4,14 +4,15 @@ import s from './styles.module.css'
 import {AgGridReact} from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import {IconButton, Menu, MenuItem} from "@mui/material";
+import {IconButton, Menu, MenuItem, useMediaQuery} from "@mui/material";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PopupState, {bindMenu, bindTrigger} from "material-ui-popup-state";
 import moment from "moment/moment";
 import {useTranslation} from "react-i18next";
 
-const Table = ({data}) => {
+const Table = ({data, setSort}) => {
         const {t} = useTranslation()
+        const query_1024 = useMediaQuery('(max-width:1024px)');
 
         const colDefs = [
             {
@@ -21,6 +22,9 @@ const Table = ({data}) => {
                 // wrapText: true,
                 // autoHeight: true,
                 minWidth: 140,
+                comparator: () => {
+                    return null
+                },
                 field: "created",
                 flex: 1,
                 cellRenderer: (params) => {
@@ -35,6 +39,9 @@ const Table = ({data}) => {
                 // wrapText: true,
                 // autoHeight: true,
                 minWidth: 100,
+                comparator: () => {
+                    return null
+                },
                 field: "type",
                 cellStyle: {lineHeight: '1.3'},
                 flex: 1,
@@ -52,6 +59,9 @@ const Table = ({data}) => {
                 // wrapText: true,
                 // autoHeight: true,
                 minWidth: 100,
+                comparator: () => {
+                    return null
+                },
                 field: "status",
                 cellStyle: {lineHeight: '1.3'},
                 flex: 1,
@@ -70,6 +80,9 @@ const Table = ({data}) => {
                 // wrapText: true,
                 // autoHeight: true,
                 minWidth: 100,
+                comparator: () => {
+                    return null
+                },
                 field: "amount",
                 cellStyle: {lineHeight: '1.3'},
                 flex: 1,
@@ -83,6 +96,9 @@ const Table = ({data}) => {
                 // wrapText: true,
                 // autoHeight: true,
                 minWidth: 100,
+                comparator: () => {
+                    return null
+                },
                 field: "wallet",
                 cellStyle: {lineHeight: '1.3'},
                 flex: 1,
@@ -93,6 +109,14 @@ const Table = ({data}) => {
 
         ]
 
+        const onSortChanged = (event) => {
+            const columnState = event.columnApi.getColumnState();
+
+            const sortModel = columnState?.find(col => col?.sort);
+
+            setSort(sortModel ? (sortModel?.sort === 'asc' ? sortModel?.colId : `-${sortModel?.colId}`) : null)
+        };
+
         return (
             <div
                 className={classNames("ag-theme-quartz", s.table)}
@@ -102,14 +126,16 @@ const Table = ({data}) => {
                     columnSeparator={';'}
                     rowData={data?.result || []}
                     columnDefs={colDefs}
+                    onSortChanged={onSortChanged}
+                    suppressSorting={true}
                     suppressRowClickSelection={true}
                     suppressDragLeaveHidesColumns={true}
                     suppressRowHoverHighlight={true}
-
+                    domLayout={query_1024 ? "" : 'autoHeight'}
                     suppressAggFuncInHeader={true}
                     suppressExcelExport={true}
                     tooltipShowDelay={0}
-
+                    suppressMovableColumns={query_1024 ? true : false}
                     navigateToNextCell={params => {
                         const suggestedNextCell = params.nextCellPosition;
 

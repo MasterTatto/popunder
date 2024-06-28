@@ -6,16 +6,20 @@ import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the 
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import moment from "moment-timezone";
 import {useTranslation} from "react-i18next";
+import {useMediaQuery} from "@mui/material";
 
-const Table = ({data}) => {
+const Table = ({data,setSort}) => {
         const {t} = useTranslation()
+        const query_1024 = useMediaQuery('(max-width:1024px)');
 
         const colDefs = [
             {
                 headerName: t('Дата'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
-
+                comparator: () => {
+                    return null
+                },
                 minWidth: 100,
                 field: "date",
                 flex: 1,
@@ -28,7 +32,9 @@ const Table = ({data}) => {
             {
                 headerName: t('Площадка'),
                 menuTabs: [],
-
+                comparator: () => {
+                    return null
+                },
                 minWidth: 100,
                 field: "site",
                 cellStyle: {lineHeight: '1.3'},
@@ -42,7 +48,9 @@ const Table = ({data}) => {
                 headerName: t('Переходы'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
-
+                comparator: () => {
+                    return null
+                },
                 minWidth: 100,
                 field: "clicks",
                 flex: 1,
@@ -54,7 +62,9 @@ const Table = ({data}) => {
                 headerName: t('Стоимость'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
-
+                comparator: () => {
+                    return null
+                },
                 minWidth: 180,
                 field: "cost",
 
@@ -64,6 +74,14 @@ const Table = ({data}) => {
                 }
             },
         ]
+
+    const onSortChanged = (event) => {
+        const columnState = event.columnApi.getColumnState();
+
+        const sortModel = columnState?.find(col => col?.sort);
+
+        setSort(sortModel ? (sortModel?.sort === 'asc' ? sortModel?.colId : `-${sortModel?.colId}`) : null)
+    };
 
         return (
             <div
@@ -77,11 +95,13 @@ const Table = ({data}) => {
                     suppressRowClickSelection={true}
                     suppressDragLeaveHidesColumns={true}
                     suppressRowHoverHighlight={true}
-
+                    domLayout={query_1024 ? "" : 'autoHeight'}
                     suppressAggFuncInHeader={true}
                     suppressExcelExport={true}
                     tooltipShowDelay={0}
-
+                    onSortChanged={onSortChanged}
+                    suppressSorting={true}
+                    suppressMovableColumns={query_1024 ? true : false}
                     navigateToNextCell={params => {
                         const suggestedNextCell = params.nextCellPosition;
 

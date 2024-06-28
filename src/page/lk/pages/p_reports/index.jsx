@@ -28,6 +28,7 @@ const PubReports = () => {
     const matches = useMediaQuery('(max-width:768px)');
     const [filteredValue, setFilteredValue] = useState('')
     const [diapason, setDiapason] = useState('')
+    const [sort, setSort] = useState(null)
     const [page, setPage] = useState({
         page: 1,
         size: 20
@@ -40,6 +41,7 @@ const PubReports = () => {
     const {data} = useGetPReportsTableQuery({
         domain: `/${filteredValue}/`,
         page: page,
+        sort:sort,
         date: ((!date?.start && !date?.end) || !date) ? '' : `${date?.start ? (Number(moment(date?.start?.valueOf()).format('x')) + (moment(date?.start?.valueOf()).utcOffset() - 180) * 60 * 1000) : 0},${date?.end ? (Number(moment(date?.end?.valueOf()).format('x')) + (moment(date?.end?.valueOf()).utcOffset() - 180) * 60 * 1000) : 0}`
     }, {
         refetchOnReconnect: true,
@@ -169,7 +171,7 @@ const PubReports = () => {
             </div>
 
             <div className={s.table_wrapp}>
-                <Table data={data}/>
+                <Table data={data} setSort={setSort}/>
             </div>
 
             <div className={s.pagination}>

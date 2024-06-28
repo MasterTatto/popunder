@@ -6,9 +6,11 @@ import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the 
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import moment from "moment";
 import {useTranslation} from "react-i18next";
+import {useMediaQuery} from "@mui/material";
 
-const Table = ({data}) => {
+const Table = ({data, setSort}) => {
         const {t} = useTranslation()
+        const query_1024 = useMediaQuery('(max-width:1024px)');
 
         const colDefs = [
             {
@@ -18,6 +20,9 @@ const Table = ({data}) => {
                 minWidth: 100,
                 field: "date",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     const timeInUTCPlus3 = params?.value ? moment(Number(params?.value)).utcOffset(+180)?.format('DD.MM.YYYY') : null;
                     return <p
@@ -31,6 +36,9 @@ const Table = ({data}) => {
                 field: "campaignName",
                 cellStyle: {lineHeight: '1.3'},
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <p className={classNames(s.table_text)}>{params?.value || ''}</p>
                 }
@@ -42,6 +50,9 @@ const Table = ({data}) => {
                 minWidth: 100,
                 field: "clicks",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{params?.value || ''}</p>
                 }
@@ -52,14 +63,22 @@ const Table = ({data}) => {
                 cellStyle: {lineHeight: '1.3'},
                 minWidth: 180,
                 field: "cost",
-
+                comparator: () => {
+                    return null
+                },
                 flex: 1,
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{(+params?.value || 0)?.toFixed(2) || ''}</p>
                 }
             },
         ]
+        const onSortChanged = (event) => {
+            const columnState = event.columnApi.getColumnState();
 
+            const sortModel = columnState?.find(col => col?.sort);
+
+            setSort(sortModel ? (sortModel?.sort === 'asc' ? sortModel?.colId : `-${sortModel?.colId}`) : null)
+        };
         return (
             <div
                 className={classNames("ag-theme-quartz", s.table)}
@@ -72,11 +91,13 @@ const Table = ({data}) => {
                     suppressRowClickSelection={true}
                     suppressDragLeaveHidesColumns={true}
                     suppressRowHoverHighlight={true}
-
+                    domLayout={query_1024 ? "" : 'autoHeight'}
                     suppressAggFuncInHeader={true}
                     suppressExcelExport={true}
                     tooltipShowDelay={0}
-
+                    onSortChanged={onSortChanged}
+                    suppressSorting={true}
+                    suppressMovableColumns={query_1024 ? true : false}
                     navigateToNextCell={params => {
                         const suggestedNextCell = params.nextCellPosition;
 

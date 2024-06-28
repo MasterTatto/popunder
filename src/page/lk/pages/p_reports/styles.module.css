@@ -87,11 +87,13 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    /*position: relative;*/
 }
 
 .table_wrapp {
     margin-top: 24px;
     height: 100%;
+    margin-bottom: 50px;
 }
 
 .table {
@@ -104,7 +106,12 @@
     align-items: center;
     justify-content: flex-end;
     gap: 16px;
+    position: absolute !important;
+    right: 20px;
+    /*border: 1px solid red;*/
+    bottom: 20px;
 }
+
 
 .table_text_action {
     display: flex;
@@ -146,5 +153,13 @@
     .pagination {
         flex-direction: column-reverse;
         align-items: flex-end;
+    }
+
+    .table_wrapp {
+        margin-bottom: 0px;
+    }
+
+    .pagination {
+        position: static !important;
     }
 }

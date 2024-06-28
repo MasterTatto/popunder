@@ -23,6 +23,7 @@ const AdvCampaigns = () => {
     const {t} = useTranslation()
     const matches = useMediaQuery('(max-width:768px)');
     const [openModalAdded, setOpenModalAdded] = useState(false)
+    const [sort, setSort] = useState(null)
     const [filteredValue, setFilteredValue] = useState('all')
     const [page, setPage] = useState({
         page: 1,
@@ -30,7 +31,8 @@ const AdvCampaigns = () => {
     })
     const {data} = useGetCampaignsTableQuery({
         status: filteredValue,
-        page: page
+        page: page,
+        sort:sort
     }, {
         refetchOnReconnect: true,
         refetchOnMountOrArgChange: true,
@@ -85,7 +87,7 @@ const AdvCampaigns = () => {
             </div>
 
             <div className={s.table_wrapp}>
-                <Table data={data} openEditModal={setOpenModalAdded}/>
+                <Table setSort={setSort} data={data} openEditModal={setOpenModalAdded}/>
             </div>
 
             <div className={s.pagination}>

@@ -26,7 +26,7 @@ const Billing = () => {
     const {t} = useTranslation()
     const matches = useMediaQuery('(max-width:768px)');
     const {user} = useSelector(selectGlobal)
-
+    const [sort, setSort] = useState(null)
     const [openDeposit, setOpenDeposit] = useState(false)
     const [openPayout, setOpenPayout] = useState(false)
 
@@ -46,6 +46,7 @@ const Billing = () => {
         page: page,
         type: type,
         status: status,
+        sort: sort,
         date: ((!date?.start && !date?.end) || !date) ? '' : `${date?.start ? (Number(moment(date?.start?.valueOf()).format('x')) + (moment(date?.start?.valueOf()).utcOffset() - 180) * 60 * 1000) : 0},${date?.end ? (Number(moment(date?.end?.valueOf()).format('x')) + (moment(date?.end?.valueOf()).utcOffset() - 180) * 60 * 1000) : 0}`
     }, {
         refetchOnReconnect: true,
@@ -219,14 +220,15 @@ const Billing = () => {
             </div>
 
             <div className={s.table_wrapp}>
-                <Table data={data}/>
+                <Table data={data} setSort={setSort}/>
             </div>
 
             <div className={s.pagination}>
                 <PaginationSize value={page?.size} handleChange={(e) => {
                     setPage({...page, page: 1, size: +e.target.value})
                 }}/>
-                <Pagination size={matches ? 'small' : 'medium'} count={data?.count ? Math.ceil(data?.count / page?.size) : 1} page={page?.page}
+                <Pagination size={matches ? 'small' : 'medium'}
+                            count={data?.count ? Math.ceil(data?.count / page?.size) : 1} page={page?.page}
                             onChange={(a, b) => {
                                 setPage({...page, page: b})
                             }} shape="rounded" variant="outlined"

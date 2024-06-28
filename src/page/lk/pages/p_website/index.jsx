@@ -26,6 +26,7 @@ const PubWebsite = () => {
     const matches = useMediaQuery('(max-width:768px)');
     const [openModalAdded, setOpenModalAdded] = useState(false)
     const [filteredValue, setFilteredValue] = useState('')
+    const [sort, setSort] = useState(null)
     const [page, setPage] = useState({
         page: 1,
         size: 20
@@ -33,7 +34,8 @@ const PubWebsite = () => {
 
     const {data} = useGetPWebsiteTableQuery({
         domain: `/${filteredValue}/`,
-        page: page
+        page: page,
+        sort: sort
     }, {
         refetchOnReconnect: true,
         refetchOnMountOrArgChange: true,
@@ -100,7 +102,7 @@ const PubWebsite = () => {
             </div>
 
             <div className={s.table_wrapp}>
-                <Table data={data}/>
+                <Table data={data} setSort={setSort}/>
             </div>
 
             <div className={s.pagination}>

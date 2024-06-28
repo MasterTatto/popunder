@@ -15,18 +15,23 @@ export const globalApi = createApi({
             }),
 
             getPWebsiteTable: build.query({
-                query: ({domain, page}) => {
+                query: ({domain, page, sort}) => {
                     const params = domain === '//' ? {
                         limit: page?.size,
-                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size)
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
+                        sort: sort
                     } : {
                         domain: domain,
                         limit: page?.size,
-                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size)
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
+                        sort: sort
                     }
 
                     if (domain === '//') {
                         delete params.domain
+                    }
+                    if (!sort) {
+                        delete params.sort
                     }
 
                     return {
@@ -38,23 +43,29 @@ export const globalApi = createApi({
                 providesTags: ['pWebsiteTable']
             }),
             getPReportsTable: build.query({
-                query: ({domain, page, date}) => {
+                query: ({domain, page, date, sort}) => {
                     const params = date ? {
                         site: domain,
                         limit: page?.size,
                         offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
-                        date: date
+                        date: date,
+                        sort: sort
                     } : (domain !== '//' ? {
                         site: domain,
                         limit: page?.size,
-                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size)
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
+                        sort: sort
                     } : {
                         limit: page?.size,
-                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size)
+                        offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
+                        sort: sort
                     })
 
                     if (domain === '//') {
                         delete params.site
+                    }
+                    if (!sort) {
+                        delete params.sort
                     }
 
                     return {
@@ -66,23 +77,30 @@ export const globalApi = createApi({
                 // providesTags: ['pWebsiteTable']
             }),
             getAReportsTable: build.query({
-                query: ({domain, page, date}) => {
+                query: ({domain, page, date, sort}) => {
                     const params = date ? {
                         campaignName: domain,
                         limit: page?.size,
                         offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
-                        date: date
+                        date: date,
+                        sort: sort
                     } : (domain !== '//' ? {
                         campaignName: domain,
                         limit: page?.size,
                         offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
+                        sort: sort
                     } : {
                         limit: page?.size,
                         offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
+                        sort: sort
                     })
 
                     if (domain === '//') {
                         delete params.campaignName
+                    }
+
+                    if (!sort) {
+                        delete params.sort
                     }
 
                     return {
@@ -110,15 +128,22 @@ export const globalApi = createApi({
             }),
 
             getCampaignsTable: build.query({
-                query: ({page, status}) => {
+                query: ({page, status, sort}) => {
                     const params = (status && status !== 'all') ? {
                         status: status,
                         limit: page?.size,
                         offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
+                        sort: sort
                     } : {
                         limit: page?.size,
                         offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
+                        sort: sort
                     }
+
+                    if (!sort) {
+                        delete params.sort
+                    }
+
                     return {
                         url: `api/site/campaigns`,
                         method: 'GET',
@@ -161,13 +186,14 @@ export const globalApi = createApi({
                 invalidatesTags: (res, error, erg) => error ? [] : ['campaigns']
             }),
             getTablePayments: build.query({
-                query: ({page = 1, type, status, date}) => {
+                query: ({page = 1, type, status, date, sort}) => {
                     const params = {
                         type: type,
                         limit: page?.size,
                         offset: page?.page === 1 ? 0 : ((page?.page * page?.size) - page?.size),
                         status: status,
                         created: date,
+                        sort: sort
                     }
                     if (!type) {
                         delete params.type
@@ -177,6 +203,10 @@ export const globalApi = createApi({
                     }
                     if (!date) {
                         delete params.created
+                    }
+
+                    if (!sort) {
+                        delete params.sort
                     }
                     return {
                         url: `api/site/payments`,

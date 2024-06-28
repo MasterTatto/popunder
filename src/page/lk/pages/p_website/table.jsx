@@ -12,7 +12,7 @@ import {
     DialogContentText,
     DialogTitle,
     IconButton,
-    Tooltip
+    Tooltip, useMediaQuery
 } from "@mui/material";
 import {useRemovePWebsiteMutation} from "../../../../redux/global.service";
 import {toast} from "react-toastify";
@@ -22,8 +22,9 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import ModalWrapper from "../../../../common/modal";
 import {useTranslation} from "react-i18next";
 
-const Table = ({data}) => {
+const Table = ({data, setSort}) => {
         const {t} = useTranslation()
+        const query_1024 = useMediaQuery('(max-width:1024px)');
 
         const [removePWebsite, {isLoading}] = useRemovePWebsiteMutation()
 
@@ -35,8 +36,12 @@ const Table = ({data}) => {
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
                 minWidth: 100,
+
                 field: "_id",
                 flex: .7,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <p className={classNames(s.table_text)}>{params?.value || 'id'}</p>
                 }
@@ -48,6 +53,9 @@ const Table = ({data}) => {
                 field: "domain",
                 cellStyle: {lineHeight: '1.3'},
                 flex: 1.5,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <a href={params?.value} target={'_blank'}
                               className={classNames(s.table_text, s.table_text_link)}>{params?.value || 'id'}</a>
@@ -57,7 +65,9 @@ const Table = ({data}) => {
                 headerName: t('Статус'),
                 menuTabs: [],
                 cellStyle: {lineHeight: '1.3'},
-
+                comparator: () => {
+                    return null
+                },
                 minWidth: 100,
                 field: "status",
                 flex: 0.5,
@@ -81,7 +91,7 @@ const Table = ({data}) => {
                 autoHeight: true,
                 minWidth: 140,
                 field: "_id",
-
+                sortable: false,
                 flex: 0.5,
                 cellRenderer: (params) => {
 
@@ -124,10 +134,22 @@ const Table = ({data}) => {
                 })
         }
 
+        const onSortChanged = (event) => {
+            const columnState = event.columnApi.getColumnState();
+
+            const sortModel = columnState?.find(col => col?.sort);
+
+            setSort(sortModel ? (sortModel?.sort === 'asc' ? sortModel?.colId : `-${sortModel?.colId}`) : null)
+        };
+
         return (
             <div
                 className={classNames("ag-theme-quartz", s.table)}
-                style={{minHeight: 300, width: '100%'}}
+                style={{
+                    minHeight: '300px',
+                    // height: '100%',
+                    width: '100%'
+                }}
             >
                 {actionModal &&
                     <ModalWrapper
@@ -187,11 +209,13 @@ const Table = ({data}) => {
                     suppressRowClickSelection={true}
                     suppressDragLeaveHidesColumns={true}
                     suppressRowHoverHighlight={true}
-
+                    domLayout={query_1024 ? "" : 'autoHeight'}
                     suppressAggFuncInHeader={true}
+                    onSortChanged={onSortChanged}
+                    suppressSorting={true}
                     suppressExcelExport={true}
                     tooltipShowDelay={0}
-
+                    suppressMovableColumns={query_1024 ? true : false}
                     navigateToNextCell={params => {
                         const suggestedNextCell = params.nextCellPosition;
 

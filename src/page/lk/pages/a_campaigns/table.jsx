@@ -4,7 +4,7 @@ import s from './styles.module.css'
 import {AgGridReact} from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import {IconButton, Menu, MenuItem} from "@mui/material";
+import {IconButton, Menu, MenuItem, useMediaQuery} from "@mui/material";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PopupState, {bindMenu, bindTrigger} from "material-ui-popup-state";
 import RemoveModal from "./remove_modal";
@@ -12,8 +12,9 @@ import {useStartStopCampaignMutation} from "../../../../redux/global.service";
 import {toast} from "react-toastify";
 import {useTranslation} from "react-i18next";
 
-const Table = ({data, openEditModal}) => {
+const Table = ({data, openEditModal, setSort}) => {
         const {t} = useTranslation()
+        const query_1024 = useMediaQuery('(max-width:1024px)');
 
         const [removeModal, setRemoveModal] = useState(false)
         const [startStopCampaign] = useStartStopCampaignMutation()
@@ -43,6 +44,9 @@ const Table = ({data, openEditModal}) => {
                 minWidth: 100,
                 field: "id",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <p className={classNames(s.table_text, s.id)}>{params?.value || ''}</p>
                 }
@@ -56,6 +60,9 @@ const Table = ({data, openEditModal}) => {
                 field: "name",
                 cellStyle: {lineHeight: '1.3'},
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <p className={classNames(s.table_text)}>{params?.value || ''}</p>
                 }
@@ -69,6 +76,9 @@ const Table = ({data, openEditModal}) => {
                 minWidth: 145,
                 field: "status",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     const translated = {
                         PAUSED: 'Остановлено',
@@ -89,6 +99,9 @@ const Table = ({data, openEditModal}) => {
                 minWidth: 240,
                 field: "url",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <a href={params?.value} target={'_blank'}
                               className={classNames(s.table_text, s.table_text_link)}>{params?.value || ''}</a>
@@ -103,6 +116,9 @@ const Table = ({data, openEditModal}) => {
                 minWidth: 100,
                 field: "cpm",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{params?.value || ''}</p>
                 }
@@ -116,6 +132,9 @@ const Table = ({data, openEditModal}) => {
                 minWidth: 100,
                 field: "clicksToday",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{params?.value || 0}</p>
                 }
@@ -129,6 +148,9 @@ const Table = ({data, openEditModal}) => {
                 minWidth: 100,
                 field: "costToday",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{Number(params?.value || 0).toFixed(2)}</p>
                 }
@@ -142,6 +164,9 @@ const Table = ({data, openEditModal}) => {
                 minWidth: 130,
                 field: "dailyBudget",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{params?.value || ''}</p>
                 }
@@ -155,6 +180,9 @@ const Table = ({data, openEditModal}) => {
                 minWidth: 100,
                 field: "costTotal",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{Number(params?.value || 0).toFixed(2)}</p>
                 }
@@ -168,6 +196,9 @@ const Table = ({data, openEditModal}) => {
                 minWidth: 130,
                 field: "totalBudget",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{params?.value || 0}</p>
                 }
@@ -181,6 +212,9 @@ const Table = ({data, openEditModal}) => {
                 minWidth: 150,
                 field: "trafficFlow",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     const translated = {
                         DISTRIBUTED: 'Распределенные',
@@ -198,6 +232,9 @@ const Table = ({data, openEditModal}) => {
                 minWidth: 170,
                 field: "regions",
                 flex: 1,
+                comparator: () => {
+                    return null
+                },
                 cellRenderer: (params) => {
                     return <p className={s.table_text}>{params?.value?.slice('')?.join(', ') || ''}</p>
                 }
@@ -267,6 +304,13 @@ const Table = ({data, openEditModal}) => {
             },
         ]
 
+        const onSortChanged = (event) => {
+            const columnState = event.columnApi.getColumnState();
+
+            const sortModel = columnState?.find(col => col?.sort);
+
+            setSort(sortModel ? (sortModel?.sort === 'asc' ? sortModel?.colId : `-${sortModel?.colId}`) : null)
+        };
 
         return (
             <div
@@ -274,7 +318,8 @@ const Table = ({data, openEditModal}) => {
                 style={{minHeight: 300, width: '100%'}}
             >
 
-                {removeModal && <RemoveModal handleClose={() => setRemoveModal(false)} openModalAdded={removeModal} setOpenModalAdded={setRemoveModal}/>}
+                {removeModal && <RemoveModal handleClose={() => setRemoveModal(false)} openModalAdded={removeModal}
+                                             setOpenModalAdded={setRemoveModal}/>}
                 <AgGridReact
                     columnSeparator={';'}
                     rowData={data?.result || []}
@@ -282,11 +327,13 @@ const Table = ({data, openEditModal}) => {
                     suppressRowClickSelection={true}
                     suppressDragLeaveHidesColumns={true}
                     suppressRowHoverHighlight={true}
-
+                    domLayout={query_1024 ? "" : 'autoHeight'}
                     suppressAggFuncInHeader={true}
                     suppressExcelExport={true}
                     tooltipShowDelay={0}
-
+                    onSortChanged={onSortChanged}
+                    suppressSorting={true}
+                    suppressMovableColumns={query_1024 ? true : false}
                     navigateToNextCell={params => {
                         const suggestedNextCell = params.nextCellPosition;
 

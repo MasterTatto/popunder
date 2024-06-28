@@ -43,33 +43,33 @@ const Footer = () => {
                             <div className={s.footer_navigate}>
                                 {links(lang?.toLowerCase())?.map((el, i) => <NavLink to={el.link} key={i}
                                                                                      onClick={i === 0 && scrollToTop}>{t(el.title)}</NavLink>)}
-                                {!auth && <NavLink className={s.login}>
-                                    <TelegramLoginButton
-                                        botName="clickunder_bot"
-                                        dataOnauth={(user) => {
-                                            api()
-                                                .get('http://clickinder.com/api/site/auth', {
-                                                    params: user
-                                                })
-                                                .then((res) => {
-                                                    getProfile()
-                                                        .unwrap()
-                                                        .then((res) => {
-                                                            setIsAuth(res?.ok)
-                                                        })
-                                                        .catch((e) => {
-                                                            console.log(e)
-                                                            setIsAuth(false)
-                                                        })
+                                {/*{!auth && <NavLink className={s.login}>*/}
+                                {/*    <TelegramLoginButton*/}
+                                {/*        botName="clickunder_bot"*/}
+                                {/*        dataOnauth={(user) => {*/}
+                                {/*            api()*/}
+                                {/*                .get('http://clickinder.com/api/site/auth', {*/}
+                                {/*                    params: user*/}
+                                {/*                })*/}
+                                {/*                .then((res) => {*/}
+                                {/*                    getProfile()*/}
+                                {/*                        .unwrap()*/}
+                                {/*                        .then((res) => {*/}
+                                {/*                            setIsAuth(res?.ok)*/}
+                                {/*                        })*/}
+                                {/*                        .catch((e) => {*/}
+                                {/*                            console.log(e)*/}
+                                {/*                            setIsAuth(false)*/}
+                                {/*                        })*/}
 
-                                                })
-                                                .catch((e) => {
-                                                    console.log(e)
-                                                    setIsAuth(false)
-                                                })
-                                        }}
-                                    />
-                                    {t("Вход")}</NavLink>}
+                                {/*                })*/}
+                                {/*                .catch((e) => {*/}
+                                {/*                    console.log(e)*/}
+                                {/*                    setIsAuth(false)*/}
+                                {/*                })*/}
+                                {/*        }}*/}
+                                {/*    />*/}
+                                {/*    {t("Вход")}</NavLink>}*/}
                             </div>
                         </div>
                     </div>

@@ -26,10 +26,11 @@ import {useGetProfileMutation} from "../../redux/global.service";
 import {toast} from "react-toastify";
 import logo from '../../assetss/logo.png'
 import NavigateItem from "../../page/lk/navigate";
-import {navigate, navigateItems} from "../../page/lk";
+import {navigateItems} from "../../page/lk";
 import Profile from "../../page/lk/profile";
 import {useSelector} from "react-redux";
 import {selectGlobal} from "../../redux/slice/global.slice";
+import CloseIcon from '@mui/icons-material/Close';
 
 const path = {
     '/': 1,
@@ -151,6 +152,15 @@ const Header = () => {
     return (
         <div className={s.header}>
             <SwipeableDrawer
+                sx={{
+                    top: '64px',
+                    '& .MuiBackdrop-root': {
+                        marginTop: '64px'
+                    },
+                    '& .MuiPaper-root': {
+                        marginTop: '64px'
+                    }
+                }}
                 anchor={'right'}
                 open={openMenu}
                 onClose={() => setOpenMenu(false)}
@@ -158,7 +168,16 @@ const Header = () => {
             >
                 <Box
                     // sx={{width: 250, background: '#252525', height: '100%', overflow: 'auto', paddingBottom: '20px'}}
-                    sx={{width: 250, background: '#fff', height: '100%', overflow: 'auto', paddingBottom: '20px'}}
+                    sx={{
+                        width: 250,
+                        background: '#fff',
+                        height: 'calc(100% - 64px)',
+                        overflow: 'auto',
+                        paddingBottom: '20px',
+                        position: 'relative',
+
+
+                    }}
                     role="presentation"
                     onClick={() => setOpenMenu(false)}
                     onKeyDown={() => setOpenMenu(true)}
@@ -306,7 +325,7 @@ const Header = () => {
                     </div>
 
                     <div className={s.mobile_navigate}>
-                        <IconButton onClick={() => setOpenMenu(true)}>
+                        <IconButton onClick={() => setOpenMenu(!openMenu)}>
                             <MenuIcon sx={{color: '#fff'}}/>
                         </IconButton>
                     </div>

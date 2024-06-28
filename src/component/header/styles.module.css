@@ -237,6 +237,12 @@
     display: none;
 }
 
+.close_btn {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
 @media screen and (max-width: 1024px) {
     .navigate {
         display: none;

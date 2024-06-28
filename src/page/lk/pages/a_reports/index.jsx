@@ -26,6 +26,7 @@ import PaginationSize from "../../../../common/paginationSize";
 const AdvReports = () => {
     const {t} = useTranslation()
     const matches = useMediaQuery('(max-width:768px)');
+    const [sort, setSort] = useState(null)
     const [filteredValue, setFilteredValue] = useState('')
     const [page, setPage] = useState({
         page: 1,
@@ -40,6 +41,7 @@ const AdvReports = () => {
     const {data} = useGetAReportsTableQuery({
         domain: `/${filteredValue}/`,
         page: page,
+        sort:sort,
         date: ((!date?.start && !date?.end) || !date) ? '' : `${date?.start ? (Number(moment(date?.start?.valueOf()).format('x')) + (moment(date?.start?.valueOf()).utcOffset() - 180) * 60 * 1000) : 0},${date?.end ? (Number(moment(date?.end?.valueOf()).format('x')) + (moment(date?.end?.valueOf()).utcOffset() - 180) * 60 * 1000) : 0}`
     }, {
         refetchOnReconnect: true,
@@ -171,7 +173,7 @@ const AdvReports = () => {
             </div>
 
             <div className={s.table_wrapp}>
-                <Table data={data}/>
+                <Table data={data} setSort={setSort}/>
             </div>
 
             <div className={s.pagination}>
