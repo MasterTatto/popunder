@@ -139,7 +139,7 @@ const Table = ({data, setSort}) => {
 
             const sortModel = columnState?.find(col => col?.sort);
 
-            setSort(sortModel ? (sortModel?.sort === 'asc' ? sortModel?.colId : `-${sortModel?.colId}`) : null)
+            setSort(sortModel ? (sortModel?.sort === 'asc' ? `%2B${sortModel?.colId}` : `-${sortModel?.colId}`) : null)
         };
 
         return (

@@ -8,7 +8,7 @@ import moment from "moment-timezone";
 import {useTranslation} from "react-i18next";
 import {useMediaQuery} from "@mui/material";
 
-const Table = ({data,setSort}) => {
+const Table = ({data, setSort}) => {
         const {t} = useTranslation()
         const query_1024 = useMediaQuery('(max-width:1024px)');
 
@@ -75,13 +75,13 @@ const Table = ({data,setSort}) => {
             },
         ]
 
-    const onSortChanged = (event) => {
-        const columnState = event.columnApi.getColumnState();
+        const onSortChanged = (event) => {
+            const columnState = event.columnApi.getColumnState();
 
-        const sortModel = columnState?.find(col => col?.sort);
+            const sortModel = columnState?.find(col => col?.sort);
 
-        setSort(sortModel ? (sortModel?.sort === 'asc' ? sortModel?.colId : `-${sortModel?.colId}`) : null)
-    };
+            setSort(sortModel ? (sortModel?.sort === 'asc' ? `%2B${sortModel?.colId}` : `-${sortModel?.colId}`) : null)
+        };
 
         return (
             <div
